@@ -1,0 +1,4 @@
+.idea
+lib/adapter.js
+node_modules
+npm-debug.log
