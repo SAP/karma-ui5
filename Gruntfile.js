@@ -6,10 +6,17 @@ module.exports = function (grunt) {
 		},
 		build: {
 			adapter: '<%= files.adapter %>'
+		},
+		'npm-publish': {
+			options: {
+				requires: [ 'build' ]
+			}
 		}
 	});
 
 	grunt.loadTasks('tasks');
+	grunt.loadNpmTasks('grunt-npm');
 
 	grunt.registerTask('default', ['build']);
+	grunt.registerTask('release', ['build', 'npm-publish']);
 };

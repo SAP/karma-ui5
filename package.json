@@ -1,7 +1,7 @@
 {
   "name": "karma-openui5",
   "description": "A Karma plugin. Adapter for OpenUI5/SAPUI5 Framework",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "SAP SE",
     "url": "http://www.sap.com"
@@ -30,7 +30,8 @@
     "karma"
   ],
   "devDependencies": {
-    "grunt": "^0.4.5"
+    "grunt": "^0.4.5",
+    "grunt-npm": "0.0.2"
   },
   "peerDependencies": {
     "karma": ">=0.12.8"
