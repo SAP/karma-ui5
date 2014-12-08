@@ -25,7 +25,9 @@ How install `karma` you can read [here.](http://karma-runner.github.io/0.12/intr
 Configuration
 -------------
 
-Following code shows the available configuration options
+Following code shows the available configuration options. For the client configuration you can create an object
+using any of the options described in the
+[documentation](https://openui5.hana.ondemand.com/docs/guide/91f2d03b6f4d1014b6dd926db0e91070.html)
 
 ```js
 // karma.conf.js
@@ -33,21 +35,13 @@ module.exports = function(config) {
   config.set({
     frameworks: ['openui5'],
 
-    ui5: {
+    openui5: {
       path: 'http://path/to/sap-ui-core.js',
     },
 
     client: {
-      ui5: {
-        libs: [
-          'sap.m'
-        ]
-        theme: 'sap_bluecrystal',
-        debug: 'false',
-        resourceRoots: {
-            'sap.app.test': '/base/src/app'
-        }
-        bindingSyntax: 'complex'
+      openui5: {
+        theme: 'sap_bluecrystal'
       }
     }
   });
