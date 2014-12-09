@@ -1,7 +1,8 @@
 var config = window.__karma__.config,
-		ui5config = (config && config.openui5) || {};
+	ui5config = (config && config.openui5) || {},
+	bootstrapConfig = ui5config.config || {};
 
-if (!ui5config.theme) {
-	ui5config.theme = "sap_bluecrystal";
+if (!bootstrapConfig.theme) {
+	bootstrapConfig.theme = "sap_bluecrystal";
 }
-window["sap-ui-config"] = ui5config;
+window["sap-ui-config"] = bootstrapConfig;

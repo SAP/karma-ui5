@@ -2,10 +2,12 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		pkgFile: 'package.json',
 		files: {
-			adapter: ['src/adapter.js']
+			adapter: ['src/adapter.js'],
+			mockserver: ['src/mockserver.js']
 		},
 		build: {
-			adapter: '<%= files.adapter %>'
+			adapter: '<%= files.adapter %>',
+			mockserver: '<%= files.mockserver %>'
 		},
 		'npm-publish': {
 			options: {

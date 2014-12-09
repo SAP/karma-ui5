@@ -15,7 +15,7 @@ The easiest way is to keep `karma-openui5` as a devDependency in your `package.j
 ```json
 {
   "devDependencies": {
-    "karma-openui5": "~0.1"
+    "karma-openui5": "~0.2"
   }
 }
 ```
@@ -25,9 +25,15 @@ How install `karma` you can read [here.](http://karma-runner.github.io/0.12/intr
 Configuration
 -------------
 
-Following code shows the available configuration options. For the client configuration you can create an object
-using any of the options described in the
-[documentation](https://openui5.hana.ondemand.com/docs/guide/91f2d03b6f4d1014b6dd926db0e91070.html)
+Following code shows the available configuration options.
+
+For the client OpenUI5 configuration you can create an object using any of the options described in the
+[documentation](https://openui5.hana.ondemand.com/docs/guide/91f2d03b6f4d1014b6dd926db0e91070.html).
+
+For the mockserver config you can pass an object like you would do it for the ``sap.ui.core.util.MockServer.config``
+function. The rootUri and the metadataURL are required properties if you use the mock server. You can also pass
+mockdata settings like you would do it for the ``simulate`` function of the MockServer. The MockServer needs to be
+enabled explicitly by settings the ``useMockServer`` option. 
 
 ```js
 // karma.conf.js
@@ -37,11 +43,24 @@ module.exports = function(config) {
 
     openui5: {
       path: 'http://path/to/sap-ui-core.js',
+      useMockServer: false
     },
 
     client: {
       openui5: {
-        theme: 'sap_bluecrystal'
+        config: {
+          theme: 'sap_bluecrystal'
+        },
+        mockserver: {
+          config: {
+            autoRespond: true
+          },
+          rootUri: '/my/service/',
+          metadataURL: '/base/test/mock.xml',
+          mockdataSettings: {
+          
+          }
+        }
       }
     }
   });
@@ -53,4 +72,5 @@ License
 -------
 
 (c) Copyright 2014 SAP SE or an SAP affiliate company
+
 Licensed under the Apache License, Version 2.0 - see LICENSE.

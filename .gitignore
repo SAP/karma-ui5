@@ -1,4 +1,5 @@
 .idea
 lib/adapter.js
+lib/mockserver.js
 node_modules
 npm-debug.log
