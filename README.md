@@ -33,7 +33,7 @@ For the client OpenUI5 configuration you can create an object using any of the o
 For the mockserver config you can pass an object like you would do it for the ``sap.ui.core.util.MockServer.config``
 function. The rootUri and the metadataURL are required properties if you use the mock server. You can also pass
 mockdata settings like you would do it for the ``simulate`` function of the MockServer. The MockServer needs to be
-enabled explicitly by settings the ``useMockServer`` option. 
+enabled explicitly by settings the ``useMockServer`` option.
 
 ```js
 // karma.conf.js
@@ -58,7 +58,7 @@ module.exports = function(config) {
           rootUri: '/my/service/',
           metadataURL: '/base/test/mock.xml',
           mockdataSettings: {
-          
+
           }
         }
       }
@@ -71,6 +71,6 @@ module.exports = function(config) {
 License
 -------
 
-(c) Copyright 2014 SAP SE or an SAP affiliate company
+(c) Copyright 2015 SAP SE or an SAP affiliate company
 
 Licensed under the Apache License, Version 2.0 - see LICENSE.
