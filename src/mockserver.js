@@ -4,10 +4,16 @@ var config = window.__karma__.config,
 
 //workaround for crossroads/mockserver issue
 (function() {
-	var original = module;
-	module = undefined;
+	var original;
+	if (typeof module !== "undefined") {
+	    original = module;
+	    module = undefined;
+	}
 	jQuery.sap.require("sap.ui.core.util.MockServer");
-	module = original;
+	if (typeof original !== "undefined") {
+	    module = original;
+	    original = undefined;
+	}
 })();
 
 mockserverConfig.config = mockserverConfig.config ||{};
