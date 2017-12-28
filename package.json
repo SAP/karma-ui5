@@ -2,22 +2,18 @@
   "name": "karma-openui5",
   "description": "A Karma plugin. Adapter for OpenUI5/SAPUI5 Framework",
   "version": "0.2.2",
-  "author": {
-    "name": "SAP SE",
-    "url": "http://www.sap.com"
-  },
+  "author": "SAP SE (https://www.sap.com)",
   "contributors": [
     {
       "name": "Christoph Kraemer",
       "email": "chr.kraemer@sap.com"
-    }
-  ],
-  "licenses": [
+    },
     {
-      "type": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      "name": "Matthias Oßwald",
+      "email": "mat.osswald@sap.com"
     }
   ],
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/SAP/karma-openui5.git"
@@ -26,12 +22,15 @@
   "bugs": "https://github.com/SAP/karma-openui5/issues/",
   "main": "lib/index",
   "keywords": [
+    "ui5",
     "openui5",
-    "karma"
+    "sapui5",
+    "karma-adapter"
   ],
   "devDependencies": {
     "grunt": "^1.0.1",
-    "grunt-npm": "0.0.2"
+    "grunt-npm": "0.0.2",
+    "karma": "^2.0.0"
   },
   "peerDependencies": {
     "karma": ">=0.12.8"
