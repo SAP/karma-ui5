@@ -23,6 +23,9 @@ The following code shows the available configuration options.
 For the client OpenUI5 configuration you can create an object using any of the options described in the
 [documentation](https://openui5.hana.ondemand.com/docs/guide/91f2d03b6f4d1014b6dd926db0e91070.html).
 
+To automatically load test modules (via `sap.ui.require`), the `tests` config can be set to an array of module names. When using this config, the relevant files must not be included via the `files` config of Karma.<br>
+This is very similar to [how RequireJS works with Karma](https://karma-runner.github.io/2.0/plus/requirejs.html), but without the need for a custom `test-main.js` file.
+
 For the mockserver config you can pass an object like you would do it for the ``sap.ui.core.util.MockServer.config``
 function. The rootUri and the metadataURL are required properties if you use the mock server. You can also pass
 mockdata settings like you would do it for the ``simulate`` function of the MockServer. The MockServer needs to be
@@ -44,6 +47,10 @@ module.exports = function(config) {
         config: {
           theme: 'sap_belize'
         },
+        tests: [
+          'name/of/test/module/to/be/loaded',
+          'other/name/of/test/module/to/be/loaded'
+        ],
         mockserver: {
           config: {
             autoRespond: true
@@ -68,31 +75,6 @@ Therefore rather load those resources in the non-karma specific test runner HTML
 ````html
     <script src="../../resources/sap/ui/thirdparty/qunit.js"></script>
     <script src="../../resources/sap/ui/qunit/qunit-css.js"></script>
-````
-
-### Delaying Karma start
-Karma loads all given files via script tags. It expects them to register all tests synchronously so that it can start the execution right away.
-
-When using asynchronous preloads or the AMD syntax `sap.ui.define` or `sap.ui.require`, the Karma test execution needs to be delayed.
-
-We therefore have an additional file exclusively for Karma, loading all our tests and postponing the execution until everything is ready:
-````javascript
-(function (karma) {
-    "use strict";
-
-    // Prevent Karma from running prematurely.
-    karma.loaded = function () {};
-
-    sap.ui.getCore().attachInit(function() {
-        sap.ui.require([
-            "sap/ui/demo/todo/test/unit/allTests",
-            "sap/ui/demo/todo/test/integration/AllJourneys"
-        ], function() {
-            // Finally, start Karma to run the tests.
-            karma.start();
-        });
-    });
-})(window.__karma__)
 ````
 
 ### OPA5: Component containers instead of iFrames

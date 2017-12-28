@@ -3,10 +3,12 @@ module.exports = function (grunt) {
 		pkgFile: 'package.json',
 		files: {
 			adapter: ['src/adapter.js'],
+			autorun: ['src/autorun.js'],
 			mockserver: ['src/mockserver.js']
 		},
 		build: {
 			adapter: '<%= files.adapter %>',
+			autorun: '<%= files.autorun %>',
 			mockserver: '<%= files.mockserver %>'
 		},
 		'npm-publish': {
