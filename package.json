@@ -28,9 +28,9 @@
     "karma-adapter"
   ],
   "devDependencies": {
-    "grunt": "^1.0.1",
+    "grunt": "^1.0.3",
     "grunt-npm": "0.0.2",
-    "karma": "^2.0.0"
+    "karma": "^3.0.0"
   },
   "peerDependencies": {
     "karma": ">=0.12.8"
