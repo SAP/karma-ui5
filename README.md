@@ -21,7 +21,7 @@ Information on how to install `karma` can be found [here.](https://karma-runner.
 The following code shows the available configuration options.
 
 For the client OpenUI5 configuration you can create an object using any of the options described in the
-[documentation](https://openui5.hana.ondemand.com/docs/guide/91f2d03b6f4d1014b6dd926db0e91070.html).
+[documentation](https://openui5.hana.ondemand.com/#/topic/91f2d03b6f4d1014b6dd926db0e91070.html).
 
 To automatically load test modules (via `sap.ui.require`), the `tests` config can be set to an array of module names. When using this config, the relevant files must not be included via the `files` config of Karma.<br>
 This is very similar to [how RequireJS works with Karma](https://karma-runner.github.io/2.0/plus/requirejs.html), but without the need for a custom `test-main.js` file.
