@@ -89,6 +89,6 @@ In your tests, replace `iStartMyAppInAFrame()` with`iStartMyUIComponent()` and `
 For more information see the API reference of [sap.ui.test.Opa5](https://sapui5.hana.ondemand.com/#docs/api/symbols/sap.ui.test.Opa5.html#iStartMyUIComponent)
 
 ## License
-(c) Copyright 2017 SAP SE or an SAP affiliate company
+(c) Copyright 2019 SAP SE or an SAP affiliate company
 
 Licensed under the Apache License, Version 2.0 - see LICENSE.
