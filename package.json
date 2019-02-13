@@ -30,7 +30,7 @@
   "devDependencies": {
     "grunt": "^1.0.3",
     "grunt-npm": "0.0.2",
-    "karma": "^3.0.0"
+    "karma": "^4.0.0"
   },
   "peerDependencies": {
     "karma": ">=0.12.8"
