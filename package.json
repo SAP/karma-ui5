@@ -1,38 +1,69 @@
 {
   "name": "karma-ui5",
-  "description": "A Karma plugin. Adapter for OpenUI5/SAPUI5 Framework",
-  "version": "0.2.3",
+  "description": "A Karma plugin. Adapter for UI5",
+  "version": "1.0.0-rc1",
   "author": "SAP SE (https://www.sap.com)",
-  "contributors": [
-    {
-      "name": "Christoph Kraemer",
-      "email": "chr.kraemer@sap.com"
-    },
-    {
-      "name": "Matthias Oßwald",
-      "email": "mat.osswald@sap.com"
-    }
-  ],
   "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SAP/karma-ui5.git"
-  },
   "homepage": "https://github.com/SAP/karma-ui5",
   "bugs": "https://github.com/SAP/karma-ui5/issues/",
-  "main": "lib/index",
   "keywords": [
     "ui5",
     "openui5",
     "sapui5",
-    "karma-adapter"
+    "karma-adapter",
+    "karma-plugin"
   ],
-  "devDependencies": {
-    "grunt": "^1.0.3",
-    "grunt-npm": "0.0.2",
-    "karma": "^4.0.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SAP/karma-ui5.git"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "webpack.config.js"
+  ],
+  "scripts": {
+    "test": "npm run utest-coverage && npm run itest",
+    "utest": "jest",
+    "utest-coverage": "jest --coverage",
+    "itest": "npm run itest:app-proxy && npm run itest:app-proxy-coverage && npm run itest:app-ui5-tooling && npm run itest:library-proxy && npm run itest:library-ui5-tooling && npm run itest:library-custompath",
+    "itest:app-proxy": "karma start test/integration/application-proxy/karma.conf.js",
+    "itest:app-proxy-coverage": "karma start test/integration/application-proxy/karma-coverage.conf.js",
+    "itest:app-ui5-tooling": "karma start test/integration/application-ui5-tooling/karma.conf.js",
+    "itest:library-proxy": "karma start test/integration/library-proxy/karma.conf.js",
+    "itest:library-ui5-tooling": "karma start test/integration/library-ui5-tooling/karma.conf.js",
+    "itest:library-custompath": "karma start test/integration/library-custompath/karma.conf.js",
+    "postinstall": "webpack",
+    "__comment__": "echo \"TODO: Rename 'postinstall' script to 'prepare', move webpack from 'dependencies' to 'devDependencies' and remove 'webpack.config.js' from 'files' once package is published to a registry\""
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/__mocks__/",
+      "/^integration$/"
+    ]
   },
   "peerDependencies": {
     "karma": ">=0.12.8"
+  },
+  "dependencies": {
+    "@ui5/fs": "^1.0.1",
+    "@ui5/project": "^1.0.0",
+    "@ui5/server": "^1.0.0",
+    "http-proxy": "^1.17.0",
+    "istanbul-lib-coverage": "^2.0.1",
+    "license-webpack-plugin": "^2.1.0",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-npm": "0.0.2",
+    "@openui5/sap.ui.core": "^1.62.1",
+    "jest": "^24.1.0",
+    "karma": "^4.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2"
   }
 }
