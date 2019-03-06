@@ -348,14 +348,13 @@ describe("Utility functions", () => {
 
 describe("Plugin setup", () => {
 
-	it("Should plugin istanbul coverage before adapter", () => {
+	it("Should include browser bundle", () => {
 		const config = {
 			ui5: { useMiddleware: false }
 		};
 		const framework = new Framework();
 		framework.init(config);
-		expect(config.files[0].pattern).toContain("istanbul-lib-coverage.js");
-		expect(config.files[1].pattern).toContain("adapter.js");
+		expect(config.files[0].pattern).toContain("browser-bundle.js");
 	});
 
 });

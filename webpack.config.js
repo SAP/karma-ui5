@@ -4,13 +4,11 @@ const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlu
 module.exports = {
   mode: 'production',
   entry: {
-    'istanbul-lib-coverage': './lib/istanbul-lib-coverage.js'
+    'browser-bundle': './lib/browser.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'istanbul-lib-coverage.js',
-    library: '__istanbulLibCoverage__',
-    libraryTarget: 'var',
+    filename: 'browser-bundle.js'
   },
   plugins: [
     new LicenseWebpackPlugin()
