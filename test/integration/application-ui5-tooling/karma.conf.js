@@ -3,7 +3,7 @@ module.exports = function(config) {
 
 	config.set({
 
-		frameworks: ["qunit-html"],
+		frameworks: ["ui5"],
 
 		plugins: [
 			require("../../../lib"),

@@ -12,7 +12,7 @@ module.exports = function(config) {
 			}
 		},
 
-		frameworks: ["qunit-html"],
+		frameworks: ["ui5"],
 
 		plugins: [
 			require("../../../"),

@@ -11,7 +11,7 @@ describe("Middleware for UI5", () => {
 		};
 		const framework = new Framework().init(config);
 
-		expect(config["beforeMiddleware"]).toContain("qunit-html--pauseRequests");
+		expect(config["beforeMiddleware"]).toContain("ui5--pauseRequests");
 		expect(framework.isPaused).toBe(true);
 
 		const processRequestsSpy = jest.spyOn(framework, "processRequests");
@@ -44,7 +44,7 @@ describe("Middleware for UI5", () => {
 			}
 		};
 		const framework = new Framework().init(config);
-		expect(config["middleware"]).toContain("qunit-html--serveThemes");
+		expect(config["middleware"]).toContain("ui5--serveThemes");
 		expect(framework.isPaused).toBe(true);
 
 		const rewriteUrlSpy = jest.spyOn(framework, "rewriteUrl");
@@ -76,7 +76,7 @@ describe("Middleware for UI5", () => {
 			}
 		};
 		const framework = new Framework().init(config);
-		expect(config["middleware"]).toContain("qunit-html--serveThemes");
+		expect(config["middleware"]).toContain("ui5--serveThemes");
 		expect(framework.isPaused).toBe(true);
 
 		const rewriteUrlSpy = jest.spyOn(framework, "rewriteUrl");

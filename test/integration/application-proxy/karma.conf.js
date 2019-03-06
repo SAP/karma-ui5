@@ -8,7 +8,7 @@ module.exports = function(config) {
 			url: "https://openui5nightly.hana.ondemand.com"
 		},
 
-		frameworks: ["qunit-html"],
+		frameworks: ["ui5"],
 
 		plugins: [
 			require("../../../"),

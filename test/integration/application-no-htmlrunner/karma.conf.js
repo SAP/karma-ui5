@@ -4,7 +4,7 @@
 module.exports = function(config) {
 	config.set({
 
-		frameworks: ['qunit', 'qunit-html'],
+		frameworks: ['qunit', 'ui5'],
 
 		ui5: {
 			htmlrunner: false,
