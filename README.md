@@ -1,16 +1,16 @@
 ![OpenUI5](http://openui5.org/images/OpenUI5_new_big_side.png)
 
-[![NPM Version](http://img.shields.io/npm/v/karma-openui5.svg?style=flat)](https://www.npmjs.org/package/karma-openui5)
+[![NPM Version](http://img.shields.io/npm/v/karma-ui5.svg?style=flat)](https://www.npmjs.org/package/karma-ui5)
 
-# karma-openui5
+# karma-ui5
 Adapter for OpenUI5/SAPUI5 UI framework. This adapter loads OpenUI5/SAPUI5 from the specified location and makes it available for the tests to run in karma afterwards.
 
 ## Installation
-The easiest way is to add `karma-openui5` as a devDependency in your `package.json`.
+The easiest way is to add `karma-ui5` as a devDependency in your `package.json`.
 ```json
 {
   "devDependencies": {
-    "karma-openui5": "~0.2"
+    "karma-ui5": "~0.2"
   }
 }
 ```

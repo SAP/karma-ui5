@@ -1,4 +1,4 @@
-# Contributing to karma-openui5
+# Contributing to karma-ui5
 
 In general the contributing guidelines of OpenUI5 also apply to this project. They can be found here:
 https://github.com/SAP/openui5/blob/master/CONTRIBUTING.md

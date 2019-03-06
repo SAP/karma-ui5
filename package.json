@@ -1,5 +1,5 @@
 {
-  "name": "karma-openui5",
+  "name": "karma-ui5",
   "description": "A Karma plugin. Adapter for OpenUI5/SAPUI5 Framework",
   "version": "0.2.3",
   "author": "SAP SE (https://www.sap.com)",
@@ -16,10 +16,10 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SAP/karma-openui5.git"
+    "url": "https://github.com/SAP/karma-ui5.git"
   },
-  "homepage": "https://github.com/SAP/karma-openui5",
-  "bugs": "https://github.com/SAP/karma-openui5/issues/",
+  "homepage": "https://github.com/SAP/karma-ui5",
+  "bugs": "https://github.com/SAP/karma-ui5/issues/",
   "main": "lib/index",
   "keywords": [
     "ui5",
