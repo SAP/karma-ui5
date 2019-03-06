@@ -27,10 +27,11 @@
     "test": "npm run utest-coverage && npm run itest",
     "utest": "jest",
     "utest-coverage": "jest --coverage",
-    "itest": "npm run itest:app-proxy && npm run itest:app-proxy-coverage && npm run itest:app-ui5-tooling && npm run itest:library-proxy && npm run itest:library-ui5-tooling && npm run itest:library-custompath",
+    "itest": "npm run itest:app-proxy && npm run itest:app-proxy-coverage && npm run itest:app-ui5-tooling && npm run itest:library-proxy && npm run itest:library-ui5-tooling && npm run itest:library-custompath && npm run itest:app-no-htmlrunner",
     "itest:app-proxy": "karma start test/integration/application-proxy/karma.conf.js",
     "itest:app-proxy-coverage": "karma start test/integration/application-proxy/karma-coverage.conf.js",
     "itest:app-ui5-tooling": "karma start test/integration/application-ui5-tooling/karma.conf.js",
+    "itest:app-no-htmlrunner": "karma start test/integration/application-no-htmlrunner/karma.conf.js",
     "itest:library-proxy": "karma start test/integration/library-proxy/karma.conf.js",
     "itest:library-ui5-tooling": "karma start test/integration/library-ui5-tooling/karma.conf.js",
     "itest:library-custompath": "karma start test/integration/library-custompath/karma.conf.js",
@@ -58,12 +59,12 @@
     "webpack-cli": "^3.2.1"
   },
   "devDependencies": {
-    "grunt": "^1.0.3",
-    "grunt-npm": "0.0.2",
     "@openui5/sap.ui.core": "^1.62.1",
     "jest": "^24.1.0",
     "karma": "^4.0.0",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage": "^1.1.2"
+    "karma-coverage": "^1.1.2",
+    "karma-qunit": "^3.0.0",
+    "qunit": "^2.9.2"
   }
 }
