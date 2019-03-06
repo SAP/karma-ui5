@@ -20,8 +20,7 @@
   "main": "lib/index.js",
   "files": [
     "dist",
-    "lib",
-    "webpack.config.js"
+    "lib"
   ],
   "scripts": {
     "test": "npm run utest-coverage && npm run itest",
@@ -35,8 +34,7 @@
     "itest:library-proxy": "karma start test/integration/library-proxy/karma.conf.js",
     "itest:library-ui5-tooling": "karma start test/integration/library-ui5-tooling/karma.conf.js",
     "itest:library-custompath": "karma start test/integration/library-custompath/karma.conf.js",
-    "postinstall": "webpack",
-    "__comment__": "echo \"TODO: Rename 'postinstall' script to 'prepare', move webpack from 'dependencies' to 'devDependencies' and remove 'webpack.config.js' from 'files' once package is published to a registry\""
+    "prepare": "webpack"
   },
   "jest": {
     "testPathIgnorePatterns": [
@@ -54,9 +52,7 @@
     "@ui5/server": "^1.0.0",
     "http-proxy": "^1.17.0",
     "istanbul-lib-coverage": "^2.0.1",
-    "license-webpack-plugin": "^2.1.0",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "license-webpack-plugin": "^2.1.0"
   },
   "devDependencies": {
     "@openui5/sap.ui.core": "^1.62.1",
@@ -65,6 +61,8 @@
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
     "karma-qunit": "^3.0.0",
-    "qunit": "^2.9.2"
+    "qunit": "^2.9.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   }
 }
