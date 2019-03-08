@@ -7,7 +7,7 @@
 - [About](#about)
   - [Installation](#installation)
   - [Configuration](#configuration)
-    - [Module Types](#module-types)
+    - [Project Types](#project-types)
     - [Custom paths](#custom-paths)
     - [Proxy](#proxy)
     - [UI5 Middleware](#ui5-middleware)
@@ -21,7 +21,7 @@
   - [License](#license)
 
 # About
-Adapter for UI5 framework. This adapter loads UI5 from the specified location and makes it available for the tests to run in karma afterwards.
+Adapter for UI5. This adapter loads UI5 from the specified location and makes it available for the tests to run in karma afterwards.
 
 ## Installation
 The easiest way is to add `karma-ui5` as a devDependency in your `package.json`.
@@ -34,11 +34,12 @@ The easiest way is to add `karma-ui5` as a devDependency in your `package.json`.
 }
 ```
 
-Information on how to install `karma` can be found [here.](https://karma-runner.github.io/3.0/intro/installation.html)
+Information on how to install `karma` can be found [here.](https://karma-runner.github.io/latest/index.html)
 
 ## Configuration
 
-### Module Types
+### Project Types
+
 UI5 supports 2 different module types: application and library. The type can be defined using the type property
 
 ```javascript
@@ -82,8 +83,8 @@ By default the folder names must follow the UI5 naming convention, therefore usi
 
 > Note: the module type needs to be defined manually in this case.
 
-### Proxy
-Using a proxy it is possible to serve UI5 resources from a specific destination. A proxy could for example be used for  test execution with different UI5 versions.
+### UI5 URL
+By specifying an URL it is possible to serve UI5 resources from a specific destination.
 
 ```json
 "ui5": {
@@ -91,44 +92,17 @@ Using a proxy it is possible to serve UI5 resources from a specific destination.
 }
 ```
 
-It is also possible to set the url directly from the CLI.
+It is also possible to set the url directly from the CLI. This can for example be used to test against different UI5 versions.
 
 ```shell
 karma start --ui5-url="https://openui5nightly.hana.ondemand.com"
 ```
 
-### UI5 Middleware
-UI5 Middleware can additionally be used to serve files.
+### UI5 Tooling Middleware
 
-```javascript
-// karma.conf.js
-{
-  "ui5": {
-    "useMiddleware": true
-  }
-}
-```
+When using the [UI5 Tooling](https://github.com/SAP/ui5-tooling) you can also omit specifying an URL to use the local dependencies (e.g. via npm).
+The plugin automatically injects the server middleware into karma, so no additional local server is required.
 
-In this case a few requirements need to be fulfilled. First of all the application/library must contain a valid ui5.yaml e.g.
-
-```yaml
----
-specVersion: "1.0"
-type: application
-metadata:
-  name: test.app
-```
-
-Next all used modules must be defined in the package.json.
-
-```javascript
-// package.json
-{
-  "dependencies": {
-    "@openui5/sap.ui.core": "*"
-  }
-}
-```
 
 ## Advanced usage
 
