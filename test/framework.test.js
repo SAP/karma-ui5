@@ -495,5 +495,36 @@ describe("Testpage / Testrunner", () => {
 
 });
 
+describe("Without QUnit HTML Runner", () => {
+
+	it("Should include sap-ui-config.js and sap-ui-core.js", () => {
+		const config = {
+			ui5: {
+				htmlrunner: false,
+				url: "https://example.com"
+			}
+		};
+		const framework = new Framework();
+		framework.init(config);
+		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
+		expect(config.files[1].pattern).toBe("https://example.com/resources/sap-ui-core.js");
+	});
+
+	it("Should include also include autorun.js if tests are configured", () => {
+		const config = {
+			ui5: {
+				htmlrunner: false,
+				url: "https://example.com",
+				tests: [ "some/test" ]
+			}
+		};
+		const framework = new Framework();
+		framework.init(config);
+		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
+		expect(config.files[1].pattern).toBe("https://example.com/resources/sap-ui-core.js");
+		expect(config.files[2].pattern).toContain("lib/client/autorun.js");
+	});
+
+});
 
 // TODO: add test to check for client.clearContext
