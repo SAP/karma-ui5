@@ -1,10 +1,3 @@
-.idea
-lib/adapter.js
-lib/autorun.js
-lib/mockserver.js
-node_modules
-npm-debug.log
-
 # Logs
 logs
 *.log
@@ -62,7 +55,4 @@ yarn.lock
 deploy_key
 
 # Custom directories
-test/tmp/
-jsdocs/
 dist/
-
