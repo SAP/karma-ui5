@@ -1,8 +1,7 @@
-process.env.CHROME_BIN = require('puppeteer').executablePath();
-
 module.exports = function(config) {
 	"use strict";
 
+	require("../karma-base.conf")(config);
 	config.set({
 
 		ui5: {
@@ -15,15 +14,7 @@ module.exports = function(config) {
 		plugins: [
 			require("../../../"),
 			require("karma-chrome-launcher")
-		],
-
-		browsers: ["ChromeHeadless"],
-
-		singleRun: true,
-
-		browserConsoleLogOptions: {
-			level: 'error'
-		}
+		]
 
 	});
 };
