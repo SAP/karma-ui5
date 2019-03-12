@@ -34,7 +34,11 @@
     "itest:library-proxy": "karma start test/integration/library-proxy/karma.conf.js",
     "itest:library-ui5-tooling": "karma start test/integration/library-ui5-tooling/karma.conf.js",
     "itest:library-custompath": "karma start test/integration/library-custompath/karma.conf.js",
-    "prepare": "webpack"
+    "prepare": "webpack",
+    "preversion": "npm test",
+    "version": "git-chglog --next-tag v$npm_package_version -o CHANGELOG.md && git add CHANGELOG.md",
+    "postversion": "git push --follow-tags",
+    "release-note": "git-chglog -c .chglog/release-config.yml v$npm_package_version"
   },
   "jest": {
     "testPathIgnorePatterns": [
