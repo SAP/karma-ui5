@@ -1,6 +1,6 @@
-process.env.CHROME_BIN = require('puppeteer').executablePath();
-
 module.exports = function(config) {
+
+	require("../karma-base.conf")(config);
 	config.set({
 
 		frameworks: ['qunit', 'ui5'],
@@ -31,19 +31,11 @@ module.exports = function(config) {
 			{ pattern: '**', included: false, served: true, watched: true }
 		],
 
-		browserConsoleLogOptions: {
-			level: 'error'
-		},
-
 		plugins: [
 			require("../../../lib"),
 			require("karma-chrome-launcher"),
 			require("karma-qunit")
-		],
-
-		browsers: ['ChromeHeadless'],
-
-		singleRun: true
+		]
 
 	});
 };
