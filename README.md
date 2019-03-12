@@ -1,4 +1,4 @@
-![UI5](http://openui5.org/images/OpenUI5_new_big_side.png)
+![UI5 icon](https://raw.githubusercontent.com/SAP/ui5-tooling/master/docs/images/UI5_logo_wide.png)
 
 [![NPM Version](http://img.shields.io/npm/v/karma-ui5.svg?style=flat)](https://www.npmjs.org/package/karma-ui5)
 
@@ -22,6 +22,9 @@
 
 # About
 Adapter for UI5. This adapter loads UI5 from the specified location and makes it available for the tests to run in karma afterwards.
+
+**Note: :warning: This document describes the upcoming version 1.0.0, which is not released, yet.  
+The current documentation can be found on the [0.x branch](https://github.com/SAP/karma-ui5/tree/0.x#readme).**
 
 ## Installation
 The easiest way is to add `karma-ui5` as a devDependency in your `package.json`.
