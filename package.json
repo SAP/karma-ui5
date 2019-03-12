@@ -19,8 +19,8 @@
   },
   "main": "lib/index.js",
   "files": [
-    "dist",
-    "lib"
+    "lib",
+    "webpack.config.js"
   ],
   "scripts": {
     "test": "npm run utest-coverage && npm run itest",
@@ -34,7 +34,7 @@
     "itest:library-proxy": "karma start test/integration/library-proxy/karma.conf.js",
     "itest:library-ui5-tooling": "karma start test/integration/library-ui5-tooling/karma.conf.js",
     "itest:library-custompath": "karma start test/integration/library-custompath/karma.conf.js",
-    "prepare": "webpack",
+    "postinstall": "webpack --silent",
     "preversion": "npm test",
     "version": "git-chglog --next-tag v$npm_package_version -o CHANGELOG.md && git add CHANGELOG.md",
     "postversion": "git push --follow-tags",
@@ -56,7 +56,9 @@
     "@ui5/server": "^1.0.0",
     "http-proxy": "^1.17.0",
     "istanbul-lib-coverage": "^2.0.1",
-    "license-webpack-plugin": "^2.1.0"
+    "license-webpack-plugin": "^2.1.0",
+    "webpack-cli": "^3.2.3",
+    "webpack": "^4.29.6"
   },
   "devDependencies": {
     "@openui5/sap.ui.core": "^1.62.1",
@@ -65,8 +67,6 @@
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
     "karma-qunit": "^3.0.0",
-    "qunit": "^2.9.2",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
+    "qunit": "^2.9.2"
   }
 }
