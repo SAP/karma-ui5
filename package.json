@@ -13,6 +13,10 @@
     "karma-adapter",
     "karma-plugin"
   ],
+  "engines": {
+    "node": ">= 8.5",
+    "npm": ">= 5"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/SAP/karma-ui5.git"
