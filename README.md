@@ -107,6 +107,24 @@ When using the [UI5 Tooling](https://github.com/SAP/ui5-tooling) you can also om
 The plugin automatically injects the server middleware into karma, so no additional local server is required.
 
 
+### Defining Testpage
+
+During the startup a search for testsuite.qunit.html files inside one of the project subfolders is executed. It is also possible to explicitly define the testpage via karma.conf.js
+
+```javascript
+{
+  ui5: {
+    testpage: "path/to/your/testsuite.qunit.html"
+  }
+}
+```
+
+or the cli
+
+```shell
+karma start karma.conf.js --ui5-testpage="path/to/your/testsuite.qunit.html"
+```
+
 ## Advanced usage
 
 The plugin by default searches for html files (testsuite.html) for execution. In case if the testrunner shouldn't be used it is required to set the **htmlrunner** property.
