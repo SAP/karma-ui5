@@ -60,9 +60,10 @@
     "@ui5/server": "^1.0.0",
     "http-proxy": "^1.17.0",
     "istanbul-lib-coverage": "^2.0.1",
+    "js-yaml": "^3.12.2",
     "license-webpack-plugin": "^2.1.0",
-    "webpack-cli": "^3.2.3",
-    "webpack": "^4.29.6"
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   },
   "devDependencies": {
     "@openui5/sap.ui.core": "^1.62.1",
