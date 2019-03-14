@@ -1,0 +1,12 @@
+{
+	"extends": [
+		"../../.eslintrc.js"
+	],
+	"env": {
+		"browser": true
+	},
+	"globals": {
+		"sap": "readonly"
+	},
+	"root": true
+}

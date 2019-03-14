@@ -7,12 +7,6 @@ module.exports = {
 	"parserOptions": {
 			"ecmaVersion": 8
 	},
-	"globals": {
-		"sap": "readonly",
-		"window": "readonly",
-		"opener": "readonly",
-		"document": "readonly"
-	},
 	"extends": ["eslint:recommended", "google"],
 	"plugins": [
 			"jsdoc",
