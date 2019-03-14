@@ -5,8 +5,8 @@ sap.ui.define(["sap/ui/core/library"], function() {
 		name: "sap.test.lib",
 		dependencies: ["sap.ui.core"],
 		controls: [],
-        elements: [],
-        noLibraryCSS: true
+		elements: [],
+		noLibraryCSS: true
 	});
 
 	return sap.test.lib;

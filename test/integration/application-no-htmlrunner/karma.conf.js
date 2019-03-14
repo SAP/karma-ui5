@@ -1,23 +1,22 @@
 module.exports = function(config) {
-
 	require("../karma-base.conf")(config);
 	config.set({
 
-		frameworks: ['qunit', 'ui5'],
+		frameworks: ["qunit", "ui5"],
 
 		ui5: {
 			htmlrunner: false,
-			url: 'https://openui5nightly.hana.ondemand.com',
+			url: "https://openui5nightly.hana.ondemand.com",
 			config: {
-				theme: 'sap_belize',
-				language: 'EN',
-				bindingSyntax: 'complex',
-				compatVersion: 'edge',
+				theme: "sap_belize",
+				language: "EN",
+				bindingSyntax: "complex",
+				compatVersion: "edge",
 				async: true,
-				resourceroots: {'test.app': './base/webapp'}
+				resourceroots: {"test.app": "./base/webapp"}
 			},
 			tests: [
-				'test/app/test/test.qunit'
+				"test/app/test/test.qunit"
 			]
 		},
 
@@ -28,7 +27,7 @@ module.exports = function(config) {
 		},
 
 		files: [
-			{ pattern: '**', included: false, served: true, watched: true }
+			{pattern: "**", included: false, served: true, watched: true}
 		],
 
 		plugins: [
