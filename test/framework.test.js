@@ -1,6 +1,14 @@
 const Framework = require("../lib/framework");
 const fs = require("fs");
 
+const logger = {
+	create: function() {
+		return {
+			log: (errorType, aErrors) => {}
+		}
+	}
+};
+
 describe("Middleware for UI5", () => {
 
 	it("Should pause requests during UI5 server setup and resume once ready", (done) => {
@@ -9,7 +17,7 @@ describe("Middleware for UI5", () => {
 				useMiddleware: true
 			}
 		};
-		const framework = new Framework().init(config);
+		const framework = new Framework().init({ config, logger });
 
 		expect(config["beforeMiddleware"]).toContain("ui5--pauseRequests");
 		expect(framework.isPaused).toBe(true);
@@ -43,7 +51,7 @@ describe("Middleware for UI5", () => {
 				useMiddleware: true
 			}
 		};
-		const framework = new Framework().init(config);
+		const framework = new Framework().init({ config, logger });
 		expect(config["middleware"]).toContain("ui5--serveThemes");
 		expect(framework.isPaused).toBe(true);
 
@@ -75,7 +83,7 @@ describe("Middleware for UI5", () => {
 				useMiddleware: true
 			}
 		};
-		const framework = new Framework().init(config);
+		const framework = new Framework().init({ config, logger });
 		expect(config["middleware"]).toContain("ui5--serveThemes");
 		expect(framework.isPaused).toBe(true);
 
@@ -136,13 +144,14 @@ describe("UI5 Middleware / Proxy configuration", () => {
 	it("Should setup proxy middleware when url is configured", () => {
 		const framework = new Framework();
 		const setupProxySpy = jest.spyOn(framework, "setupProxy");
-
-		framework.init({
+		const config = {
 			ui5: {
 				url: "http://localhost",
 				type: "application"
 			}
-		});
+		};
+
+		framework.init({ config, logger });
 
 		expect(setupProxySpy).toHaveBeenCalledWith({
 			url: "http://localhost",
@@ -166,7 +175,7 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		const framework = new Framework();
 		const setupProxySpy = jest.spyOn(framework, "setupProxy");
 
-		framework.init(config);
+		framework.init({ config, logger });
 
 		expect(setupProxySpy).toHaveBeenCalledWith({
 			type: "application",
@@ -184,7 +193,7 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		const framework = new Framework();
 		const setupUI5Server = jest.spyOn(framework, "setupUI5Server");
 
-		framework.init({});
+		framework.init({ config: {}, logger });
 
 		expect(setupUI5Server).toHaveBeenCalledWith(/* basePath */ "");
 	});
@@ -194,14 +203,14 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		const framework = new Framework();
 
 		expect(() => {
-			framework.init({});
+			framework.init({ config: {}, logger });
 		}).toThrow();
 	});
 });
 
 
 describe("Utility functions", () => {
-	const framework = new Framework().init({});
+	const framework = new Framework().init({ config: {}, logger });
 
 	const assertRewriteUrl = ([input, expected]) => {
 		expect(framework.rewriteUrl(input)).toEqual(expected);
@@ -339,9 +348,9 @@ describe("Utility functions", () => {
 	it("Should throw error when invalid type is given", () => {
 		framework.config.ui5.type = "foo";
 
-		expect(() => {
-			framework.rewriteUrl("/foo");
-		}).toThrowError('Failed to rewrite url. Type "foo" is not supported!');
+		const loggerSpy = jest.spyOn(framework.logger, "log");
+		framework.rewriteUrl("/foo");
+		expect(loggerSpy).toBeCalled();
 	});
 
 });
@@ -353,7 +362,7 @@ describe("Plugin setup", () => {
 			ui5: { useMiddleware: false }
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({ config, logger });
 		expect(config.files[0].pattern).toContain("browser-bundle.js");
 	});
 
@@ -384,7 +393,7 @@ metadata:
 
 		const config = {};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({ config, logger });
 
 		expect(config.ui5.type).toBe("application");
 	});
@@ -404,7 +413,7 @@ metadata:
 
 		const config = {};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({ config, logger });
 
 		expect(config.ui5.type).toBe("library");
 	});
@@ -421,7 +430,7 @@ describe("Types configuration", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({ config, logger });
 
 		expect(config.files.find((file) => file.pattern.endsWith("/{webapp/**,webapp/**/.*}"))).toBeDefined();
 	});
@@ -435,7 +444,7 @@ describe("Types configuration", () => {
 		};
 
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({ config, logger });
 		expect(config.files.find((file) => file.pattern.endsWith("/{src/**,src/**/.*}"))).toBeDefined();
 		expect(config.files.find((file) => file.pattern.endsWith("/{test/**,test/**/.*}"))).toBeDefined();
 
@@ -448,7 +457,7 @@ describe("Types configuration", () => {
 	it("no type", () => {
 		const config = {};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({ config, logger });
 	});
 
 });
@@ -462,7 +471,10 @@ describe("Testpage / Testrunner", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({
+			config: config,
+			logger: logger
+		});
 
 		expect(config.client.ui5.testpage).toBe("foo");
 	});
@@ -475,7 +487,7 @@ describe("Testpage / Testrunner", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({ config, logger });
 
 		expect(config.client.ui5.testrunner).toBe("/base/webapp/test-resources/sap/ui/qunit/testrunner.html");
 	});
@@ -488,7 +500,7 @@ describe("Testpage / Testrunner", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({ config, logger });
 
 		expect(config.client.ui5.testrunner).toBe("/base/test/sap/ui/qunit/testrunner.html");
 	});
@@ -505,7 +517,7 @@ describe("Without QUnit HTML Runner", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({ config, logger });
 		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
 		expect(config.files[1].pattern).toBe("https://example.com/resources/sap-ui-core.js");
 	});
@@ -519,7 +531,7 @@ describe("Without QUnit HTML Runner", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({ config, logger });
 		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
 		expect(config.files[1].pattern).toBe("https://example.com/resources/sap-ui-core.js");
 		expect(config.files[2].pattern).toContain("lib/client/autorun.js");
