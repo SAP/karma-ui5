@@ -5,8 +5,10 @@
 **Table of Contents**
 
 - [About](#about)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
+  - [Quickstart](#quickstart)
+    - [Installation](#installation)
+    - [Configuration](#configuration)
+  - [Advanced Configuration Options](#advanced-configuration-options)
     - [Project Types](#project-types)
     - [Custom paths](#custom-paths)
     - [UI5 URL](#ui5-url)
@@ -24,23 +26,62 @@
 # About
 Adapter for UI5. This adapter loads UI5 from the specified location and makes it available for the tests to run in karma afterwards.
 
-**Note: :warning: This document describes the upcoming version 1.0.0, which is not released, yet.  
+**Note: :warning: This document describes the upcoming version 1.0.0, which is not released, yet.
 The current documentation can be found on the [0.x branch](https://github.com/SAP/karma-ui5/tree/0.x#readme).**
 
-## Installation
-The easiest way is to add `karma-ui5` as a devDependency in your `package.json`.
+## Quickstart
 
-```json
-{
-  "devDependencies": {
-    "karma-ui5": "^1.0.0"
-  }
+### Installation
+
+First you need to install the Karma CLI globally
+
+```shell
+# install Karma-CLI globally
+npm install -g karma-cli
+```
+
+You can find more information on installing Karma [here](https://karma-runner.github.io/latest/intro/installation.html).
+
+Next you need to add `karma` and `karma-ui5` as a devDependency:
+
+```shell
+# install Karma locally
+npm install karma --save-dev
+
+# install Karma-ui5 plugin
+npm install karma-ui5 --save-dev
+```
+
+To start specific browser you need an additional devDependency for a launcher module, e.g. `karma-chrome-launcher`:
+
+```shell
+npm install karma-chrome-launcher --save-dev
+```
+
+### Configuration
+
+To configure your project you need to add two things to your `karma.conf.js`:
+1. a URL for serving the UI5 resources
+2. you need to add `"ui5"` as a framework
+
+The below snippet is a sample `karma.conf.js`, which is sufficient for most applications:
+
+```js
+module.exports = function(config) {
+  config.set({
+
+    ui5: {
+      "url": "https://openui5nightly.hana.ondemand.com"
+    },
+
+    frameworks: ["ui5"],
+
+    browsers: ['Chrome']
+  })
 }
 ```
 
-Information on how to install `karma` can be found [here.](https://karma-runner.github.io/latest/index.html)
-
-## Configuration
+## Advanced Configuration Options
 
 ### Project Types
 
