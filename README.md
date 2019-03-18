@@ -9,8 +9,9 @@
   - [Configuration](#configuration)
     - [Project Types](#project-types)
     - [Custom paths](#custom-paths)
-    - [Proxy](#proxy)
-    - [UI5 Middleware](#ui5-middleware)
+    - [UI5 URL](#ui5-url)
+    - [UI5 Tooling Middleware](#ui5-tooling-middleware)
+    - [Defining Testpage](#defining-testpage)
   - [Advanced usage](#advanced-usage)
     - [Configuration](#configuration-1)
       - [Bootstrap](#bootstrap)
@@ -106,6 +107,24 @@ karma start --ui5-url="https://openui5nightly.hana.ondemand.com"
 When using the [UI5 Tooling](https://github.com/SAP/ui5-tooling) you can also omit specifying an URL to use the local dependencies (e.g. via npm).
 The plugin automatically injects the server middleware into karma, so no additional local server is required.
 
+
+### Defining Testpage
+
+During the startup a search for testsuite.qunit.html files inside one of the project subfolders is executed. It is also possible to explicitly define the testpage via karma.conf.js
+
+```javascript
+{
+  ui5: {
+    testpage: "path/to/your/testsuite.qunit.html"
+  }
+}
+```
+
+or the cli
+
+```shell
+karma start karma.conf.js --ui5-testpage="path/to/your/testsuite.qunit.html"
+```
 
 ## Advanced usage
 

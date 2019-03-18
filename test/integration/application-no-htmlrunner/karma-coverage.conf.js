@@ -11,18 +11,18 @@ module.exports = function(config) {
 		],
 
 		preprocessors: {
-			'{webapp,webapp/!(test)}/*.js': ['coverage']
+			"{webapp,webapp/!(test)}/*.js": ["coverage"]
 		},
 
 		coverageReporter: {
 			includeAllSources: true,
 			reporters: [
 				{
-					type: 'html',
-					dir: 'coverage/'
+					type: "html",
+					dir: "coverage/"
 				},
 				{
-					type: 'text'
+					type: "text"
 				}
 			],
 			check: {
@@ -35,7 +35,7 @@ module.exports = function(config) {
 			}
 		},
 
-		reporters: ['progress', 'coverage'],
+		reporters: ["progress", "coverage"],
 
 	});
 };

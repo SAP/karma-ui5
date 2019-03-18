@@ -9,7 +9,7 @@ module.exports = function(config) {
 			url: "https://openui5nightly.hana.ondemand.com"
 		},
 
-		frameworks: ['ui5'],
+		frameworks: ["ui5"],
 
 		plugins: [
 			require("../../../lib"),
