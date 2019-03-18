@@ -2,7 +2,7 @@ const path = require('path');
 const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: {
     'browser-bundle': './lib/client/browser.js'
   },
