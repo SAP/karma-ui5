@@ -29,7 +29,7 @@
   "scripts": {
     "lint": "eslint ./",
     "lint-fix": "eslint ./ --fix",
-    "test": "npm run utest-coverage && npm run itest",
+    "test": "npm run lint && npm run utest-coverage && npm run itest",
     "utest": "jest",
     "utest-coverage": "jest --coverage",
     "itest": "npm run itest:app-proxy && npm run itest:app-proxy-coverage && npm run itest:app-ui5-tooling && npm run itest:library-proxy && npm run itest:library-ui5-tooling && npm run itest:library-custompath && npm run itest:app-no-htmlrunner",

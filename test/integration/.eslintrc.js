@@ -1,13 +1,9 @@
-{
-	"extends": [
-		"../../.eslintrc.js"
-	],
+module.exports = {
 	"env": {
 		"browser": true
 	},
 	"globals": {
 		"sap": "readonly",
 		"opener": "readonly"
-	},
-	"root": true
+	}
 }
