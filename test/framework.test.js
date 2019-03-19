@@ -1,15 +1,22 @@
 const Framework = require("../lib/framework");
 const fs = require("fs");
 
-describe("Middleware for UI5", () => {
+const logger = {
+	create: function() {
+		return {
+			log: (errorType, aErrors) => {}
+		};
+	}
+};
 
+describe("Middleware for UI5", () => {
 	it("Should pause requests during UI5 server setup and resume once ready", (done) => {
 		const config = {
 			ui5: {
 				useMiddleware: true
 			}
 		};
-		const framework = new Framework().init(config);
+		const framework = new Framework().init({config, logger});
 
 		expect(config["beforeMiddleware"]).toContain("ui5--pauseRequests");
 		expect(framework.isPaused).toBe(true);
@@ -30,9 +37,7 @@ describe("Middleware for UI5", () => {
 					expect(framework.queue).toHaveLength(0);
 					done();
 				});
-
 			}, 0);
-
 		});
 		expect(framework.queue).toHaveLength(1);
 	});
@@ -43,7 +48,7 @@ describe("Middleware for UI5", () => {
 				useMiddleware: true
 			}
 		};
-		const framework = new Framework().init(config);
+		const framework = new Framework().init({config, logger});
 		expect(config["middleware"]).toContain("ui5--serveThemes");
 		expect(framework.isPaused).toBe(true);
 
@@ -56,7 +61,7 @@ describe("Middleware for UI5", () => {
 			expect(framework.isPaused).toBe(false);
 			const internalServeResourcesSpy = jest.spyOn(framework, "_serveResources");
 
-			const req = { url: "/foo" };
+			const req = {url: "/foo"};
 			const res = {};
 			const next = function() {
 				expect(internalServeResourcesSpy).toBeCalledWith(req, res, next);
@@ -75,7 +80,7 @@ describe("Middleware for UI5", () => {
 				useMiddleware: true
 			}
 		};
-		const framework = new Framework().init(config);
+		const framework = new Framework().init({config, logger});
 		expect(config["middleware"]).toContain("ui5--serveThemes");
 		expect(framework.isPaused).toBe(true);
 
@@ -88,7 +93,7 @@ describe("Middleware for UI5", () => {
 			expect(framework.isPaused).toBe(false);
 			const internalServeThemesSpy = jest.spyOn(framework, "_serveThemes");
 
-			const req = { url: "/foo" };
+			const req = {url: "/foo"};
 			const res = {};
 			const next = function() {
 				expect(internalServeThemesSpy).toBeCalledWith(req, res, next);
@@ -100,7 +105,6 @@ describe("Middleware for UI5", () => {
 			serveThemesMiddleware(req, res, next);
 		});
 	});
-
 });
 
 describe("Proxy for UI5 ", () => {
@@ -127,22 +131,21 @@ describe("Proxy for UI5 ", () => {
 			done();
 		};
 		proxyServer.serveResources(req, res, next);
-
 	});
 });
 
 describe("UI5 Middleware / Proxy configuration", () => {
-
 	it("Should setup proxy middleware when url is configured", () => {
 		const framework = new Framework();
 		const setupProxySpy = jest.spyOn(framework, "setupProxy");
-
-		framework.init({
+		const config = {
 			ui5: {
 				url: "http://localhost",
 				type: "application"
 			}
-		});
+		};
+
+		framework.init({config, logger});
 
 		expect(setupProxySpy).toHaveBeenCalledWith({
 			url: "http://localhost",
@@ -166,7 +169,7 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		const framework = new Framework();
 		const setupProxySpy = jest.spyOn(framework, "setupProxy");
 
-		framework.init(config);
+		framework.init({config, logger});
 
 		expect(setupProxySpy).toHaveBeenCalledWith({
 			type: "application",
@@ -184,7 +187,7 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		const framework = new Framework();
 		const setupUI5Server = jest.spyOn(framework, "setupUI5Server");
 
-		framework.init({});
+		framework.init({config: {}, logger});
 
 		expect(setupUI5Server).toHaveBeenCalledWith(/* basePath */ "");
 	});
@@ -194,14 +197,14 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		const framework = new Framework();
 
 		expect(() => {
-			framework.init({});
+			framework.init({config: {}, logger});
 		}).toThrow();
 	});
 });
 
 
 describe("Utility functions", () => {
-	const framework = new Framework().init({});
+	const framework = new Framework().init({config: {}, logger});
 
 	const assertRewriteUrl = ([input, expected]) => {
 		expect(framework.rewriteUrl(input)).toEqual(expected);
@@ -249,7 +252,6 @@ describe("Utility functions", () => {
 			"/test-resources/sap/ui/test/",
 			"/test-resources/sap/ui/test/"
 		]);
-
 	});
 
 	it("Should rewrite url for library", () => {
@@ -303,7 +305,6 @@ describe("Utility functions", () => {
 			"/test-resources/sap/ui/test/",
 			"/test-resources/sap/ui/test/"
 		]);
-
 	});
 
 	it("Should not rewrite url when no type is given", () => {
@@ -333,44 +334,38 @@ describe("Utility functions", () => {
 			"/base/foo.js",
 			"/base/foo.js"
 		]);
-
 	});
 
 	it("Should throw error when invalid type is given", () => {
 		framework.config.ui5.type = "foo";
 
-		expect(() => {
-			framework.rewriteUrl("/foo");
-		}).toThrowError('Failed to rewrite url. Type "foo" is not supported!');
+		const loggerSpy = jest.spyOn(framework.logger, "log");
+		framework.rewriteUrl("/foo");
+		expect(loggerSpy).toBeCalled();
 	});
-
 });
 
 describe("Plugin setup", () => {
-
 	it("Should include browser bundle", () => {
 		const config = {
-			ui5: { useMiddleware: false }
+			ui5: {useMiddleware: false}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({config, logger});
 		expect(config.files[0].pattern).toContain("browser-bundle.js");
 	});
-
 });
 
 describe("Type detection", () => {
-
 	let fsReadFileSyncMock;
 	beforeEach(() => {
 		fsReadFileSyncMock = jest.spyOn(fs, "readFileSync");
-	})
+	});
 	afterEach(() => {
 		fsReadFileSyncMock.mockRestore();
 	});
 
 	it("Should auto-detect application project from ui5.yaml", () => {
-
 		fsReadFileSyncMock.mockImplementationOnce(function(filePath) {
 			if (filePath === "ui5.yaml") {
 				return `---
@@ -384,13 +379,12 @@ metadata:
 
 		const config = {};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({config, logger});
 
 		expect(config.ui5.type).toBe("application");
 	});
 
 	it("Should auto-detect library project from ui5.yaml", () => {
-
 		fsReadFileSyncMock.mockImplementationOnce(function(filePath) {
 			if (filePath === "ui5.yaml") {
 				return `---
@@ -404,15 +398,13 @@ metadata:
 
 		const config = {};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({config, logger});
 
 		expect(config.ui5.type).toBe("library");
 	});
-
 });
 
 describe("Types configuration", () => {
-
 	it("application: Should serve and watch webapp folder", () => {
 		const config = {
 			ui5: {
@@ -421,7 +413,7 @@ describe("Types configuration", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({config, logger});
 
 		expect(config.files.find((file) => file.pattern.endsWith("/{webapp/**,webapp/**/.*}"))).toBeDefined();
 	});
@@ -435,26 +427,23 @@ describe("Types configuration", () => {
 		};
 
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({config, logger});
 		expect(config.files.find((file) => file.pattern.endsWith("/{src/**,src/**/.*}"))).toBeDefined();
 		expect(config.files.find((file) => file.pattern.endsWith("/{test/**,test/**/.*}"))).toBeDefined();
 
 		expect(config.proxies["/base/resources/"]).toEqual("/base/src/");
 		expect(config.proxies["/base/test-resources/"]).toEqual("/base/test/");
-
 	});
 
 	// TODO: What should happen?
 	it("no type", () => {
 		const config = {};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({config, logger});
 	});
-
 });
 
 describe("Testpage / Testrunner", () => {
-
 	it("Configured testpage should be passed to client config", () => {
 		const config = {
 			ui5: {
@@ -462,7 +451,10 @@ describe("Testpage / Testrunner", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({
+			config: config,
+			logger: logger
+		});
 
 		expect(config.client.ui5.testpage).toBe("foo");
 	});
@@ -475,7 +467,7 @@ describe("Testpage / Testrunner", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({config, logger});
 
 		expect(config.client.ui5.testrunner).toBe("/base/webapp/test-resources/sap/ui/qunit/testrunner.html");
 	});
@@ -488,15 +480,13 @@ describe("Testpage / Testrunner", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({config, logger});
 
 		expect(config.client.ui5.testrunner).toBe("/base/test/sap/ui/qunit/testrunner.html");
 	});
-
 });
 
 describe("Without QUnit HTML Runner", () => {
-
 	it("Should include sap-ui-config.js and sap-ui-core.js", () => {
 		const config = {
 			ui5: {
@@ -505,7 +495,7 @@ describe("Without QUnit HTML Runner", () => {
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({config, logger});
 		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
 		expect(config.files[1].pattern).toBe("https://example.com/resources/sap-ui-core.js");
 	});
@@ -515,16 +505,15 @@ describe("Without QUnit HTML Runner", () => {
 			ui5: {
 				htmlrunner: false,
 				url: "https://example.com",
-				tests: [ "some/test" ]
+				tests: ["some/test"]
 			}
 		};
 		const framework = new Framework();
-		framework.init(config);
+		framework.init({config, logger});
 		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
 		expect(config.files[1].pattern).toBe("https://example.com/resources/sap-ui-core.js");
 		expect(config.files[2].pattern).toContain("lib/client/autorun.js");
 	});
-
 });
 
 // TODO: add test to check for client.clearContext
