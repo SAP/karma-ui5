@@ -69,7 +69,7 @@
   },
   "devDependencies": {
     "@openui5/sap.ui.core": "^1.62.1",
-    "eslint": "^5.15.1",
+    "eslint": "^5.15.3",
     "eslint-config-google": "^0.12.0",
     "eslint-plugin-jest": "^22.3.2",
     "eslint-plugin-jsdoc": "^4.3.0",
