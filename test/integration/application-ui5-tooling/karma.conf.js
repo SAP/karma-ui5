@@ -15,8 +15,7 @@ module.exports = function(config) {
 			require("karma-chrome-launcher")
 		],
 
-		browsers: ["Chrome"],
-		singleRun: true
+		browsers: ["ChromeHeadless"]
 
 	});
 };
