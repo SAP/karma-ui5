@@ -443,7 +443,7 @@ describe("Types configuration", () => {
 	});
 });
 
-describe("Testpage / Testrunner", () => {
+describe("Testpage", () => {
 	it("Configured testpage should be passed to client config", () => {
 		const config = {
 			ui5: {
@@ -457,32 +457,6 @@ describe("Testpage / Testrunner", () => {
 		});
 
 		expect(config.client.ui5.testpage).toBe("foo");
-	});
-
-	it("application: Testrunner path should be configured", () => {
-		const config = {
-			ui5: {
-				type: "application",
-				testpage: "foo"
-			}
-		};
-		const framework = new Framework();
-		framework.init({config, logger});
-
-		expect(config.client.ui5.testrunner).toBe("/base/webapp/test-resources/sap/ui/qunit/testrunner.html");
-	});
-
-	it("library: Testrunner path should be configured", () => {
-		const config = {
-			ui5: {
-				type: "library",
-				testpage: "foo"
-			}
-		};
-		const framework = new Framework();
-		framework.init({config, logger});
-
-		expect(config.client.ui5.testrunner).toBe("/base/test/sap/ui/qunit/testrunner.html");
 	});
 });
 
