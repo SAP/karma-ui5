@@ -57,6 +57,7 @@ npm install --save-dev karma-chrome-launcher
 To configure your project you need to add two things to your `karma.conf.js`:
 1. Add `"ui5"` to the `frameworks`
 1. Set a URL for serving the UI5 resources
+1. Specify the browser
 
 The below snippet is an example `karma.conf.js`, which is sufficient for most applications
 ```js
@@ -82,7 +83,20 @@ With the above configuration karma will by default run all tests in Chrome and l
 karma start
 ```
 
-For CI testing you run Chrome in headless mode and enable the `singleRun` option
+For CI testing you run Chrome in headless mode and execute the tests only once using the `singleRun` parameter:
+
+```js
+module.exports = function(config) {
+  config.set({
+    // ...
+    browsers: ["ChromeHeadless"],
+    singleRun: true
+  });
+};
+```
+
+The parameters can also be set via CLI argument
+
 ```sh
 karma start --browsers=ChromeHeadless --singleRun=true
 ```
@@ -167,10 +181,22 @@ During the startup a search for testsuite.qunit.html files inside one of the pro
 }
 ```
 
-or the cli
+or the CLI
 
 ```shell
 karma start karma.conf.js --ui5-testpage="path/to/your/testsuite.qunit.html"
+```
+### Execution context
+By default all tests are executed within an iFrame. The default can be overwritten using 'useIframe: false' to launch the tests in a new browser window.
+
+```javascript
+{
+  client: {
+    ui5: {
+      useIframe: false
+    }
+  }
+}
 ```
 
 ## Advanced usage
