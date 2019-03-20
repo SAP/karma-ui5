@@ -490,4 +490,25 @@ describe("Without QUnit HTML Runner", () => {
 	});
 });
 
+describe("Execution mode", () => {
+	it("Should implicitly set useIframe to true", () => {
+		const config = {};
+		const framework = new Framework();
+		framework.init({config, logger});
+		expect(framework.config.client.ui5.useIframe).toBe(true);
+	});
+
+	it("Should overwrite useIframe default", () => {
+		const config = {
+			client: {
+				ui5: {
+					useIframe: false
+				}
+			}
+		};
+		const framework = new Framework();
+		framework.init({config, logger});
+		expect(framework.config.client.ui5.useIframe).toBe(false);
+	});
+});
 // TODO: add test to check for client.clearContext
