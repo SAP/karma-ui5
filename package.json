@@ -60,10 +60,12 @@
     "@ui5/fs": "^1.0.1",
     "@ui5/project": "^1.0.0",
     "@ui5/server": "^1.0.0",
+    "es6-promise": "^4.2.6",
     "http-proxy": "^1.17.0",
     "istanbul-lib-coverage": "^2.0.1",
     "js-yaml": "^3.12.2",
     "license-webpack-plugin": "^2.1.0",
+    "lodash.assign": "^4.2.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
   },
@@ -77,6 +79,8 @@
     "karma": "^4.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
+    "karma-edge-launcher": "^0.4.2",
+    "karma-ie-launcher": "^1.0.0",
     "karma-qunit": "^3.0.0",
     "puppeteer": "^1.13.0",
     "qunit": "^2.9.2"
