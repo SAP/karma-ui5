@@ -4,7 +4,7 @@ const fs = require("fs");
 const logger = {
 	create: function() {
 		return {
-			log: (errorType, aErrors) => {}
+			log: () => {}
 		};
 	}
 };
@@ -16,7 +16,9 @@ describe("Middleware for UI5", () => {
 				useMiddleware: true
 			}
 		};
-		const framework = new Framework().init({config, logger});
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({config, logger});
 
 		expect(config["beforeMiddleware"]).toContain("ui5--pauseRequests");
 		expect(framework.isPaused).toBe(true);
@@ -45,10 +47,13 @@ describe("Middleware for UI5", () => {
 	it("Should rewrite url in serveResources middleware", (done) => {
 		const config = {
 			ui5: {
+				type: "application",
 				useMiddleware: true
 			}
 		};
-		const framework = new Framework().init({config, logger});
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({config, logger});
 		expect(config["middleware"]).toContain("ui5--serveThemes");
 		expect(framework.isPaused).toBe(true);
 
@@ -80,7 +85,9 @@ describe("Middleware for UI5", () => {
 				useMiddleware: true
 			}
 		};
-		const framework = new Framework().init({config, logger});
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({config, logger});
 		expect(config["middleware"]).toContain("ui5--serveThemes");
 		expect(framework.isPaused).toBe(true);
 
@@ -137,6 +144,7 @@ describe("Proxy for UI5 ", () => {
 describe("UI5 Middleware / Proxy configuration", () => {
 	it("Should setup proxy middleware when url is configured", () => {
 		const framework = new Framework();
+		framework.exists = () => true;
 		const setupProxySpy = jest.spyOn(framework, "setupProxy");
 		const config = {
 			ui5: {
@@ -167,6 +175,7 @@ describe("UI5 Middleware / Proxy configuration", () => {
 			ui5Url: "http://other.host" // set when passing --ui5-url or --ui5Url option
 		};
 		const framework = new Framework();
+		framework.exists = () => true;
 		const setupProxySpy = jest.spyOn(framework, "setupProxy");
 
 		framework.init({config, logger});
@@ -185,6 +194,7 @@ describe("UI5 Middleware / Proxy configuration", () => {
 
 	it.skip("Should setup UI5 tooling middleware if ui5.yaml is present", () => {
 		const framework = new Framework();
+		framework.exists = () => true;
 		const setupUI5Server = jest.spyOn(framework, "setupUI5Server");
 
 		framework.init({config: {}, logger});
@@ -204,7 +214,9 @@ describe("UI5 Middleware / Proxy configuration", () => {
 
 
 describe("Utility functions", () => {
-	const framework = new Framework().init({config: {}, logger});
+	const framework = new Framework();
+	framework.exists = () => true;
+	framework.init({config: { }, logger});
 
 	const assertRewriteUrl = ([input, expected]) => {
 		expect(framework.rewriteUrl(input)).toEqual(expected);
@@ -351,6 +363,7 @@ describe("Plugin setup", () => {
 			ui5: {useMiddleware: false}
 		};
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({config, logger});
 		expect(config.files[0].pattern).toContain("browser-bundle.js");
 	});
@@ -379,6 +392,7 @@ metadata:
 
 		const config = {};
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({config, logger});
 
 		expect(config.ui5.type).toBe("application");
@@ -398,6 +412,7 @@ metadata:
 
 		const config = {};
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({config, logger});
 
 		expect(config.ui5.type).toBe("library");
@@ -413,6 +428,7 @@ describe("Types configuration", () => {
 			}
 		};
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({config, logger});
 
 		expect(config.files.find((file) => file.pattern.endsWith("/{webapp/**,webapp/**/.*}"))).toBeDefined();
@@ -427,6 +443,7 @@ describe("Types configuration", () => {
 		};
 
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({config, logger});
 		expect(config.files.find((file) => file.pattern.endsWith("/{src/**,src/**/.*}"))).toBeDefined();
 		expect(config.files.find((file) => file.pattern.endsWith("/{test/**,test/**/.*}"))).toBeDefined();
@@ -439,6 +456,7 @@ describe("Types configuration", () => {
 	it("no type", () => {
 		const config = {};
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({config, logger});
 	});
 });
@@ -451,6 +469,7 @@ describe("Testpage", () => {
 			}
 		};
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({
 			config: config,
 			logger: logger
@@ -469,6 +488,7 @@ describe("Without QUnit HTML Runner", () => {
 			}
 		};
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({config, logger});
 		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
 		expect(config.files[1].pattern).toBe("https://example.com/resources/sap-ui-core.js");
@@ -483,6 +503,7 @@ describe("Without QUnit HTML Runner", () => {
 			}
 		};
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({config, logger});
 		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
 		expect(config.files[1].pattern).toBe("https://example.com/resources/sap-ui-core.js");
@@ -494,6 +515,7 @@ describe("Execution mode", () => {
 	it("Should implicitly set useIframe to true", () => {
 		const config = {};
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({config, logger});
 		expect(framework.config.client.ui5.useIframe).toBe(true);
 	});
@@ -507,6 +529,7 @@ describe("Execution mode", () => {
 			}
 		};
 		const framework = new Framework();
+		framework.exists = () => true;
 		framework.init({config, logger});
 		expect(framework.config.client.ui5.useIframe).toBe(false);
 	});
