@@ -57,7 +57,7 @@
     "karma": ">=0.12.8"
   },
   "dependencies": {
-    "@ui5/fs": "^1.0.1",
+    "@ui5/fs": "^1.0.2",
     "@ui5/project": "^1.0.0",
     "@ui5/server": "^1.0.0",
     "es6-promise": "^4.2.6",
