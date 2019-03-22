@@ -2,7 +2,15 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v1.0.0-beta.1...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v1.0.0-beta.2...HEAD).
+
+<a name="v1.0.0-beta.2"></a>
+## [v1.0.0-beta.2] - 2019-03-22
+### Bug Fixes
+- Run tests in iFrame by default ([#32](https://github.com/SAP/karma-ui5/issues/32)) [`7c4a825`](https://github.com/SAP/karma-ui5/commit/7c4a82554c51a14dd3c287887641c3520c4a6835)
+- Missing testrunner.html when using npm dependencies ([#27](https://github.com/SAP/karma-ui5/issues/27)) [`c2adeed`](https://github.com/SAP/karma-ui5/commit/c2adeedb26dc18771b70500de724a90606b9fc1c)
+- Add missing dependency to "js-yaml" [`619431f`](https://github.com/SAP/karma-ui5/commit/619431f6c526bba0137c03aa771c506b5c491ebe)
+
 
 <a name="v1.0.0-beta.1"></a>
 ## [v1.0.0-beta.1] - 2019-03-13
@@ -48,6 +56,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v1.0.0-beta.2]: https://github.com/SAP/karma-ui5/compare/v1.0.0-beta.1...v1.0.0-beta.2
 [v1.0.0-beta.1]: https://github.com/SAP/karma-ui5/compare/0.2.3...v1.0.0-beta.1
 [0.2.3]: https://github.com/SAP/karma-ui5/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/SAP/karma-ui5/compare/0.2.1...0.2.2
