@@ -534,4 +534,18 @@ describe("Execution mode", () => {
 		expect(framework.config.client.ui5.useIframe).toBe(false);
 	});
 });
+
+describe.skip("Error logging", () => {
+	it("Should throw if old configuration with openui5 is used");
+	it("Should throw if multiple frameworks have been defined");
+	it("Should throw if files have been configured");
+	it("Should throw if custom paths have been defined but the type was not set");
+	it("Should throw if appliacation (webapp) folder in path wasn't found");
+	it("Should throw if library folders (src and test) have not been found");
+	it("Should throw if project type is invalid");
+	it("Should throw if ui5.yaml was found but is not well formed");
+	it("Should throw if ui5.yaml was found but contains no type");
+	it("Should throw if basePath doesn't point to project root");
+	it("Should throw if auto type discovery fails");
+});
 // TODO: add test to check for client.clearContext
