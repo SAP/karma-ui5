@@ -9,9 +9,7 @@ module.exports = function(config) {
 		plugins: [
 			require("../../../lib"),
 			require("karma-chrome-launcher")
-		],
-
-		browsers: ["ChromeHeadless"]
+		]
 
 	});
 };
