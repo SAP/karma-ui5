@@ -35,9 +35,11 @@ And rename the framework in your `karma.conf.js` from `openui5` to `ui5`
  }
 ```
 
-### Switch to html mode
+### Option 1 - Switch to html mode
 
 Using the new built-in QUnit HTML Runner makes most of the karma configuration obsolete and instead runs your existing QUnit testsuites and testpages. This is the recommended way as it eases the configuration and uses the same setup as opening the HTML pages manually in the browser.
+
+In case you would like to stick with the previous script-based approach from v0.x, see [Option 2 - Keep using the script-based approach](#option-2--keep-using-the-script-based-approach) below.
 
 #### Remove `openui5` config
 
@@ -64,7 +66,7 @@ Remove the existing `openui5` related configuration. It is not needed anymore.
  }
 ```
 
-Uninstall the npm devDependencies (if existing) as they are also not required anymore
+Uninstall the following devDependencies (if existing) as they are also not required anymore
 - `karma-qunit` + `qunit` / `qunitjs`  
   QUnit is supported out of the box and loaded from UI5 within your test.
   ```sh
@@ -88,12 +90,14 @@ The plugin automatically sets the "files" config when running in "html" mode.
 Therefore you must remove the defined "files" from your karma config
 ```diff
  {
--  files: { ... }
+-  files: [ ... ]
  }
 ```
 
-When not using the [UI5 Tooling](https://github.com/SAP/ui5-tooling) you need to specify an URL where to load UI5 from.
-Compared to the previous `path` configuration, it must not include the `resources/sap-ui-core.js` path segment.
+When using the [UI5 Tooling](https://github.com/SAP/ui5-tooling), this plugin will automatically use the installed dependencies to make them available within Karma. This means that there is no need to start a separate server.
+
+But when not using the [UI5 Tooling](https://github.com/SAP/ui5-tooling) you need to specify an URL where to load UI5 from.
+Compared to the previous `path` configuration, it must **not** include the `resources/sap-ui-core.js` path segment.
 ```diff
  {
 
@@ -108,91 +112,40 @@ Compared to the previous `path` configuration, it must not include the `resource
  }
 ```
 
+Those steps should be sufficent for most application and library projects.  
+In case your project uses a different stucture, you will get an error pointing you to what needs to be adopted.  
+Also, in case your project contains multiple testsuites, you need to define one of them to start from.
 
-Rename the `openui5` config to `ui5`
-```diff
- {
--  openui5: {
-+  ui5: {
-     ...
-   }
- }
-```
-
-Done. This should be a suffient configuration for most application and library projects.
+Please also see the general documentation for more information about this individual options:
+https://github.com/SAP/karma-ui5#readme
 
 
+### Option 2 - Keep using the script-based approach
 
-### Mock Server
+If you would like to keep using the script-based approach from v0.x, you need to move the `client.openui5` configuration to the new `ui5` section and disable the `htmlrunner`.
+Note that the built-in MockServer support is not available anymore.
+
+#### Remove MockServer config
 
 Remove the `useMockServer` config as it's not supported anymore. Instead make sure to start up the MockServer from your test code.
 
 ```diff
  {
-   ui5: {
--     useMockServer: true
-   }
- }
-```
-
-### Option 1 - Switch to the QUnit HTML Runner (recommended)
-
-Using the new built-in QUnit HTML Runner makes most of the karma configuration obsolete and instead runs your existing QUnit Testsuites and Test Pages. This is the recommended way as it eases the configuration and uses the same setup as opening the HTML pages manually in the browser.
-
-Remove the `client.openui5` configuration as it is not needed anymore
-```diff
- {
+   openui5: {
+-    useMockServer: true
+   },
+   
    client: {
--    openui5: {
--      config: { ... },
--      tests: [ ... ],
--      mockserver: { ... }
--    }
+     openui5: {
+-      mockserver: {
+-        metadataURL: '...'
+-      }
+     }
    }
  }
 ```
 
-The HTML Runner requires knownledge about the project type (application or library) which will be auto-detected in most common use cases.  
-If this is not the case, you need to configure the project type and the paths to your entry folder(s).
-
-Application
-```diff
- {
-   ui5: {
-+    type: "application",
-+    paths: {
-+      webapp: "path/to/webapp"
-+    }
-   }
- }
-```
-
-Library
-```diff
- {
-   ui5: {
-+    type: "library",
-+    paths: {
-+      src: "path/to/src"
-+      test: "path/to/test"
-+    }
-   }
- }
-```
-
-In most cases the testsuite in your project can automatically be found and executed.
-But in case your project contains multiple testsuites (testsuite.qunit.html), or does not contain a testsuite at all, you need to configure a testpage.
-```diff
- {
-   ui5: {
-+    testpage: "webapp/test/MyTest.qunit.html"
-   }
- }
-```
-
-### Option 2 -Keep using the script-based approach (advanced)
-
-If you would like to keep using the script-based approach from v0.x, you need to move the `client.openui5` configuration to the new `ui5` section and disable the `htmlrunner`.
+#### Move config to ui5 section / disable html runner
 
 ```diff
  {
