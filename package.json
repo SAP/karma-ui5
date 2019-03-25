@@ -23,8 +23,8 @@
   },
   "main": "lib/index.js",
   "files": [
-    "lib",
-    "webpack.config.js"
+    "dist",
+    "lib"
   ],
   "scripts": {
     "lint": "eslint ./",
@@ -44,7 +44,7 @@
     "itest:library-custompath": "karma start test/integration/library-custompath/karma.conf.js",
     "itest:library-script-mode": "karma start test/integration/library-script-mode/karma.conf.js",
     "itest:library-tooling-script-mode": "karma start test/integration/library-tooling-script-mode/karma.conf.js",
-    "postinstall": "webpack --silent",
+    "prepare": "webpack",
     "preversion": "npm test",
     "version": "git-chglog --next-tag v$npm_package_version -o CHANGELOG.md && git add CHANGELOG.md",
     "postversion": "git push --follow-tags",
@@ -64,21 +64,17 @@
     "@ui5/fs": "^1.0.2",
     "@ui5/project": "^1.0.0",
     "@ui5/server": "^1.0.0",
-    "es6-promise": "^4.2.6",
     "http-proxy": "^1.17.0",
-    "istanbul-lib-coverage": "^2.0.1",
-    "js-yaml": "^3.13.0",
-    "license-webpack-plugin": "^2.1.0",
-    "lodash.assign": "^4.2.0",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "js-yaml": "^3.13.0"
   },
   "devDependencies": {
     "@openui5/sap.ui.core": "^1.64.0",
+    "es6-promise": "^4.2.6",
     "eslint": "^5.15.3",
     "eslint-config-google": "^0.12.0",
     "eslint-plugin-jest": "^22.4.1",
     "eslint-plugin-jsdoc": "^4.6.0",
+    "istanbul-lib-coverage": "^2.0.3",
     "jest": "^24.5.0",
     "karma": "^4.0.0",
     "karma-chrome-launcher": "^2.2.0",
@@ -86,7 +82,11 @@
     "karma-edge-launcher": "^0.4.2",
     "karma-ie-launcher": "^1.0.0",
     "karma-qunit": "^3.0.0",
+    "license-webpack-plugin": "^2.1.1",
+    "lodash.assign": "^4.2.0",
     "puppeteer": "^1.14.0",
-    "qunit": "^2.9.2"
+    "qunit": "^2.9.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   }
 }
