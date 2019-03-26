@@ -1,0 +1,7 @@
+{
+	"name": "library-ui5-tooling-multiple-testsuites",
+	"version": "1.0.0",
+	"dependencies": {
+		"@openui5/sap.ui.core": "*"
+	}
+}

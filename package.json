@@ -39,6 +39,7 @@
     "itest:app-no-htmlrunner": "karma start test/integration/application-no-htmlrunner/karma.conf.js",
     "itest:library-proxy": "karma start test/integration/library-proxy/karma.conf.js",
     "itest:library-ui5-tooling": "karma start test/integration/library-ui5-tooling/karma.conf.js",
+    "itest:library-ui5-tooling-multiple-testsuites": "karma start test/integration/library-ui5-tooling-multiple-testsuites/karma.conf.js",
     "itest:library-custompath": "karma start test/integration/library-custompath/karma.conf.js",
     "postinstall": "webpack --silent",
     "preversion": "npm test",
