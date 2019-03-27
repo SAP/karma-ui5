@@ -598,11 +598,66 @@ describe("Error logging", () => {
 		expect(framework.logger.message).toBe(ErrorMessage.invalidProjectType(config.ui5.type));
 	});
 
-	it.skip("Should throw if basePath doesn't point to project root", () => {});
-	it.skip("Should throw if ui5.yaml was found but is not well formed", () => {});
-	it.skip("Should throw if appliacation (webapp) folder in path wasn't found", () => {});
-	it.skip("Should throw if library folders (src and test) have not been found", () => {});
-	it.skip("Should throw if ui5.yaml was found but contains no type", () => {});
-	it.skip("Should throw if auto type discovery fails", () => {});
+	it("Should throw if basePath doesn't point to project root", () => {
+		const config = {
+			basePath: "/webapp"
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.invalidBasePath());
+	});
+
+	it("Should throw if appliacation (webapp) folder in path wasn't found", () => {
+		const config = {
+			ui5: {
+				type: "application",
+				paths: {
+					webapp: "path/does/not/exist"
+				}
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.applicationFolderNotFound(config.ui5.paths.webapp));
+	});
+
+	it("Should throw if library folders (src and test) have not been found", () => {
+		const config = {
+			ui5: {
+				type: "library",
+				paths: {
+					src: "path/to/src/does/not/exist",
+					test: "path/to/test/does/not/exist"
+				}
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.libraryFolderNotFound({
+			hasSrc: false,
+			hasTest: false,
+			srcFolder: config.ui5.paths.src,
+			testFolder: config.ui5.paths.test
+		}));
+	});
+
+	it("Should throw if detect type based on folder structure fails", () => {
+		const config = {};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.invalidFolderStructure());
+	});
+
+	it("Should throw if ui5.yaml was found but contains no type", () => {
+		const fsReadFileSyncMock = jest.spyOn(fs, "readFileSync");
+		fsReadFileSyncMock.mockImplementationOnce(function() {
+			return `---
+specVersion: "1.0"
+metadata:
+	name: test.app
+`;
+		});
+
+		const config = {};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.missingTypeInYaml());
+		fsReadFileSyncMock.mockRestore();
+	});
 });
 // TODO: add test to check for client.clearContext
