@@ -1,10 +1,16 @@
 const Framework = require("../lib/framework");
 const fs = require("fs");
+const {ErrorMessage} = require("../lib/errors");
 
 const logger = {
 	create: function() {
 		return {
-			log: () => {}
+			type: "",
+			message: "",
+			log: function(type, message) {
+				this.type = type;
+				this.message = message;
+			},
 		};
 	}
 };
@@ -536,25 +542,67 @@ describe("Execution mode", () => {
 });
 
 describe("Error logging", () => {
-	it("Should throw if old configuration with openui5 is used", () => {
-		const framework = new Framework();
+	let framework;
 
-		expect(() => {
-			framework.checkLegacy({
-				openui5: {}
-			});
-		}).toThrow(/errno\s1/);
-
+	beforeEach(() => {
+		framework = new Framework();
 	});
-	it.skip("Should throw if multiple frameworks have been defined", () => {});
-	it.skip("Should throw if files have been configured", () => {});
-	it.skip("Should throw if custom paths have been defined but the type was not set", () => {});
+
+	it("Should throw if old configuration with openui5 is used", () => {
+		const config = {
+			openui5: {}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.migrateConfig());
+	});
+
+	it("Should throw if multiple frameworks have been defined", () => {
+		const config = {
+			frameworks: ["qunit", "ui5"]
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["qunit", "ui5"]));
+
+		// TODO: Add test with sinon instead qunit
+	});
+
+	it("Should throw if files have been defined in config", () => {
+		const config = {
+			files: {
+				a: ""
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.containsFilesDefinition());
+	});
+
+	it("Should throw if custom paths have been defined but the type was not set", () => {
+		const config = {
+			ui5: {
+				paths: {
+					webapp: "path/to/webapp"
+				}
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.customPathWithoutType());
+	});
+
+	it("Should throw if project type is invalid", () => {
+		const config = {
+			ui5: {
+				type: "invalid"
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.invalidProjectType(config.ui5.type));
+	});
+
+	it.skip("Should throw if basePath doesn't point to project root", () => {});
+	it.skip("Should throw if ui5.yaml was found but is not well formed", () => {});
 	it.skip("Should throw if appliacation (webapp) folder in path wasn't found", () => {});
 	it.skip("Should throw if library folders (src and test) have not been found", () => {});
-	it.skip("Should throw if project type is invalid", () => {});
-	it.skip("Should throw if ui5.yaml was found but is not well formed", () => {});
 	it.skip("Should throw if ui5.yaml was found but contains no type", () => {});
-	it.skip("Should throw if basePath doesn't point to project root", () => {});
 	it.skip("Should throw if auto type discovery fails", () => {});
 });
 // TODO: add test to check for client.clearContext
