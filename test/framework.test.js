@@ -1,10 +1,16 @@
 const Framework = require("../lib/framework");
 const fs = require("fs");
+const {ErrorMessage} = require("../lib/errors");
 
 const logger = {
 	create: function() {
 		return {
-			log: () => {}
+			type: "",
+			message: "",
+			log: function(type, message) {
+				this.type = type;
+				this.message = message;
+			},
 		};
 	}
 };
@@ -381,12 +387,7 @@ describe("Type detection", () => {
 	it("Should auto-detect application project from ui5.yaml", () => {
 		fsReadFileSyncMock.mockImplementationOnce(function(filePath) {
 			if (filePath === "ui5.yaml") {
-				return `---
-specVersion: "1.0"
-type: application
-metadata:
-	name: test.app
-`;
+				return "---\ntype: application\n";
 			}
 		});
 
@@ -401,12 +402,7 @@ metadata:
 	it("Should auto-detect library project from ui5.yaml", () => {
 		fsReadFileSyncMock.mockImplementationOnce(function(filePath) {
 			if (filePath === "ui5.yaml") {
-				return `---
-specVersion: "1.0"
-type: library
-metadata:
-	name: sap.x
-`;
+				return "---\ntype: library\n";
 			}
 		});
 
@@ -532,6 +528,153 @@ describe("Execution mode", () => {
 		framework.exists = () => true;
 		framework.init({config, logger});
 		expect(framework.config.client.ui5.useIframe).toBe(false);
+	});
+});
+
+describe("Error logging", () => {
+	let framework;
+
+	beforeEach(() => {
+		framework = new Framework();
+	});
+
+	it("Should throw if old configuration with openui5 is used", () => {
+		const config = {
+			openui5: {}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.migrateConfig());
+	});
+
+	it("Should throw if multiple frameworks have been defined", () => {
+		const config = {
+			frameworks: ["foo", "ui5"]
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["foo", "ui5"]));
+	});
+
+	it("Should throw if multiple frameworks have been defined (qunit)", () => {
+		const config = {
+			frameworks: ["qunit", "ui5"]
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["qunit", "ui5"]));
+	});
+
+	it("Should throw if multiple frameworks have been defined (qunit + sinon)", () => {
+		const config = {
+			frameworks: ["qunit", "sinon", "ui5"]
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["qunit", "sinon", "ui5"]));
+	});
+
+	it("Should throw if files have been defined in config", () => {
+		const config = {
+			files: {
+				a: ""
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.containsFilesDefinition());
+	});
+
+	it("Should throw if custom paths have been defined but the type was not set", () => {
+		const config = {
+			ui5: {
+				paths: {
+					webapp: "path/to/webapp"
+				}
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.customPathWithoutType());
+	});
+
+	it("Should throw if project type is invalid", () => {
+		const config = {
+			ui5: {
+				type: "invalid"
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.invalidProjectType(config.ui5.type));
+	});
+
+	it("Should throw if basePath doesn't point to project root", () => {
+		const config = {
+			basePath: "/webapp"
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.invalidBasePath());
+	});
+
+	it("Should throw if appliacation (webapp) folder in path wasn't found", () => {
+		const config = {
+			ui5: {
+				type: "application",
+				paths: {
+					webapp: "path/does/not/exist"
+				}
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.applicationFolderNotFound(config.ui5.paths.webapp));
+	});
+
+	it("Should throw if library folders (src and test) have not been found", () => {
+		const config = {
+			ui5: {
+				type: "library",
+				paths: {
+					src: "path/to/src/does/not/exist",
+					test: "path/to/test/does/not/exist"
+				}
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.libraryFolderNotFound({
+			hasSrc: false,
+			hasTest: false,
+			srcFolder: config.ui5.paths.src,
+			testFolder: config.ui5.paths.test
+		}));
+	});
+
+	it("Should throw if detect type based on folder structure fails", () => {
+		const config = {};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.invalidFolderStructure());
+	});
+
+	it("Should throw if ui5.yaml was found but contains no type", () => {
+		const fsReadFileSyncMock = jest.spyOn(fs, "readFileSync");
+		fsReadFileSyncMock.mockImplementationOnce(function() {
+			return "---\n";
+		});
+
+		const config = {};
+		expect(() => framework.init({config, logger})).toThrow(ErrorMessage.failure());
+		expect(framework.logger.message).toBe(ErrorMessage.missingTypeInYaml());
+		fsReadFileSyncMock.mockRestore();
+	});
+
+	it("Should throw if ui5.yaml was found but has parsing errors", () => {
+		const fsReadFileSyncMock = jest.spyOn(fs, "readFileSync");
+		fsReadFileSyncMock.mockImplementationOnce(function() {
+			return "--1-\nfoo: 1";
+		});
+
+		const yamlException = new Error("Could not parse YAML");
+		yamlException.name = "YAMLException";
+
+		const config = {};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.invalidUI5Yaml({
+			filePath: "ui5.yaml", yamlException
+		}));
+		fsReadFileSyncMock.mockRestore();
 	});
 });
 // TODO: add test to check for client.clearContext
