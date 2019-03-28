@@ -387,12 +387,7 @@ describe("Type detection", () => {
 	it("Should auto-detect application project from ui5.yaml", () => {
 		fsReadFileSyncMock.mockImplementationOnce(function(filePath) {
 			if (filePath === "ui5.yaml") {
-				return `---
-specVersion: "1.0"
-type: application
-metadata:
-	name: test.app
-`;
+				return "---\ntype: application\n";
 			}
 		});
 
@@ -407,12 +402,7 @@ metadata:
 	it("Should auto-detect library project from ui5.yaml", () => {
 		fsReadFileSyncMock.mockImplementationOnce(function(filePath) {
 			if (filePath === "ui5.yaml") {
-				return `---
-specVersion: "1.0"
-type: library
-metadata:
-	name: sap.x
-`;
+				return "---\ntype: library\n";
 			}
 		});
 
@@ -647,16 +637,29 @@ describe("Error logging", () => {
 	it("Should throw if ui5.yaml was found but contains no type", () => {
 		const fsReadFileSyncMock = jest.spyOn(fs, "readFileSync");
 		fsReadFileSyncMock.mockImplementationOnce(function() {
-			return `---
-specVersion: "1.0"
-metadata:
-	name: test.app
-`;
+			return "---\n";
 		});
 
 		const config = {};
-		expect(() => framework.init({config, logger})).toThrow();
+		expect(() => framework.init({config, logger})).toThrow(ErrorMessage.failure());
 		expect(framework.logger.message).toBe(ErrorMessage.missingTypeInYaml());
+		fsReadFileSyncMock.mockRestore();
+	});
+
+	it("Should throw if ui5.yaml was found but has parsing errors", () => {
+		const fsReadFileSyncMock = jest.spyOn(fs, "readFileSync");
+		fsReadFileSyncMock.mockImplementationOnce(function() {
+			return "--1-\nfoo: 1";
+		});
+
+		const yamlException = new Error("Could not parse YAML");
+		yamlException.name = "YAMLException";
+
+		const config = {};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.invalidUI5Yaml({
+			filePath: "ui5.yaml", yamlException
+		}));
 		fsReadFileSyncMock.mockRestore();
 	});
 });
