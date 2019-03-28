@@ -548,12 +548,26 @@ describe("Error logging", () => {
 
 	it("Should throw if multiple frameworks have been defined", () => {
 		const config = {
+			frameworks: ["foo", "ui5"]
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["foo", "ui5"]));
+	});
+
+	it("Should throw if multiple frameworks have been defined (qunit)", () => {
+		const config = {
 			frameworks: ["qunit", "ui5"]
 		};
 		expect(() => framework.init({config, logger})).toThrow();
 		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["qunit", "ui5"]));
+	});
 
-		// TODO: Add test with sinon instead qunit
+	it("Should throw if multiple frameworks have been defined (qunit + sinon)", () => {
+		const config = {
+			frameworks: ["qunit", "sinon", "ui5"]
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["qunit", "sinon", "ui5"]));
 	});
 
 	it("Should throw if files have been defined in config", () => {
