@@ -162,6 +162,7 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		framework.init({config, logger});
 
 		expect(setupProxySpy).toHaveBeenCalledWith({
+			mode: "html",
 			url: "http://localhost",
 			type: "application",
 			paths: {
@@ -187,6 +188,7 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		framework.init({config, logger});
 
 		expect(setupProxySpy).toHaveBeenCalledWith({
+			mode: "html",
 			type: "application",
 			url: "http://other.host",
 			paths: {
@@ -479,7 +481,7 @@ describe("Without QUnit HTML Runner", () => {
 	it("Should include sap-ui-config.js and sap-ui-core.js", () => {
 		const config = {
 			ui5: {
-				htmlrunner: false,
+				mode: "script",
 				url: "https://example.com"
 			}
 		};
@@ -493,7 +495,7 @@ describe("Without QUnit HTML Runner", () => {
 	it("Should include also include autorun.js if tests are configured", () => {
 		const config = {
 			ui5: {
-				htmlrunner: false,
+				mode: "script",
 				url: "https://example.com",
 				tests: ["some/test"]
 			}
@@ -572,9 +574,9 @@ describe("Error logging", () => {
 
 	it("Should throw if files have been defined in config", () => {
 		const config = {
-			files: {
-				a: ""
-			}
+			files: [
+				{pattern: "**", included: false, served: true, watched: true}
+			]
 		};
 		expect(() => framework.init({config, logger})).toThrow();
 		expect(framework.logger.message).toBe(ErrorMessage.containsFilesDefinition());
