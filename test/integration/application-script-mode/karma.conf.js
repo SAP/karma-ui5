@@ -5,7 +5,7 @@ module.exports = function(config) {
 		frameworks: ["qunit", "ui5"],
 
 		ui5: {
-			htmlrunner: false,
+			mode: "script",
 			url: "https://openui5nightly.hana.ondemand.com",
 			config: {
 				theme: "sap_belize",
@@ -25,10 +25,6 @@ module.exports = function(config) {
 				showUI: true
 			}
 		},
-
-		files: [
-			{pattern: "**", included: false, served: true, watched: true}
-		],
 
 		plugins: [
 			require("../../../lib"),
