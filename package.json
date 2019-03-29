@@ -83,7 +83,7 @@
     "karma-edge-launcher": "^0.4.2",
     "karma-ie-launcher": "^1.0.0",
     "karma-qunit": "^3.0.0",
-    "puppeteer": "^1.13.0",
+    "puppeteer": "^1.14.0",
     "qunit": "^2.9.2"
   }
 }
