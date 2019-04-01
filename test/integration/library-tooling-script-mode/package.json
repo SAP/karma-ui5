@@ -1,0 +1,7 @@
+{
+  "name": "library-tooling-script-mode",
+  "version": "1.0.0",
+  "dependencies": {
+		"@openui5/sap.ui.core": "*"
+	}
+}
