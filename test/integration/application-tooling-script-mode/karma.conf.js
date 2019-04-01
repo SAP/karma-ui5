@@ -6,7 +6,6 @@ module.exports = function(config) {
 
 		ui5: {
 			mode: "script",
-			url: "https://openui5nightly.hana.ondemand.com",
 			config: {
 				theme: "base",
 				language: "EN",
