@@ -477,7 +477,7 @@ describe("Testpage", () => {
 	});
 });
 
-describe("Without QUnit HTML Runner", () => {
+describe("Without QUnit HTML Runner (with URL)", () => {
 	it("Should include sap-ui-config.js and sap-ui-core.js", () => {
 		const config = {
 			ui5: {
@@ -506,6 +506,45 @@ describe("Without QUnit HTML Runner", () => {
 		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
 		expect(config.files[1].pattern).toBe("https://example.com/resources/sap-ui-core.js");
 		expect(config.files[2].pattern).toContain("lib/client/autorun.js");
+	});
+});
+
+describe.only("Without QUnit HTML Runner (without URL)", () => {
+	it("application: Should include sap-ui-config.js and sap-ui-core.js", () => {
+		const config = {
+
+			protocol: "http:",
+			port: "1234",
+			hostname: "foo",
+
+			ui5: {
+				mode: "script",
+				type: "application"
+			}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({config, logger});
+		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
+		expect(config.files[1].pattern).toBe("http://foo:1234/base/webapp/resources/sap-ui-core.js");
+	});
+	it("library: Should include sap-ui-config.js and sap-ui-core.js", () => {
+		const config = {
+
+			protocol: "http:",
+			port: "1234",
+			hostname: "foo",
+
+			ui5: {
+				mode: "script",
+				type: "library"
+			}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({config, logger});
+		expect(config.files[0].pattern).toContain("lib/client/sap-ui-config.js");
+		expect(config.files[1].pattern).toBe("http://foo:1234/base/resources/sap-ui-core.js");
 	});
 });
 
