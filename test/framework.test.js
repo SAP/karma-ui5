@@ -620,6 +620,16 @@ describe("Error logging", () => {
 		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["foo", "ui5"]));
 	});
 
+	it("Should throw if invalid mode is defined", () => {
+		const config = {
+			ui5: {
+				mode: "foo"
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.invalidMode("foo"));
+	});
+
 	it("Should throw if multiple frameworks have been defined (qunit)", () => {
 		const config = {
 			frameworks: ["qunit", "ui5"]
