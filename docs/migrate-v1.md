@@ -1,6 +1,6 @@
 # Migrate to v1.0.0
 
-The first major version of the Karma UI5 plugin comes with several new features and some breaking changes.  
+The first major version of the Karma UI5 plugin comes with several new features and some breaking changes.
 It requires less configuration and has a built-in HTML runner to seamlessly execute your testsuites and testpages.
 
 ## Breaking changes
@@ -11,7 +11,7 @@ The plugin has been renamed from `karma-openui5` to `karma-ui5`.
 
 ### No built-in MockServer support
 
-The `useMockServer` option has been removed.  
+The `useMockServer` option has been removed.
 A MockServer needs to be started from the test code.
 
 
@@ -19,7 +19,7 @@ A MockServer needs to be started from the test code.
 
 ### Rename plugin
 
-The plugin has been renamed from `karma-openui5` to `karma-ui5`.  
+The plugin has been renamed from `karma-openui5` to `karma-ui5`.
 Make sure to uninstall the old plugin and install the new one.
 
 ```sh
@@ -39,7 +39,7 @@ And rename the framework in your `karma.conf.js` from `openui5` to `ui5`
 
 Using the new built-in QUnit HTML Runner makes most of the karma configuration obsolete and instead runs your existing QUnit testsuites and testpages. This is the recommended way as it eases the configuration and uses the same setup as opening the HTML pages manually in the browser.
 
-In case you would like to stick with the previous script-based approach from v0.x, see [Option 2 - Keep using the script-based approach](#option-2--keep-using-the-script-based-approach) below.
+In case you would like to stick with the previous script-based approach from v0.x, see [Option 2 - using script mode](#option-2--using-script-mode) below.
 
 #### Remove `openui5` config
 
@@ -67,12 +67,12 @@ Remove the existing `openui5` related configuration. It is not needed anymore.
 ```
 
 Uninstall the following devDependencies (if existing) as they are also not required anymore
-- `karma-qunit` + `qunit` / `qunitjs`  
+- `karma-qunit` + `qunit` / `qunitjs`
   QUnit is supported out of the box and loaded from UI5 within your test.
   ```sh
   npm uninstall karma-qunit qunit qunitjs
   ```
-- `karma-sinon` / `sinon`  
+- `karma-sinon` / `sinon`
   Sinon should be loaded from the test instead.
 	```sh
   npm uninstall karma-sinon sinon
@@ -112,17 +112,32 @@ Compared to the previous `path` configuration, it must **not** include the `reso
  }
 ```
 
-Those steps should be sufficent for most application and library projects.  
-In case your project uses a different stucture, you will get an error pointing you to what needs to be adopted.  
+Those steps should be sufficent for most application and library projects.
+In case your project uses a different stucture, you will get an error pointing you to what needs to be adopted.
 Also, in case your project contains multiple testsuites, you need to define one of them to start from.
 
 Please also see the general documentation for more information about this individual options:
 https://github.com/SAP/karma-ui5#readme
 
 
-### Option 2 - Keep using the script-based approach
+### Option 2 - using script mode
 
-If you would like to keep using the script-based approach from v0.x, you need to move the `client.openui5` configuration to the new `ui5` section and disable the `htmlrunner`.
+If you would like to keep using the script-based approach from v0.x, you need to move the `client.openui5` configuration to the new `ui5` section and set the `mode` to "script".
+```diff
+- {
+-  openui5: {
+-     "config": {
+-         // ...
+-     }
+- }
+
++ ui5: {
++     mode: "script",
++     config: {
++         // ...
++     }
++ }
+```
 Note that the built-in MockServer support is not available anymore.
 
 #### Remove MockServer config
@@ -134,7 +149,7 @@ Remove the `useMockServer` config as it's not supported anymore. Instead make su
    openui5: {
 -    useMockServer: true
    },
-   
+
    client: {
      openui5: {
 -      mockserver: {
@@ -145,13 +160,13 @@ Remove the `useMockServer` config as it's not supported anymore. Instead make su
  }
 ```
 
-#### Move config to ui5 section / disable html runner
+#### Move config to ui5 section / enable "script" mode
 
 ```diff
  {
    ui5: {
-+    htmlrunner: false,
-     url: "https://example.com",
++    mode: "script",
++    url: "https://example.com",
 +    config: { ... },
 +    tests: [ ... ]
    },
