@@ -131,7 +131,7 @@ module.exports = function(config) {
 
 ### url
 Type: `string`  
-CLI: `--ui5-url`
+CLI: `--ui5.url`
 
 The URL where UI5 should be loaded from.
 
@@ -225,7 +225,7 @@ Specific config options
 
 #### testpage
 Type: `string`  
-CLI: `--ui5-testpage`  
+CLI: `--ui5.testpage`  
 Specific to `"html"` [mode](#mode)
 
 A file path pointing to a testpage or testsuite that should be executed.  
