@@ -173,33 +173,6 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		});
 	});
 
-	it("Should override URL via ui5Url option", () => {
-		const config = {
-			ui5: {
-				type: "application",
-				url: "http://localhost"
-			},
-			ui5Url: "http://other.host" // set when passing --ui5-url or --ui5Url option
-		};
-		const framework = new Framework();
-		framework.exists = () => true;
-		const setupProxySpy = jest.spyOn(framework, "setupProxy");
-
-		framework.init({config, logger});
-
-		expect(setupProxySpy).toHaveBeenCalledWith({
-			mode: "html",
-			type: "application",
-			url: "http://other.host",
-			paths: {
-				webapp: "webapp",
-				src: "src",
-				test: "test"
-			}
-		});
-		expect(config.ui5.url).toBe("http://other.host");
-	});
-
 	it.skip("Should setup UI5 tooling middleware if ui5.yaml is present", () => {
 		const framework = new Framework();
 		framework.exists = () => true;
