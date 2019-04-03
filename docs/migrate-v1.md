@@ -1,7 +1,7 @@
 # Migrate to v1.0.0
 
 The first major version of the Karma UI5 plugin comes with several new features and some breaking changes.
-It requires less configuration and has a built-in HTML runner to seamlessly execute your testsuites and testpages.
+It requires less configuration and has a new "html" mode to seamlessly execute your testsuites and testpages.
 
 ## Breaking changes
 
@@ -35,16 +35,17 @@ And rename the framework in your `karma.conf.js` from `openui5` to `ui5`
  }
 ```
 
-### Option 1 - Switch to html mode
+### Option 1 - Switch to "html" mode
 
 Using the new built-in QUnit HTML Runner makes most of the karma configuration obsolete and instead runs your existing QUnit testsuites and testpages. This is the recommended way as it eases the configuration and uses the same setup as opening the HTML pages manually in the browser.
 
-In case you would like to stick with the previous script-based approach from v0.x, see [Option 2 - using script mode](#option-2--using-script-mode) below.
+In case you would like to stick with the previous script-based approach from v0.x, see [Option 2 - Keep using "script" mode](#option-2--using-script-mode) below.
 
-#### Remove `openui5` config
+#### Remove "openui5" config
 
 Remove the existing `openui5` related configuration. It is not needed anymore.
 ```diff
+ // karma.conf.js
  {
 
 -   openui5: {
@@ -66,6 +67,8 @@ Remove the existing `openui5` related configuration. It is not needed anymore.
  }
 ```
 
+#### Uninstall other frameworks
+
 Uninstall the following devDependencies (if existing) as they are also not required anymore
 - `karma-qunit` + `qunit` / `qunitjs`
   QUnit is supported out of the box and loaded from UI5 within your test.
@@ -86,6 +89,8 @@ Remove them also from the `frameworks` config. `ui5` must be the only framework
  }
 ```
 
+#### Remove "files" config
+
 The plugin automatically sets the "files" config when running in "html" mode.
 Therefore you must remove the defined "files" from your karma config
 ```diff
@@ -94,10 +99,12 @@ Therefore you must remove the defined "files" from your karma config
  }
 ```
 
-When using the [UI5 Tooling](https://github.com/SAP/ui5-tooling), this plugin will automatically use the installed dependencies to make them available within Karma. This means that there is no need to start a separate server.
+#### Configure a URL
 
-But when not using the [UI5 Tooling](https://github.com/SAP/ui5-tooling) you need to specify an URL where to load UI5 from.
-Compared to the previous `path` configuration, it must **not** include the `resources/sap-ui-core.js` path segment.
+When **using the [UI5 Tooling](https://github.com/SAP/ui5-tooling)**, this plugin will automatically use the installed dependencies to make them available within Karma. This means that there is no need to start a separate server.
+
+But when **not using** the [UI5 Tooling](https://github.com/SAP/ui5-tooling) you need to specify an URL where to load UI5 from.
+Compared to the previous `path` configuration, it must **not** include the `resources/sap-ui-core.js` path segment:
 ```diff
  {
 
@@ -119,32 +126,18 @@ Also, in case your project contains multiple testsuites, you need to define one 
 Please also see the general documentation for more information about this individual options:
 https://github.com/SAP/karma-ui5#readme
 
+<hr/>
 
-### Option 2 - using script mode
+### Option 2 - Keep using "script" mode
 
-If you would like to keep using the script-based approach from v0.x, you need to move the `client.openui5` configuration to the new `ui5` section and set the `mode` to "script".
-```diff
-- {
--  openui5: {
--     "config": {
--         // ...
--     }
-- }
-
-+ ui5: {
-+     mode: "script",
-+     config: {
-+         // ...
-+     }
-+ }
-```
-Note that the built-in MockServer support is not available anymore.
+You can also keep using the script-based approach from v0.x.
 
 #### Remove MockServer config
 
-Remove the `useMockServer` config as it's not supported anymore. Instead make sure to start up the MockServer from your test code.
+Remove the `useMockServer` / `mockserver` config as it's not supported anymore. Instead make sure to start up the MockServer from your test code.
 
 ```diff
+ // karma.conf.js
  {
    openui5: {
 -    useMockServer: true
@@ -160,7 +153,12 @@ Remove the `useMockServer` config as it's not supported anymore. Instead make su
  }
 ```
 
-#### Move config to ui5 section / enable "script" mode
+#### Move openui5 config to ui5 section
+
+The previous `openui5` and `client.openui5` sections have been merged into a new `ui5` configuration.
+
+**Note:** The `path` option has been renamed to `url`. Compared to the previous `path` configuration, it must **not** include the `resources/sap-ui-core.js` path segment.  
+When using the [UI5 Tooling](https://github.com/SAP/ui5-tooling) you can also remove the `url` option. The plugin will automatically use the installed dependencies to make them available within Karma. This means that there is no need to start a separate server.
 
 ```diff
  {
@@ -171,6 +169,10 @@ Remove the `useMockServer` config as it's not supported anymore. Instead make su
 +    tests: [ ... ]
    },
 
+-  openui5: {
+-    path: "https://example.com/resources/sap-ui-core.js"
+-  }
+
    client: {
 -    openui5: {
 -      config: { ... },
@@ -180,3 +182,33 @@ Remove the `useMockServer` config as it's not supported anymore. Instead make su
 
  }
 ```
+
+#### Remove "files" config
+
+The plugin automatically sets the "files" config to make your project files available.
+
+When using the `tests` config to load your test modules, you must completely remove the `files` section
+```diff
+ {
+-  files: [
+-     { pattern: "**", included: false, served: true, watched: true },
+-  ]
+ }
+```
+
+When **not** using the `tests` config you still need to add the files to be included, but must remove the glob pattern to make all project files available.
+```diff
+ {
+  files: [
+-   { pattern: "**", included: false, served: true, watched: true },
+    "webapp/test/karma-main.js"
+  ]
+ }
+```
+
+
+Those steps should be sufficent for most application and library projects.
+In case your project uses a different stucture, you will get an error pointing you to what needs to be adopted.
+
+Please also see the general documentation for more information about this individual options:
+https://github.com/SAP/karma-ui5#readme
