@@ -14,6 +14,14 @@ The plugin has been renamed from `karma-openui5` to `karma-ui5`.
 The `useMockServer` option has been removed.
 A MockServer needs to be started from the test code.
 
+### Karma peerDependency
+
+The minimum required "karma" version is v1.7.1.
+
+### Node.js support
+
+The minimum required Node.js version is v8.5.
+
 
 ## How to upgrade
 
