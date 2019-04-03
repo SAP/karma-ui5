@@ -582,7 +582,7 @@ describe("Execution mode", () => {
 		expect(framework.config.client.ui5.useIframe).toBe(true);
 	});
 
-	it("Should overwrite useIframe default", () => {
+	it("Should not overwrite useIframe default (currently not supported)", () => {
 		const config = {
 			client: {
 				ui5: {
@@ -593,7 +593,7 @@ describe("Execution mode", () => {
 		const framework = new Framework();
 		framework.exists = () => true;
 		framework.init({config, logger});
-		expect(framework.config.client.ui5.useIframe).toBe(false);
+		expect(framework.config.client.ui5.useIframe).toBe(true);
 	});
 });
 
