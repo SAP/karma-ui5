@@ -39,7 +39,7 @@ And rename the framework in your `karma.conf.js` from `openui5` to `ui5`
 
 Using the new built-in QUnit HTML Runner makes most of the karma configuration obsolete and instead runs your existing QUnit testsuites and testpages. This is the recommended way as it eases the configuration and uses the same setup as opening the HTML pages manually in the browser.
 
-In case you would like to stick with the previous script-based approach from v0.x, see [Option 2 - Keep using "script" mode](#option-2--using-script-mode) below.
+In case you would like to stick with the previous script-based approach from v0.x, see [Option 2 - Keep using "script" mode](#option-2---keep-using-script-mode) below.
 
 #### Remove "openui5" config
 
@@ -123,7 +123,7 @@ Those steps should be sufficent for most application and library projects.
 In case your project uses a different stucture, you will get an error pointing you to what needs to be adopted.
 Also, in case your project contains multiple testsuites, you need to define one of them to start from.
 
-Please also see the general documentation for more information about this individual options:
+Please also see the general documentation for more information about this individual options:  
 https://github.com/SAP/karma-ui5#readme
 
 <hr/>
@@ -210,5 +210,5 @@ When **not** using the `tests` config you still need to add the files to be incl
 Those steps should be sufficent for most application and library projects.
 In case your project uses a different stucture, you will get an error pointing you to what needs to be adopted.
 
-Please also see the general documentation for more information about this individual options:
+Please also see the general documentation for more information about this individual options:  
 https://github.com/SAP/karma-ui5#readme

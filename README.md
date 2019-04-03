@@ -3,32 +3,32 @@
 [![NPM Version](https://img.shields.io/npm/v/karma-ui5.svg?style=flat)](https://www.npmjs.org/package/karma-ui5)
 
 **Table of Contents**
-
 - [About](#about)
-  - [Quickstart](#quickstart)
-    - [Installation](#installation)
-    - [Configuration](#configuration)
-    - [Execution](#execution)
-  - [Advanced Configuration Options](#advanced-configuration-options)
-    - [Project Types](#project-types)
-    - [Custom paths](#custom-paths)
-    - [UI5 URL](#ui5-url)
-    - [UI5 Tooling Middleware](#ui5-tooling-middleware)
-    - [Defining Testpage](#defining-testpage)
-  - [Advanced usage](#advanced-usage)
-    - [Configuration](#configuration-1)
-      - [Bootstrap](#bootstrap)
-      - [Tests](#tests)
-  - [Application constrains](#application-constrains)
-    - [QUnit dependency](#qunit-dependency)
-    - [OPA5: Component containers instead of iFrames](#opa5-component-containers-instead-of-iframes)
-  - [License](#license)
+- [Quickstart](#quickstart)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+  - [Execution](#execution)
+- [Karma configuration requirements](#karma-configuration-requirements)
+- [Options](#options)
+  - [url](#url)
+  - [type](#type)
+  - [paths](#paths)
+  - [mode](#mode)
+    - [html](#html)
+    - [script](#script)
+  - [testpage](#testpage)
+  - [config](#config)
+  - [tests](#tests)
+- [License](#license)
 
-# About
+
+## About
 This Karma adapter helps testing your UI5 projects.
 
-**Note:** This project has been renamed from `karma-openui5` to `karma-ui5`.  
+**Note:** This project has been renamed from `karma-openui5` to `karma-ui5` with the v1.0.0 release.  
+Checkout the [Migration Guide](./docs/updates/migrate-v1.md) to see how to upgrade.  
 The `karma-openui5` documentation can be found on the [0.x branch](https://github.com/SAP/karma-ui5/tree/0.x#readme).
+
 
 ## Quickstart
 
@@ -194,7 +194,7 @@ Default: `"html"`
 
 Configures the mode how tests should be executed.
 
-**html**
+#### html
 
 The HTML mode runs QUnit testsuites and testpages in a separate context.  
 It has built-in support for QUnit. The [QUnit adapter](https://github.com/karma-runner/karma-qunit) **must not be used** in combination with this mode. Other framework plugins must also not be used and instead required libraries such as sinon should be loaded within the test.
@@ -208,7 +208,7 @@ ui5: {
 Specific config options
 - [testpage](#testpage)
 
-**script**
+#### script
 
 The script mode includes the UI5 bootstrap script, allows to pass UI5 config and loads your test modules.  
 You need to also install and configure an adapter for your test framework such as [QUnit](https://github.com/karma-runner/karma-qunit), to enable test execution and reporting.
@@ -223,10 +223,10 @@ Specific config options
 - [config](#config)
 - [tests](#tests)
 
-#### testpage
+### testpage
 Type: `string`  
 CLI: `--ui5.testpage`  
-Specific to `"html"` [mode](#mode)
+Specific to ["html" mode](#html)
 
 A file path pointing to a testpage or testsuite that should be executed.  
 The path needs to be relative to the project root.
@@ -242,9 +242,9 @@ ui5: {
 }
 ```
 
-#### config
+### config
 Type: `object`  
-Specific to `"script"` [mode](#mode)
+Specific to ["script" mode](#script)
 
 Configuration for the [UI5 bootstrap](https://openui5.hana.ondemand.com/#/topic/91f2d03b6f4d1014b6dd926db0e91070.html).
 
@@ -263,9 +263,9 @@ ui5: {
 }
 ```
 
-#### tests
+### tests
 Type: `Array`  
-Specific to [mode](#mode) `"script"`
+Specific to ["script" mode](#script)
 
 List of test modules that should be loaded (via `sap.ui.require`).  
 If not provided, the test files must be included in the [karma `files` config](https://karma-runner.github.io/latest/config/files.html) to load them with &lt;script&gt; tags.
@@ -280,27 +280,6 @@ ui5: {
   ]
 }
 ```
-
-## Application constrains
-### QUnit dependency
-Do no require QUnit resources from within the tests. Karma loads its own versions of them in order hook in its reporting at the right places.
-
-Therefore rather load those resources in the non-karma specific test runner HTML pages. Like this:
-````html
-    <script src="../../resources/sap/ui/thirdparty/qunit.js"></script>
-    <script src="../../resources/sap/ui/qunit/qunit-css.js"></script>
-````
-
-### OPA5: Component containers instead of iFrames
-*Only relevant when using [Istanbul](https://istanbul.js.org/) to create test coverage*
-
-[Istanbul](https://istanbul.js.org/) has problems collecting code coverage results from within iFrames. To gather code coverage from OPA5 tests you need to execute them inside of component containers instead of iFrames. This will also speed up the execution time of your OPA5 tests.
-
-**Notice:** With component containers you will loose the isolation of your single tests. Also, your applications `index.html` won't be executed anymore (as only the applications `Component.js` will be needed).
-
-In your tests, replace `iStartMyAppInAFrame()` with`iStartMyUIComponent()` and `iTeardownMyAppFrame()` with `iTeardownMyUIComponent()`.
-
-For more information see the API reference of [sap.ui.test.Opa5](https://sapui5.hana.ondemand.com/#docs/api/symbols/sap.ui.test.Opa5.html#iStartMyUIComponent)
 
 ## License
 (c) Copyright 2019 SAP SE or an SAP affiliate company
