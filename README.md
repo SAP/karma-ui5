@@ -26,7 +26,7 @@
 This Karma adapter helps testing your UI5 projects.
 
 **Note:** This project has been renamed from `karma-openui5` to `karma-ui5` with the v1.0.0 release.  
-Checkout the [Migration Guide](./docs/updates/migrate-v1.md) to see how to upgrade.  
+Checkout the [Migration Guide](./docs/migrate-v1.md) to see how to upgrade.  
 The `karma-openui5` documentation can be found on the [0.x branch](https://github.com/SAP/karma-ui5/tree/0.x#readme).
 
 
