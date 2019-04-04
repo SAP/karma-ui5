@@ -2,7 +2,23 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v1.0.0-beta.2...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v1.0.0...HEAD).
+
+<a name="v1.0.0"></a>
+## [v1.0.0] - 2019-04-04
+### Breaking Changes
+- Update karma peerDependency to ">= 1.7.1" [`2d06e91`](https://github.com/SAP/karma-ui5/commit/2d06e91a6eeb1d5439d64019fe36f2106d9e67ae)
+
+### Bug Fixes
+- Don't create webpack bundle on postinstall [`8dbb33a`](https://github.com/SAP/karma-ui5/commit/8dbb33aba77902d3d700f8ff0e680f02a3659088)
+- Keep last test page open [`6abbec4`](https://github.com/SAP/karma-ui5/commit/6abbec4da2d6becc655b3d885800ab6caf8a64ca)
+- Use full screen size for QUnit HTML iframe [`e8c63a5`](https://github.com/SAP/karma-ui5/commit/e8c63a5db7764c180bdac033bfd9bd88f7809109)
+- **TypeError:** top.jsUnitTestSuite is not a constructor [`729a9d3`](https://github.com/SAP/karma-ui5/commit/729a9d38b6f08d02b1cb81d2877a19f0631863cb)
+
+### Features
+- Enable UI5 Tooling support for "script" mode [`5e80a72`](https://github.com/SAP/karma-ui5/commit/5e80a7200a9858240ccdcde8c0d091460087bfbd)
+- Introduce "html" / "script" mode [`bc0aa54`](https://github.com/SAP/karma-ui5/commit/bc0aa548f17a19e483176367d01a6aef6fa6e96c)
+
 
 <a name="v1.0.0-beta.2"></a>
 ## [v1.0.0-beta.2] - 2019-03-22
@@ -56,6 +72,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v1.0.0]: https://github.com/SAP/karma-ui5/compare/v1.0.0-beta.2...v1.0.0
 [v1.0.0-beta.2]: https://github.com/SAP/karma-ui5/compare/v1.0.0-beta.1...v1.0.0-beta.2
 [v1.0.0-beta.1]: https://github.com/SAP/karma-ui5/compare/0.2.3...v1.0.0-beta.1
 [0.2.3]: https://github.com/SAP/karma-ui5/compare/0.2.2...0.2.3
