@@ -171,7 +171,6 @@ When using the [UI5 Tooling](https://github.com/SAP/ui5-tooling) you can also re
 ```diff
  {
    ui5: {
-+    mode: "script",
 +    url: "https://example.com",
 +    config: { ... },
 +    tests: [ ... ]
@@ -189,6 +188,19 @@ When using the [UI5 Tooling](https://github.com/SAP/ui5-tooling) you can also re
    }
 
  }
+```
+
+#### Configure "script" mode
+
+The "script" mode needs to be enabled in the "ui5" config:
+```diff
+ {
+   ui5: {
++    mode: "script",
+     config: { ... },
+     tests: [ ... ]
+   }
+}
 ```
 
 #### Remove "files" config
