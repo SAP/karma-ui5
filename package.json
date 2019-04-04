@@ -1,6 +1,6 @@
 {
   "name": "karma-ui5",
-  "description": "A Karma plugin. Adapter for UI5",
+  "description": "A Karma plugin for UI5",
   "version": "1.0.0-beta.2",
   "author": "SAP SE (https://www.sap.com)",
   "license": "Apache-2.0",

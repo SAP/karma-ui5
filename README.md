@@ -23,7 +23,7 @@
 
 
 ## About
-This Karma adapter helps testing your UI5 projects.
+This Karma plugin helps testing your UI5 projects.
 
 **Note:** This project has been renamed from `karma-openui5` to `karma-ui5` with the v1.0.0 release.  
 Checkout the [Migration Guide](./docs/migrate-v1.md) to see how to upgrade.  
