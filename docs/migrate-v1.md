@@ -43,6 +43,22 @@ And rename the framework in your `karma.conf.js` from `openui5` to `ui5`
  }
 ```
 
+### Check your "basePath" configuration
+
+There is an important requirement for this plugin that needs to be respected in order to use it.
+
+The karma `basePath` option **must point to your project root, not to a subfolder** like "webapp". This is the default, when your `karma.conf.js` is in the project root and `basePath` is not set.  
+It is required for the [type detection](https://github.com/SAP/karma-ui5/#type) and automatic inclusion of your project files.
+
+In case your `karma.conf.js` is in the project root, you can just remove the `basePath` config:
+```diff
+ {
+-  basePath: "webapp"
+ }
+```
+
+**Note:** Make sure to also update relative paths in your karma config file, e.g. for `preprocessors`.
+
 ### Option 1 - Switch to "html" mode
 
 Using the new built-in QUnit HTML Runner makes most of the karma configuration obsolete and instead runs your existing QUnit testsuites and testpages. This is the recommended way as it eases the configuration and uses the same setup as opening the HTML pages manually in the browser.
