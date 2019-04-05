@@ -109,9 +109,9 @@ For more information, see the ["Configuration File" documentation from Karma](ht
 
 ## Karma configuration requirements
 
-There is an important requirement for this plugin that needs to be respected in order to use this plugin
+There is an important requirement for this plugin that needs to be respected in order to use it.
 
-- `basePath` must point to your project root. This is the default, when your `karma.conf.js` is in the project root.  
+The karma `basePath` option **must point to your project root, not to a subfolder** like "webapp". This is the default, when your `karma.conf.js` is in the project root and `basePath` is not set.  
 It is required for the [type detection](#type) and automatic inclusion of your project files.
 
 ## Options
