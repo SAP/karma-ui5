@@ -65,7 +65,7 @@
     "@ui5/project": "^1.0.0",
     "@ui5/server": "^1.0.0",
     "http-proxy": "^1.17.0",
-    "js-yaml": "^3.13.0"
+    "js-yaml": "^3.13.1"
   },
   "devDependencies": {
     "@openui5/sap.ui.core": "^1.64.0",
