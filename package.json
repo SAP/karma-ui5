@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "@ui5/fs": "^1.0.2",
-    "@ui5/project": "^1.0.0",
+    "@ui5/project": "^1.0.2",
     "@ui5/server": "^1.0.0",
     "http-proxy": "^1.17.0",
     "js-yaml": "^3.13.1"
@@ -86,7 +86,7 @@
     "lodash.assign": "^4.2.0",
     "puppeteer": "^1.14.0",
     "qunit": "^2.9.2",
-    "webpack": "^4.29.6",
+    "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0"
   }
 }
