@@ -139,7 +139,7 @@ CLI: `--ui5.url`
 
 The URL where UI5 should be loaded from.
 
-When omitted and the project contains a `ui5.yaml` file, the [UI5 Tooling](https://github.com/SAP/ui5-tooling) will be used as server middleware.
+When omitted and the project contains a `ui5.yaml` file, [UI5 Tooling](https://github.com/SAP/ui5-tooling) will be used as server middleware.
 
 Example:
 ```js
@@ -210,8 +210,8 @@ ui5: {
 }
 ```
 
-Specific config options
-- [test page](#testpage)
+Specific config options:
+- [testpage](#testpage)
 
 #### script
 
