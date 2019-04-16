@@ -76,7 +76,7 @@
     "eslint-plugin-jsdoc": "^4.8.3",
     "istanbul-lib-coverage": "^2.0.3",
     "jest": "^24.7.1",
-    "karma": "^4.0.0",
+    "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
     "karma-edge-launcher": "^0.4.2",
