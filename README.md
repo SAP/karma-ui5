@@ -26,15 +26,15 @@
 This Karma plugin helps testing your UI5 projects.
 
 **Note:** This project has been renamed from `karma-openui5` to `karma-ui5` with the v1.0.0 release.  
-Checkout the [Migration Guide](./docs/migrate-v1.md) to see how to upgrade.  
-The `karma-openui5` documentation can be found on the [0.x branch](https://github.com/SAP/karma-ui5/tree/0.x#readme).
+For upgrade information, see the [Migration Guide](./docs/migrate-v1.md).  
+For the `karma-openui5` documentation, see [0.x branch](https://github.com/SAP/karma-ui5/tree/0.x#readme).
 
 
 ## Quickstart
 
 ### Installation
 
-First you need to install the Karma CLI globally
+First you need to install the Karma CLI globally:
 
 ```shell
 npm install -g karma-cli
@@ -42,25 +42,27 @@ npm install -g karma-cli
 
 You can find more information on installing Karma [here](https://karma-runner.github.io/latest/intro/installation.html).
 
-Next you need to add `karma` and `karma-ui5` as devDependencies:
+Next, you need to add `karma` and `karma-ui5` as devDependencies:
 
 ```shell
 npm install --save-dev karma karma-ui5
 ```
 
-To start a browser you also need to install a launcher, e.g. for Chrome
+To start a browser, you also need to install a launcher, e.g. for Chrome:
+
 ```shell
 npm install --save-dev karma-chrome-launcher
 ```
 
 ### Configuration
 
-To configure this plugin you need to add two things to your `karma.conf.js`:
-1. Specify `"ui5"` in the list of `frameworks`
-1. Set a URL for serving the UI5 resources
-   - **Note:** This can be omitted when [using the UI5 Tooling](#url)
+To configure the plugin, you need to add two things to your `karma.conf.js`:
+1. Specify `"ui5"` in the list of `frameworks`.
+1. Set a URL for serving the UI5 resources.
+   - **Note:** This can be omitted when you use [UI5 Tooling](#url).
 
 This is an example `karma.conf.js` file that is sufficient for most projects:
+
 ```js
 module.exports = function(config) {
   config.set({
@@ -79,12 +81,13 @@ module.exports = function(config) {
 
 ### Execution
 
-With the above configuration karma will by default run all tests in Chrome and listen for changed files to execute them again (watch mode)
+With the above configuration, karma will by default run all tests in Chrome and listen for changed files to execute them again (watch mode).
+
 ```sh
 karma start
 ```
 
-For CI testing you can run Chrome in headless mode and execute the tests only once using the `singleRun` option:
+For CI testing, you can run Chrome in headless mode and execute the tests only once using the `singleRun` option:
 
 ```js
 module.exports = function(config) {
@@ -99,7 +102,7 @@ module.exports = function(config) {
 };
 ```
 
-The options can also be set via CLI arguments
+The options can also be set via CLI arguments:
 
 ```sh
 karma start --browsers=ChromeHeadless --singleRun=true
@@ -107,16 +110,17 @@ karma start --browsers=ChromeHeadless --singleRun=true
 
 For more information, see the ["Configuration File" documentation from Karma](https://karma-runner.github.io/latest/config/configuration-file.html).
 
-## Karma configuration requirements
+## Karma Configuration Requirements
 
-There is an important requirement for this plugin that needs to be respected in order to use it.
+There is an important requirement for using this plugin:
 
-The karma `basePath` option **must point to your project root, not to a subfolder** like "webapp". This is the default, when your `karma.conf.js` is in the project root and `basePath` is not set.  
+- The karma `basePath` option **must point to your project root, not to a subfolder** like "webapp". This is the default when your `karma.conf.js` is in the project root.  
 It is required for the [type detection](#type) and automatic inclusion of your project files.
 
 ## Options
 
 All configuration options need to be defined in an `ui5` object in your Karma configuration:
+
 ```js
 module.exports = function(config) {
   config.set({
@@ -135,7 +139,7 @@ CLI: `--ui5.url`
 
 The URL where UI5 should be loaded from.
 
-When omitted and the project contains a `ui5.yaml` file, the [UI5 Tooling](https://github.com/SAP/ui5-tooling) will be used as server middleware.
+When omitted and the project contains a `ui5.yaml` file, [UI5 Tooling](https://github.com/SAP/ui5-tooling) will be used as server middleware.
 
 Example:
 ```js
@@ -149,12 +153,13 @@ Type: `enum` (`"application"` / `"library"`)
 
 Defines the [project type](https://github.com/SAP/ui5-builder#types).  
 If not set, it is automatically detected based on
-- type defined in `ui5.yaml` or
+- the type defined in `ui5.yaml`, or
 - existing folders
   - "webapp" => `application`
   - "src" / "test" => `library`
 
 Example:
+
 ```js
 ui5: {
   type: "application"
@@ -165,7 +170,7 @@ ui5: {
 Type: `object`
 
 Custom path mappings for project folders based on the `type`.  
-Option is only to be used when the automatic type detection does not work as the project uses a different folder structure.
+Use this option only when the automatic type detection does not work because the project uses a different folder structure.
 
 Example `application`:
 ```js
@@ -196,8 +201,8 @@ Configures the mode how tests should be executed.
 
 #### html
 
-The HTML mode runs QUnit testsuites and testpages in a separate context.  
-It has built-in support for QUnit. The [QUnit adapter](https://github.com/karma-runner/karma-qunit) **must not be used** in combination with this mode. Other framework plugins must also not be used and instead required libraries such as sinon should be loaded within the test.
+The HTML mode runs QUnit test suites and test pages in a separate context.  
+It has built-in support for QUnit. The [QUnit adapter](https://github.com/karma-runner/karma-qunit) **must not be used** in combination with this mode. Other framework plugins must also **not** be used. Instead, the required libraries such as sinon should be loaded within the test.
 
 ```js
 ui5: {
@@ -205,12 +210,12 @@ ui5: {
 }
 ```
 
-Specific config options
+Specific config options:
 - [testpage](#testpage)
 
 #### script
 
-The script mode includes the UI5 bootstrap script, allows to pass UI5 config and loads your test modules.  
+The script mode includes the UI5 bootstrap script. It allows to pass UI5 config and loads your test modules.  
 You need to also install and configure an adapter for your test framework such as [QUnit](https://github.com/karma-runner/karma-qunit), to enable test execution and reporting.
 
 ```js
@@ -219,7 +224,7 @@ ui5: {
 }
 ```
 
-Specific config options
+Specific config options:
 - [config](#config)
 - [tests](#tests)
 
@@ -228,11 +233,11 @@ Type: `string`
 CLI: `--ui5.testpage`  
 Specific to ["html" mode](#html)
 
-A file path pointing to a testpage or testsuite that should be executed.  
+A file path pointing to a test page or test suite that should be executed.  
 The path needs to be relative to the project root.
 
-If not set, the project is scanned for available testsuites (`testsuite.qunit.html`).  
-When exactly one is found, it will be used as `testpage`. Otherwise all found pages are printed out and one needs to be configured manually.
+If not set, the project is scanned for available test suites (`testsuite.qunit.html`).  
+When exactly one test suite is found, it will be used as `testpage`. Otherwise, all found pages are printed out and one of them needs to be configured manually.
 
 Example:
 ```js
@@ -246,7 +251,7 @@ ui5: {
 Type: `object`  
 Specific to ["script" mode](#script)
 
-Configuration for the [UI5 bootstrap](https://openui5.hana.ondemand.com/#/topic/91f2d03b6f4d1014b6dd926db0e91070.html).
+Configuration of the [UI5 bootstrap](https://openui5.hana.ondemand.com/#/topic/91f2d03b6f4d1014b6dd926db0e91070.html).
 
 Example:
 ```js
