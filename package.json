@@ -74,8 +74,8 @@
     "eslint-config-google": "^0.12.0",
     "eslint-plugin-jest": "^22.5.1",
     "eslint-plugin-jsdoc": "^4.8.3",
-    "istanbul-lib-coverage": "^2.0.4",
-    "jest": "^24.7.1",
+    "istanbul-lib-coverage": "^2.0.5",
+    "jest": "^24.8.0",
     "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
@@ -87,6 +87,6 @@
     "puppeteer": "^1.15.0",
     "qunit": "^2.9.2",
     "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.1"
+    "webpack-cli": "^3.3.2"
   }
 }
