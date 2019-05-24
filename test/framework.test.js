@@ -78,7 +78,6 @@ describe("Middleware for UI5", () => {
 				expect(internalServeResourcesSpy).toBeCalledWith(req, res, next);
 				expect(rewriteUrlSpy).toBeCalledWith("/foo");
 				expect(req.url).toBe("/foo");
-				expect(req.path).toBe("/foo");
 				done();
 			};
 			serveResourcesMiddleware(req, res, next);
@@ -112,7 +111,6 @@ describe("Middleware for UI5", () => {
 				expect(internalServeThemesSpy).toBeCalledWith(req, res, next);
 				expect(rewriteUrlSpy).not.toBeCalled();
 				expect(req.url).toBe("/foo");
-				expect(req.path).toBeUndefined();
 				done();
 			};
 			serveThemesMiddleware(req, res, next);
