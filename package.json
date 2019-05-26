@@ -68,11 +68,11 @@
     "js-yaml": "^3.13.1"
   },
   "devDependencies": {
-    "@openui5/sap.ui.core": "^1.65.1",
+    "@openui5/sap.ui.core": "^1.66.0",
     "es6-promise": "^4.2.6",
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.12.0",
-    "eslint-plugin-jest": "^22.5.1",
+    "eslint-plugin-jest": "^22.6.4",
     "eslint-plugin-jsdoc": "^4.8.4",
     "istanbul-lib-coverage": "^2.0.5",
     "jest": "^24.8.0",
@@ -84,9 +84,9 @@
     "karma-qunit": "^3.1.2",
     "license-webpack-plugin": "^2.1.1",
     "lodash.assign": "^4.2.0",
-    "puppeteer": "^1.16.0",
+    "puppeteer": "^1.17.0",
     "qunit": "^2.9.2",
-    "webpack": "^4.31.0",
+    "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2"
   }
 }
