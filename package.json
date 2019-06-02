@@ -68,7 +68,7 @@
     "js-yaml": "^3.13.1"
   },
   "devDependencies": {
-    "@openui5/sap.ui.core": "^1.66.0",
+    "@openui5/sap.ui.core": "^1.66.1",
     "es6-promise": "^4.2.6",
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.12.0",
