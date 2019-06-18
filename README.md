@@ -25,6 +25,8 @@
 ## About
 This Karma plugin helps testing your UI5 projects.
 
+Please refer to the [Testing](https://openui5.hana.ondemand.com/#/topic/7cdee404cac441888539ed7bfe076e57) section in the UI5 Developer Guide for information about writing tests for your project.
+
 **Note:** This project has been renamed from `karma-openui5` to `karma-ui5` with the v1.0.0 release.  
 For upgrade information, see the [Migration Guide](./docs/migrate-v1.md).  
 For the `karma-openui5` documentation, see [0.x branch](https://github.com/SAP/karma-ui5/tree/0.x#readme).
