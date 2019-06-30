@@ -73,7 +73,7 @@
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.13.0",
     "eslint-plugin-jest": "^22.7.1",
-    "eslint-plugin-jsdoc": "^8.7.0",
+    "eslint-plugin-jsdoc": "^10.0.2",
     "istanbul-lib-coverage": "^2.0.5",
     "jest": "^24.8.0",
     "karma": "^4.1.0",
