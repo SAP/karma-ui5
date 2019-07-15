@@ -12,6 +12,9 @@ const registerIntegrationTest = async (configPath) => {
 	});
 };
 
+// Increase test timeout to 10s (default 5s)
+jest.setTimeout(10000);
+
 describe("Integration Tests", () => {
 	const configPaths = glob.sync(["integration/*/karma*.conf.js"], {cwd: __dirname});
 	for (const configPath of configPaths) {
