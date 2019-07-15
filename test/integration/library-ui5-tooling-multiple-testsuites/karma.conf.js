@@ -8,13 +8,7 @@ module.exports = function(config) {
 
 		ui5: {
 			testpage: "test/sap/test/lib/qunit/testsuite.qunit.html"
-		},
-
-		plugins: [
-			require("../../../lib"),
-			require("karma-chrome-launcher")
-		],
-
+		}
 
 	});
 };
