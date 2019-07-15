@@ -4,19 +4,37 @@ const execa = require("execa");
 
 const registerIntegrationTest = async (configPath) => {
 	it(configPath, async () => {
+		const fullConfigPath = path.join(__dirname, configPath);
+		const integrationTest = require(fullConfigPath);
 		const args = [
 			"start",
-			path.join(__dirname, configPath)
+			fullConfigPath
 		];
 		if (process.argv[process.argv.length - 1] === "--browsers=IE") {
 			// Allow switching to IE by passing a CLI arg
 			args.push("--browsers=IE");
 		}
-		await execa("karma", args, {
+		const karmaProcess = await execa("karma", args, {
 			cwd: __dirname,
-			stdio: "inherit",
-			preferLocal: true // allow executing local karma binary
+			preferLocal: true, // allow executing local karma binary
+			reject: false
 		});
+		// eslint-disable-next-line no-console
+		console.log(karmaProcess.all);
+
+		if (integrationTest.shouldFail && !karmaProcess.failed) {
+			throw new Error("Karma execution should have failed!");
+		}
+		if (!integrationTest.shouldFail && karmaProcess.failed) {
+			throw new Error("Karma execution should not have failed!");
+		}
+
+		if (integrationTest.assertions) {
+			integrationTest.assertions({
+				expect,
+				log: karmaProcess.all
+			});
+		}
 	});
 };
 

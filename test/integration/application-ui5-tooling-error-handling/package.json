@@ -1,0 +1,7 @@
+{
+  "name": "application-ui5-tooling-error-handling",
+  "version": "1.0.0",
+  "dependencies": {
+		"@openui5/sap.ui.core": "*"
+	}
+}
