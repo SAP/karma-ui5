@@ -4,12 +4,7 @@ module.exports = function(config) {
 	require("../karma-base.conf")(config);
 	config.set({
 
-		frameworks: ["ui5"],
-
-		plugins: [
-			require("../../../lib"),
-			require("karma-chrome-launcher")
-		]
+		frameworks: ["ui5"]
 
 	});
 };

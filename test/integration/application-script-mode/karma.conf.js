@@ -24,13 +24,7 @@ module.exports = function(config) {
 			qunit: {
 				showUI: true
 			}
-		},
-
-		plugins: [
-			require("../../../lib"),
-			require("karma-chrome-launcher"),
-			require("karma-qunit")
-		]
+		}
 
 	});
 };

@@ -19,13 +19,7 @@ module.exports = function(config) {
 			]
 		},
 
-		frameworks: ["qunit", "ui5"],
-
-		plugins: [
-			require("../../../lib"),
-			require("karma-chrome-launcher"),
-			require("karma-qunit")
-		]
+		frameworks: ["qunit", "ui5"]
 
 	});
 };

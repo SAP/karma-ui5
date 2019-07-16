@@ -4,12 +4,6 @@ module.exports = function(config) {
 	require("./karma.conf")(config);
 	config.set({
 
-		plugins: [
-			require("../../../"),
-			require("karma-coverage"),
-			require("karma-chrome-launcher")
-		],
-
 		preprocessors: {
 			"{webapp,webapp/!(test)}/*.js": ["coverage"]
 		},
@@ -35,7 +29,7 @@ module.exports = function(config) {
 			}
 		},
 
-		reporters: ["progress", "coverage"],
+		reporters: ["progress", "coverage"]
 
 	});
 };
