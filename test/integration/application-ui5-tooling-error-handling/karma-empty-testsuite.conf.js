@@ -15,5 +15,5 @@ module.exports = function(config) {
 
 module.exports.shouldFail = true;
 module.exports.assertions = ({expect, log}) => {
-	expect(log).toMatch(/No tests \(TBD\)/);
+	expect(log).toMatch(/Could not resolve any testpages/);
 };
