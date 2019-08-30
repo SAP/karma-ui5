@@ -1,5 +1,5 @@
 {
-  "name": "application-ui5-tooling",
+  "name": "application-ui5-tooling-url-parameters",
   "version": "1.0.0",
   "dependencies": {
 		"@openui5/sap.ui.core": "*"
