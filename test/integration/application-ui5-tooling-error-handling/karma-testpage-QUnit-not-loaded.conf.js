@@ -7,7 +7,7 @@ module.exports = function(config) {
 		frameworks: ["ui5"],
 
 		ui5: {
-			testpage: "webapp/test/testpage-not-found/testsuite.qunit.html"
+			testpage: "webapp/test/testpage-QUnit-not-loaded/testsuite.qunit.html"
 		}
 
 	});
@@ -15,5 +15,5 @@ module.exports = function(config) {
 
 module.exports.shouldFail = true;
 module.exports.assertions = ({expect, log}) => {
-	expect(log).toMatch(/Error while loading testpage/);
+	expect(log).toMatch(/Missing QUnit for testpage/);
 };
