@@ -33,6 +33,7 @@
     "unit": "jest test/framework.test.js",
     "unit-coverage": "jest test/framework.test.js --coverage",
     "integration": "jest test/integration.test.js",
+    "dev": "webpack --watch --mode=development",
     "prepare": "webpack",
     "preversion": "npm test",
     "version": "git-chglog --next-tag v$npm_package_version -o CHANGELOG.md && git add CHANGELOG.md",
