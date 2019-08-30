@@ -214,6 +214,7 @@ ui5: {
 
 Specific config options:
 - [testpage](#testpage)
+- [urlParameters](#urlParameters)
 
 #### script
 
@@ -246,6 +247,23 @@ Example:
 ui5: {
   mode: "html",
   testpage: "webapp/test/myTestPage.qunit.html"
+}
+```
+
+### urlParameters
+Type: `Array`  
+Specific to ["html" mode](#html)
+
+URL parameters to append to every testpage.
+
+Example:
+```js
+ui5: {
+    mode: "html",
+    urlParameters: [{
+        key: "hidepassed",
+        value: true
+    }]
 }
 ```
 

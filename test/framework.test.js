@@ -448,6 +448,32 @@ describe("Testpage", () => {
 	});
 });
 
+describe("urlParameters", () => {
+	it("Configured URL parameters should be passed to client config", () => {
+		const config = {
+			ui5: {
+				urlParameters: [
+					{
+						key: "test",
+						value: "🦆"
+					}
+				]
+			}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({
+			config: config,
+			logger: logger
+		});
+
+		expect(config.client.ui5.urlParameters).toStrictEqual([{
+			key: "test",
+			value: "🦆"
+		}]);
+	});
+});
+
 describe("Without QUnit HTML Runner (with URL)", () => {
 	it("Should include sap-ui-config.js and sap-ui-core.js", () => {
 		const config = {
@@ -599,6 +625,68 @@ describe("Error logging", () => {
 		};
 		expect(() => framework.init({config, logger})).toThrow();
 		expect(framework.logger.message).toBe(ErrorMessage.invalidMode("foo"));
+	});
+
+	it("Should throw if urlParameters configuration is used in script mode", () => {
+		const config = {
+			ui5: {
+				mode: "script",
+				urlParameters: [
+					{
+						key: "test",
+						value: "pony"
+					}
+				]
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.urlParametersConfigInNonHtmlMode("script", [{
+			key: "test",
+			value: "pony"
+		}]));
+	});
+
+	it("Should throw if urlParameters configuration is not an array", () => {
+		const config = {
+			ui5: {
+				urlParameters: "🐬"
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.urlParametersNotAnArray("🐬"));
+	});
+
+	it("Should throw if urlParameters configuration does not contain objects", () => {
+		const config = {
+			ui5: {
+				urlParameters: [{
+					key: "hidepassed",
+					value: "true"
+				},
+				"test=pony"
+				]
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.urlParameterNotObject("test=pony"));
+	});
+
+	it("Should throw if urlParameters configuration is missing \"value\" property", () => {
+		const config = {
+			ui5: {
+				urlParameters: [{
+					key: "hidepassed",
+					value: "true"
+				},
+				{
+					key: "🐧"
+				}]
+			}
+		};
+		expect(() => framework.init({config, logger})).toThrow();
+		expect(framework.logger.message).toBe(ErrorMessage.urlParameterMissingKeyOrValue({
+			key: "🐧"
+		}));
 	});
 
 	it("Should throw if multiple frameworks have been defined (qunit)", () => {
