@@ -15,5 +15,5 @@ module.exports = function(config) {
 
 module.exports.shouldFail = true;
 module.exports.assertions = ({expect, log}) => {
-	expect(log).toMatch(/Missing QUnit for testpage/);
+	expect(log).toMatch(/Missing QUnit framework/);
 };
