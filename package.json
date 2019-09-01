@@ -62,12 +62,12 @@
     "es6-promise": "^4.2.8",
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.13.0",
-    "eslint-plugin-jest": "^22.15.2",
-    "eslint-plugin-jsdoc": "^15.8.3",
+    "eslint-plugin-jest": "^22.16.0",
+    "eslint-plugin-jsdoc": "^15.8.4",
     "execa": "^2.0.4",
     "istanbul-lib-coverage": "^2.0.5",
     "jest": "^24.9.0",
-    "karma": "^4.2.0",
+    "karma": "^4.3.0",
     "karma-chrome-launcher": "^3.1.0",
     "karma-coverage": "^1.1.2",
     "karma-edge-launcher": "^0.4.2",
@@ -77,7 +77,7 @@
     "lodash.assign": "^4.2.0",
     "puppeteer": "^1.19.0",
     "qunit": "^2.9.2",
-    "webpack": "^4.39.2",
+    "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7"
   }
 }
