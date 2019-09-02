@@ -456,6 +456,10 @@ describe("urlParameters", () => {
 					{
 						key: "test",
 						value: "🦆"
+					},
+					{
+						key: 0,
+						value: "🐴"
 					}
 				]
 			}
@@ -470,6 +474,9 @@ describe("urlParameters", () => {
 		expect(config.client.ui5.urlParameters).toStrictEqual([{
 			key: "test",
 			value: "🦆"
+		}, {
+			key: 0,
+			value: "🐴"
 		}]);
 	});
 });
