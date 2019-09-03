@@ -19,8 +19,9 @@ const registerIntegrationTest = async (configPath) => {
 			preferLocal: true, // allow executing local karma binary
 			reject: false
 		});
-		// eslint-disable-next-line no-console
-		console.log(karmaProcess.all);
+
+		console.log(configPath); // eslint-disable-line no-console
+		console.log(karmaProcess.all); // eslint-disable-line no-console
 
 		if (integrationTest.shouldFail && !karmaProcess.failed) {
 			throw new Error("Karma execution should have failed!");
