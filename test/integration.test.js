@@ -4,7 +4,15 @@ const execa = require("execa");
 
 const registerIntegrationTest = async (configPath) => {
 	it(configPath, async () => {
-		await execa("karma", ["start", path.join(__dirname, configPath)], {
+		const args = [
+			"start",
+			path.join(__dirname, configPath)
+		];
+		if (process.argv[process.argv.length - 1] === "--browsers=IE") {
+			// Allow switching to IE by passing a CLI arg
+			args.push("--browsers=IE");
+		}
+		await execa("karma", args, {
 			cwd: __dirname,
 			stdio: "inherit",
 			preferLocal: true // allow executing local karma binary

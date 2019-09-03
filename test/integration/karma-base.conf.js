@@ -7,6 +7,7 @@ module.exports = function(config) {
 			require("../../"),
 			require("karma-coverage"),
 			require("karma-chrome-launcher"),
+			require("karma-ie-launcher"),
 			require("karma-qunit")
 		],
 
