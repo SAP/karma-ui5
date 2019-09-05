@@ -1,4 +1,5 @@
 const Framework = require("../lib/framework");
+const path = require("path");
 const fs = require("fs");
 const {ErrorMessage} = require("../lib/errors");
 
@@ -191,6 +192,146 @@ describe("UI5 Middleware / Proxy configuration", () => {
 	});
 });
 
+describe("ui5.paths handling", () => {
+	it("application: Should resolve relative path relative to basePath", () => {
+		const framework = new Framework();
+		const config = {
+			ui5: {
+				url: "http://localhost",
+				type: "application",
+				paths: {
+					webapp: "webapp-path"
+				}
+			}
+		};
+
+		framework.exists = (filePath) => {
+			return filePath === "webapp-path";
+		};
+
+		framework.init({config, logger});
+
+		expect(config.ui5.paths).toStrictEqual({
+			webapp: "webapp-path"
+		});
+	});
+	it("application: Should resolve absolute path relative to basePath", () => {
+		const framework = new Framework();
+		const config = {
+			ui5: {
+				url: "http://localhost",
+				type: "application",
+				paths: {
+					webapp: path.resolve("webapp-path")
+				}
+			}
+		};
+
+		framework.exists = (filePath) => {
+			return filePath === "webapp-path";
+		};
+
+		framework.init({config, logger});
+
+		expect(config.ui5.paths).toStrictEqual({
+			webapp: "webapp-path"
+		});
+	});
+
+	it("library: Should resolve relative paths relative to basePath", () => {
+		const framework = new Framework();
+		const config = {
+			ui5: {
+				url: "http://localhost",
+				type: "library",
+				paths: {
+					src: "src-path",
+					test: "test-path"
+				}
+			}
+		};
+
+		framework.exists = (filePath) => {
+			return filePath === "src-path" || filePath === "test-path";
+		};
+
+		framework.init({config, logger});
+
+		expect(config.ui5.paths).toStrictEqual({
+			src: "src-path",
+			test: "test-path"
+		});
+	});
+	it("library: Should resolve absolute paths relative to basePath", () => {
+		const framework = new Framework();
+		const config = {
+			ui5: {
+				url: "http://localhost",
+				type: "library",
+				paths: {
+					src: path.resolve("src-path"),
+					test: path.resolve("test-path")
+				}
+			}
+		};
+
+		framework.exists = (filePath) => {
+			return filePath === "src-path" || filePath === "test-path";
+		};
+
+		framework.init({config, logger});
+
+		expect(config.ui5.paths).toStrictEqual({
+			src: "src-path",
+			test: "test-path"
+		});
+	});
+
+	it("application: Should throw error when absolute path is not within basePath", () => {
+		const framework = new Framework();
+		const config = {
+			basePath: "/test/bar",
+			ui5: {
+				url: "http://localhost",
+				type: "application",
+				paths: {
+					webapp: "/test/foo/webapp-path"
+				}
+			}
+		};
+
+		expect(() => framework.init({config, logger})).toThrow();
+
+		expect(framework.logger.message).toBe(ErrorMessage.pathNotWithinBasePath({
+			pathName: "webapp",
+			pathValue: "/test/foo/webapp-path",
+			absolutePathValue: "/test/foo/webapp-path",
+			basePath: "/test/bar"
+		}));
+	});
+	it("application: Should throw error when relative path is not within basePath", () => {
+		const framework = new Framework();
+		const config = {
+			basePath: "/test/bar",
+			ui5: {
+				url: "http://localhost",
+				type: "application",
+				paths: {
+					webapp: "../foo/webapp-path"
+				}
+			}
+		};
+
+		expect(() => framework.init({config, logger})).toThrow();
+
+		expect(framework.logger.message).toBe(ErrorMessage.pathNotWithinBasePath({
+			pathName: "webapp",
+			pathValue: "../foo/webapp-path",
+			absolutePathValue: "/test/foo/webapp-path",
+			basePath: "/test/bar"
+		}));
+	});
+});
 
 describe("Utility functions", () => {
 	const framework = new Framework();
