@@ -1,0 +1,7 @@
+{
+  "name": "library-custompath-ui5-tooling",
+  "version": "1.0.0",
+  "dependencies": {
+		"@openui5/sap.ui.core": "*"
+	}
+}

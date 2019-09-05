@@ -333,7 +333,7 @@ describe("ui5.paths handling", () => {
 	});
 });
 
-describe("Utility functions", () => {
+describe("rewriteUrl", () => {
 	const framework = new Framework();
 	framework.exists = () => true;
 	framework.init({config: { }, logger});
@@ -384,6 +384,51 @@ describe("Utility functions", () => {
 			"/test-resources/sap/ui/test/",
 			"/test-resources/sap/ui/test/"
 		]);
+	});
+
+	it("Should rewrite url for application with deep webapp path", () => {
+		framework.config.ui5.type = "application";
+		framework.config.ui5.paths.webapp = "src/main/webapp";
+
+		// Good path
+		assertRewriteUrl([
+			"/base/src/main/webapp/resources/sap-ui-core.js",
+			"/resources/sap-ui-core.js"
+		]);
+		assertRewriteUrl([
+			"/base/src/main/webapp/test-resources/sap/ui/test/",
+			"/test-resources/sap/ui/test/"
+		]);
+		assertRewriteUrl([
+			"/base/src/main/webapp/foo.js",
+			"/foo.js"
+		]);
+
+		// Sad path (no rewrite)
+		// assertRewriteUrl([
+		// 	"/webapp/resources/sap-ui-core.js",
+		// 	"/webapp/resources/sap-ui-core.js"
+		// ]);
+		// assertRewriteUrl([
+		// 	"/webapp/test-resources/sap/ui/test/",
+		// 	"/webapp/test-resources/sap/ui/test/"
+		// ]);
+		// assertRewriteUrl([
+		// 	"/base/resources/sap-ui-core.js",
+		// 	"/base/resources/sap-ui-core.js"
+		// ]);
+		// assertRewriteUrl([
+		// 	"/base/test-resources/sap/ui/test/",
+		// 	"/base/test-resources/sap/ui/test/"
+		// ]);
+		// assertRewriteUrl([
+		// 	"/resources/sap-ui-core.js",
+		// 	"/resources/sap-ui-core.js"
+		// ]);
+		// assertRewriteUrl([
+		// 	"/test-resources/sap/ui/test/",
+		// 	"/test-resources/sap/ui/test/"
+		// ]);
 	});
 
 	it("Should rewrite url for library", () => {
@@ -477,6 +522,117 @@ describe("Utility functions", () => {
 	});
 });
 
+describe("rewriteUrlForKarma", () => {
+	const framework = new Framework();
+	framework.exists = () => true;
+	framework.init({config: { }, logger});
+
+	const assertRewriteUrlForKarma = ([input, expected]) => {
+		expect(framework.rewriteUrlForKarma(input)).toEqual(expected);
+	};
+
+	it("Should not rewrite urls for application", () => {
+		framework.config.ui5.type = "application";
+
+		assertRewriteUrlForKarma([
+			"/base/resources/sap/ui/foo/library.js",
+			"/base/resources/sap/ui/foo/library.js"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/test-resources/sap/ui/foo/test.js",
+			"/base/test-resources/sap/ui/foo/test.js"
+		]);
+	});
+
+	it("Should rewrite urls for library", () => {
+		framework.config.ui5.type = "library";
+
+		assertRewriteUrlForKarma([
+			"/base/resources/sap/ui/foo/library.js",
+			"/base/src/sap/ui/foo/library.js"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/test-resources/sap/ui/foo/test.js",
+			"/base/test/sap/ui/foo/test.js"
+		]);
+	});
+
+	it("Should rewrite urls for library with custom paths", () => {
+		framework.config.ui5.type = "library";
+		framework.config.ui5.paths = {
+			src: "src/main/js",
+			test: "src/test/js"
+		};
+
+		assertRewriteUrlForKarma([
+			"/base/src/main/resources/sap/ui/foo.js",
+			"/base/src/main/js/sap/ui/foo.js"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/src/main/test-resources/sap/ui/foo/test.js",
+			"/base/src/test/js/sap/ui/foo/test.js"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/src/test/resources/sap/ui/foo.js",
+			"/base/src/main/js/sap/ui/foo.js"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/src/test/test-resources/sap/ui/foo/test.js",
+			"/base/src/test/js/sap/ui/foo/test.js"
+		]);
+	});
+
+	it("Should not rewrite unrelated urls for library", () => {
+		framework.config.ui5.type = "library";
+
+		assertRewriteUrlForKarma([
+			"/context.html",
+			"/context.html"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/foo.js",
+			"/base/foo.js"
+		]);
+	});
+
+	it("Should not rewrite url when no type is given", () => {
+		framework.config.ui5.type = undefined;
+
+		assertRewriteUrlForKarma([
+			"/base/resources/sap/ui/foo/library.js",
+			"/base/resources/sap/ui/foo/library.js"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/test-resources/sap/ui/foo/test.js",
+			"/base/test-resources/sap/ui/foo/test.js"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/src/main/resources/sap/ui/foo.js",
+			"/base/src/main/resources/sap/ui/foo.js"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/src/main/test-resources/sap/ui/foo/test.js",
+			"/base/src/main/test-resources/sap/ui/foo/test.js"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/src/test/resources/sap/ui/foo.js",
+			"/base/src/test/resources/sap/ui/foo.js"
+		]);
+		assertRewriteUrlForKarma([
+			"/base/src/test/test-resources/sap/ui/foo/test.js",
+			"/base/src/test/test-resources/sap/ui/foo/test.js"
+		]);
+	});
+
+	it("Should throw error when invalid type is given", () => {
+		framework.config.ui5.type = "foo";
+
+		const loggerSpy = jest.spyOn(framework.logger, "log");
+		framework.rewriteUrlForKarma("/foo");
+		expect(loggerSpy).toBeCalled();
+	});
+});
+
 describe("Plugin setup", () => {
 	it("Should include browser bundle", () => {
 		const config = {
@@ -542,6 +698,7 @@ describe("Types configuration", () => {
 		framework.init({config, logger});
 
 		expect(config.files.find((file) => file.pattern.endsWith("/{webapp/**,webapp/**/.*}"))).toBeDefined();
+		expect(config.proxies).toBeUndefined();
 	});
 
 	it("library: Should modify config file for libraries", () => {
@@ -555,11 +712,10 @@ describe("Types configuration", () => {
 		const framework = new Framework();
 		framework.exists = () => true;
 		framework.init({config, logger});
+
 		expect(config.files.find((file) => file.pattern.endsWith("/{src/**,src/**/.*}"))).toBeDefined();
 		expect(config.files.find((file) => file.pattern.endsWith("/{test/**,test/**/.*}"))).toBeDefined();
-
-		expect(config.proxies["/base/resources/"]).toEqual("/base/src/");
-		expect(config.proxies["/base/test-resources/"]).toEqual("/base/test/");
+		expect(config.proxies).toBeUndefined();
 	});
 
 	// TODO: What should happen?
