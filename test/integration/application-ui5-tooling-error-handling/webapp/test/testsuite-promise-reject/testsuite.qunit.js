@@ -1,5 +1,3 @@
-/* global window */
-
 window.suite = function() {
 	"use strict";
 
