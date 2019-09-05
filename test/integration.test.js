@@ -1,6 +1,8 @@
 const glob = require("fast-glob");
 const path = require("path");
 const execa = require("execa");
+const {promisify} = require("util");
+const rimraf = promisify(require("rimraf"));
 
 const registerIntegrationTest = async (configPath) => {
 	it(configPath, async () => {
@@ -14,6 +16,10 @@ const registerIntegrationTest = async (configPath) => {
 			// Allow switching to IE by passing a CLI arg
 			args.push("--browsers=IE");
 		}
+
+		// Clean up coverage folder
+		await rimraf(path.join(path.dirname(fullConfigPath), "coverage"));
+
 		const karmaProcess = await execa("karma", args, {
 			cwd: __dirname,
 			preferLocal: true, // allow executing local karma binary
