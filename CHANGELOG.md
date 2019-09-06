@@ -2,7 +2,19 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v1.0.1...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v1.1.0...HEAD).
+
+<a name="v1.1.0"></a>
+## [v1.1.0] - 2019-09-05
+### Bug Fixes
+- Resolve absolute paths (webapp / src / test) [`4f8c180`](https://github.com/SAP/karma-ui5/commit/4f8c180c0f38e3f6950b9f1bfb40d4d0dbb03c6e)
+- Fix link in testsuite error messages [`8129dfd`](https://github.com/SAP/karma-ui5/commit/8129dfd5a9a9e10353145e06ec2aae5da93513f4)
+- Improve error handling ([#102](https://github.com/SAP/karma-ui5/issues/102)) [`482d646`](https://github.com/SAP/karma-ui5/commit/482d64625dce50b06d1d09d4a76dd05e80831c9a)
+- Execution in IE11 (html mode) [`7c793ae`](https://github.com/SAP/karma-ui5/commit/7c793ae1640d03594e95bf0172f7cb01f35f9c95)
+
+### Features
+- Add option to provide URL parameters for each testpage ([#109](https://github.com/SAP/karma-ui5/issues/109)) [`7722d4a`](https://github.com/SAP/karma-ui5/commit/7722d4a2e3ace7db27991599d03a3d6ff95d133e)
+
 
 <a name="v1.0.1"></a>
 ## [v1.0.1] - 2019-06-17
@@ -75,6 +87,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v1.1.0]: https://github.com/SAP/karma-ui5/compare/v1.0.1...v1.1.0
 [v1.0.1]: https://github.com/SAP/karma-ui5/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/SAP/karma-ui5/compare/v1.0.0-beta.2...v1.0.0
 [v1.0.0-beta.2]: https://github.com/SAP/karma-ui5/compare/v1.0.0-beta.1...v1.0.0-beta.2
