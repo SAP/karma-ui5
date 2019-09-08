@@ -63,7 +63,7 @@
     "es6-promise": "^4.2.8",
     "eslint": "^6.3.0",
     "eslint-config-google": "^0.13.0",
-    "eslint-plugin-jest": "^22.16.0",
+    "eslint-plugin-jest": "^22.17.0",
     "eslint-plugin-jsdoc": "^15.8.4",
     "execa": "^2.0.4",
     "istanbul-lib-coverage": "2.0.3",
@@ -80,6 +80,6 @@
     "qunit": "^2.9.2",
     "url-polyfill": "^1.1.7",
     "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.8"
   }
 }
