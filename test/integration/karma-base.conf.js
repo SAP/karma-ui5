@@ -8,6 +8,7 @@ module.exports = function(config) {
 			require("karma-coverage"),
 			require("karma-chrome-launcher"),
 			require("karma-ie-launcher"),
+			require("karma-sauce-launcher"),
 			require("karma-qunit")
 		],
 
@@ -26,7 +27,11 @@ module.exports = function(config) {
 			level: "error"
 		},
 
+		reporters: ["progress", "coverage"],
+
 		singleRun: true
 
 	});
+
+	require("./saucelabs").setup(config);
 };

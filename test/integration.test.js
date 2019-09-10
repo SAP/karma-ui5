@@ -14,6 +14,10 @@ const registerIntegrationTest = async (configPath) => {
 			// Allow switching to IE by passing a CLI arg
 			args.push("--browsers=IE");
 		}
+		if (process.argv[process.argv.length - 1] === "--useSauceLabs=true") {
+			// Enable execution via SauceLabs
+			args.push("--useSauceLabs=true");
+		}
 		const karmaProcess = await execa("karma", args, {
 			cwd: __dirname,
 			preferLocal: true, // allow executing local karma binary
@@ -39,8 +43,8 @@ const registerIntegrationTest = async (configPath) => {
 	});
 };
 
-// Increase test timeout to 10s (default 5s)
-jest.setTimeout(10000);
+// Increase test timeout to 300s (default 5s)
+jest.setTimeout(300000);
 
 describe("Integration Tests", () => {
 	const configPaths = glob.sync(["integration/*/karma*.conf.js"], {cwd: __dirname});

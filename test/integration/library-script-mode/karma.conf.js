@@ -22,4 +22,6 @@ module.exports = function(config) {
 		frameworks: ["qunit", "ui5"]
 
 	});
+
+	require("../saucelabs").setTestName(config, __filename);
 };

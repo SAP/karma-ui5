@@ -27,9 +27,9 @@ module.exports = function(config) {
 					lines: 100
 				}
 			}
-		},
-
-		reporters: ["progress", "coverage"]
+		}
 
 	});
+
+	require("../saucelabs").setTestName(config, __filename);
 };

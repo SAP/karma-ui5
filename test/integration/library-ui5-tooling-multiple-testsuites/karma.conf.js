@@ -11,4 +11,6 @@ module.exports = function(config) {
 		}
 
 	});
+
+	require("../saucelabs").setTestName(config, __filename);
 };

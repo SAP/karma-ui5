@@ -12,4 +12,6 @@ module.exports = function(config) {
 		frameworks: ["ui5"]
 
 	});
+
+	require("../saucelabs").setTestName(config, __filename);
 };
