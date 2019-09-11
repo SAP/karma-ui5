@@ -17,6 +17,7 @@
     - [html](#html)
     - [script](#script)
   - [testpage](#testpage)
+  - [urlParameters](#urlParameters)
   - [config](#config)
   - [tests](#tests)
 - [License](#license)
