@@ -15,6 +15,45 @@ module.exports = {
 		path: path.resolve(__dirname, "dist"),
 		filename: "browser-bundle.js"
 	},
+	module: {
+		rules: [
+			{
+				test: /\.m?js$/,
+				use: {
+					loader: "babel-loader",
+					options: {
+						presets: [
+							[
+								"@babel/preset-env",
+								{
+									useBuiltIns: "usage", // Add polyfills based on usage in code
+									corejs: 3,
+									targets: [
+										"last 2 iOS major versions",
+										"last 2 Safari major versions",
+										"IE 11",
+										"last 2 Edge versions",
+										"last 1 Chrome version",
+										"last 1 ChromeAndroid version",
+										"last 1 Firefox version",
+										"Firefox ESR"
+									]
+								}
+							]
+						],
+						// Process all files (incl. node_modules)
+						// except core-js and webpack for which processing is not required
+						ignore: [
+							"**/node_modules/core-js/**",
+							"**/node_modules/webpack/**"
+						],
+						// Use "unambiguous" as thirdparty code is unknown
+						sourceType: "unambiguous"
+					}
+				}
+			}
+		]
+	},
 	plugins: [
 		new LicenseWebpackPlugin({
 			addBanner: true,
