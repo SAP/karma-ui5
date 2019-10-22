@@ -17,7 +17,8 @@ const registerIntegrationTest = async (configPath) => {
 		const karmaProcess = await execa("karma", args, {
 			cwd: __dirname,
 			preferLocal: true, // allow executing local karma binary
-			reject: false
+			reject: false,
+			all: true
 		});
 
 		console.log(configPath); // eslint-disable-line no-console
