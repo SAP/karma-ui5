@@ -6,7 +6,7 @@ module.exports = function(config) {
 
 		ui5: {
 			type: "library",
-			url: "https://openui5nightly.hana.ondemand.com",
+			url: "http://localhost:" + config.localUI5ServerPort,
 			paths: {
 				src: "src/main/js",
 				test: "src/test/js"
