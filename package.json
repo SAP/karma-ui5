@@ -61,13 +61,13 @@
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
-    "@openui5/sap.ui.core": "^1.71.1",
+    "@openui5/sap.ui.core": "^1.71.3",
     "babel-loader": "^8.0.6",
-    "core-js": "^3.3.4",
+    "core-js": "^3.3.6",
     "eslint": "^6.6.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-jest": "^22.21.0",
-    "eslint-plugin-jsdoc": "^15.12.1",
+    "eslint-plugin-jsdoc": "^15.12.2",
     "execa": "^3.2.0",
     "istanbul-lib-coverage": "^2.0.5",
     "jest": "^24.9.0",
@@ -81,6 +81,6 @@
     "puppeteer": "^1.20.0",
     "qunit": "^2.9.3",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
+    "webpack-cli": "^3.3.10"
   }
 }
