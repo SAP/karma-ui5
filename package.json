@@ -54,17 +54,17 @@
   "dependencies": {
     "@ui5/fs": "^1.1.2",
     "@ui5/project": "^1.1.1",
-    "@ui5/server": "^1.5.0",
+    "@ui5/server": "^1.5.1",
     "http-proxy": "^1.18.0",
     "js-yaml": "^3.13.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.2",
-    "@babel/preset-env": "^7.7.1",
-    "@openui5/sap.ui.core": "^1.72.0",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@openui5/sap.ui.core": "^1.72.1",
     "babel-loader": "^8.0.6",
-    "core-js": "^3.4.1",
-    "eslint": "^6.6.0",
+    "core-js": "^3.4.2",
+    "eslint": "^6.7.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-jest": "^23.0.4",
     "eslint-plugin-jsdoc": "^15.12.2",
