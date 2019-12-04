@@ -29,27 +29,18 @@
   "scripts": {
     "lint": "eslint ./",
     "lint-fix": "eslint ./ --fix",
-    "test": "npm run lint && npm run unit-coverage && npm run integration",
-    "unit": "jest test/framework.test.js",
-    "unit-coverage": "jest test/framework.test.js --coverage",
-    "integration": "jest test/integration.test.js",
-    "integration-internet-explorer": "jest test/integration.test.js --browsers=IE",
+    "test": "npm run lint && npm run unit-coverage && npm run unit-mutation && npm run integration",
+    "unit": "jest -c test/unit/jest.config.js",
+    "unit-coverage": "jest -c test/unit/jest.config.js --coverage",
+    "unit-mutation": "stryker run test/unit/stryker.conf.js",
+    "integration": "jest -c test/integration/jest.config.js",
+    "integration-internet-explorer": "jest -c test/integration/jest.config.js --browsers=IE",
     "dev": "webpack --watch --mode=development",
     "prepare": "webpack",
     "preversion": "npm test",
     "version": "git-chglog --next-tag v$npm_package_version -o CHANGELOG.md && git add CHANGELOG.md",
     "postversion": "git push --follow-tags",
     "release-note": "git-chglog -c .chglog/release-config.yml v$npm_package_version"
-  },
-  "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/__mocks__/",
-      "/^integration$/"
-    ],
-    "setupFilesAfterEnv": [
-      "jest-extended"
-    ]
   },
   "peerDependencies": {
     "karma": ">= 1.7.1"
@@ -65,6 +56,10 @@
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.6",
     "@openui5/sap.ui.core": "^1.73.1",
+    "@stryker-mutator/core": "^2.4.0",
+    "@stryker-mutator/html-reporter": "^2.4.0",
+    "@stryker-mutator/javascript-mutator": "^2.4.0",
+    "@stryker-mutator/jest-runner": "^2.4.0",
     "babel-loader": "^8.0.6",
     "core-js": "^3.5.0",
     "eslint": "^6.7.2",

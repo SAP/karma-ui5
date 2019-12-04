@@ -56,3 +56,7 @@ deploy_key
 
 # Custom directories
 dist/
+
+# Stryker Mutator tmp files & reports
+.stryker-tmp
+reports/

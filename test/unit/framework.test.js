@@ -1,7 +1,7 @@
-const Framework = require("../lib/framework");
+const Framework = require("../../lib/framework");
 const path = require("path");
 const fs = require("fs");
-const {ErrorMessage} = require("../lib/errors");
+const {ErrorMessage} = require("../../lib/errors");
 
 const logger = {
 	create: function() {
