@@ -1,3 +1,10 @@
+// Don't use mocks in integration tests
+jest.unmock("@ui5/server");
+jest.unmock("@ui5/project");
+jest.unmock("@ui5/fs");
+jest.unmock("http-proxy");
+jest.unmock("js-yaml");
+
 const glob = require("fast-glob");
 const path = require("path");
 const execa = require("execa");
@@ -5,13 +12,6 @@ const {promisify} = require("util");
 const rimraf = promisify(require("rimraf"));
 const ui5Normalizer = require("@ui5/project").normalizer;
 const ui5Server = require("@ui5/server").server;
-
-// Don't use mocks in integration tests
-jest.unmock("@ui5/server");
-jest.unmock("@ui5/project");
-jest.unmock("@ui5/fs");
-jest.unmock("http-proxy");
-jest.unmock("js-yaml");
 
 let server;
 
