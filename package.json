@@ -70,7 +70,7 @@
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-jest": "^23.6.0",
-    "eslint-plugin-jsdoc": "^15.12.2",
+    "eslint-plugin-jsdoc": "^20.3.1",
     "execa": "^3.4.0",
     "istanbul-lib-coverage": "^2.0.5",
     "jest": "^24.9.0",
