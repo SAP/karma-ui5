@@ -57,7 +57,7 @@
   "dependencies": {
     "@ui5/fs": "^1.1.2",
     "@ui5/project": "^1.2.0",
-    "@ui5/server": "^1.5.2",
+    "@ui5/server": "^1.5.3",
     "http-proxy": "^1.18.0",
     "js-yaml": "^3.13.1"
   },
@@ -74,7 +74,7 @@
     "execa": "^3.4.0",
     "istanbul-lib-coverage": "^2.0.5",
     "jest": "^24.9.0",
-    "jest-extended": "^0.11.2",
+    "jest-extended": "^0.11.4",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^3.1.0",
     "karma-coverage": "^2.0.1",
