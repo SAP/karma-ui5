@@ -1,7 +1,7 @@
-const Framework = require("../lib/framework");
+const Framework = require("../../lib/framework");
 const path = require("path");
 const fs = require("fs");
-const {ErrorMessage} = require("../lib/errors");
+const {ErrorMessage} = require("../../lib/errors");
 
 const logger = {
 	create: function() {
@@ -486,6 +486,9 @@ describe("Plugin setup", () => {
 		framework.exists = () => true;
 		framework.init({config, logger});
 		expect(config.files[0].pattern).toContain("browser-bundle.js");
+		expect(config.files[0].included).toBe(true);
+		expect(config.files[0].served).toBe(true);
+		expect(config.files[0].watched).toBe(false);
 	});
 });
 
@@ -541,7 +544,12 @@ describe("Types configuration", () => {
 		framework.exists = () => true;
 		framework.init({config, logger});
 
-		expect(config.files.find((file) => file.pattern.endsWith("/{webapp/**,webapp/**/.*}"))).toBeDefined();
+		const fileConfig = config.files.find((file) => file.pattern.endsWith("/{webapp/**,webapp/**/.*}"));
+
+		expect(fileConfig).toBeDefined();
+		expect(fileConfig.included).toBe(false);
+		expect(fileConfig.served).toBe(true);
+		expect(fileConfig.watched).toBe(true);
 	});
 
 	it("library: Should modify config file for libraries", () => {

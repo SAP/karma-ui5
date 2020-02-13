@@ -1,10 +1,3 @@
-// Don't use mocks in integration tests
-jest.unmock("@ui5/server");
-jest.unmock("@ui5/project");
-jest.unmock("@ui5/fs");
-jest.unmock("http-proxy");
-jest.unmock("js-yaml");
-
 const glob = require("fast-glob");
 const path = require("path");
 const execa = require("execa");
@@ -68,7 +61,7 @@ beforeAll(async (done) => {
 		// Start server for sap.ui.core library to be used for integration tests
 		// that run against a configured "url"
 		const tree = await ui5Normalizer.generateProjectTree({
-			cwd: path.join(__dirname, "..", "node_modules", "@openui5", "sap.ui.core")
+			cwd: path.join(__dirname, "..", "..", "node_modules", "@openui5", "sap.ui.core")
 		});
 		server = await ui5Server.serve(tree, {
 			port: 5000,
@@ -81,11 +74,14 @@ beforeAll(async (done) => {
 });
 
 afterAll(() => {
-	server.close();
+	if (server) {
+		server.close();
+		server = null;
+	}
 });
 
 describe("Integration Tests", () => {
-	const configPaths = glob.sync(["integration/*/karma*.conf.js"], {cwd: __dirname});
+	const configPaths = glob.sync(["./*/karma*.conf.js"], {cwd: __dirname});
 	for (const configPath of configPaths) {
 		registerIntegrationTest(configPath);
 	}
