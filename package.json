@@ -47,7 +47,7 @@
   "dependencies": {
     "@ui5/fs": "^1.1.2",
     "@ui5/project": "^1.2.0",
-    "@ui5/server": "^1.5.3",
+    "@ui5/server": "^1.5.4",
     "http-proxy": "^1.18.0",
     "js-yaml": "^3.13.1"
   },
