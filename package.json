@@ -75,7 +75,7 @@
     "puppeteer": "^2.1.1",
     "qunit": "^2.9.3",
     "rimraf": "^3.0.1",
-    "webpack": "^4.41.5",
+    "webpack": "^4.41.6",
     "webpack-cli": "^3.3.10"
   }
 }
