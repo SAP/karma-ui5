@@ -837,7 +837,7 @@ describe("Error logging", () => {
 		}));
 	});
 
-	it("Should now throw if a non-backlisted framework has been defined", () => {
+	it("Should not throw if a non-backlisted framework has been defined", () => {
 		const config = {
 			frameworks: ["foo", "ui5"]
 		};
