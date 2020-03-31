@@ -45,9 +45,10 @@
     "karma": ">= 1.7.1"
   },
   "dependencies": {
-    "@ui5/fs": "^1.1.2",
-    "@ui5/project": "^1.2.0",
-    "@ui5/server": "^1.6.0",
+    "@ui5/fs": "^2.0.0",
+    "@ui5/project": "^2.0.2",
+    "@ui5/server": "^2.0.0",
+    "express": "^4.17.1",
     "http-proxy": "^1.18.0",
     "js-yaml": "^3.13.1"
   },
