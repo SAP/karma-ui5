@@ -765,14 +765,6 @@ describe("Error logging", () => {
 		expect(framework.logger.message).toBe(ErrorMessage.migrateConfig());
 	});
 
-	it("Should throw if multiple frameworks have been defined", () => {
-		const config = {
-			frameworks: ["foo", "ui5"]
-		};
-		expect(() => framework.init({config, logger})).toThrow();
-		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["foo", "ui5"]));
-	});
-
 	it("Should throw if invalid mode is defined", () => {
 		const config = {
 			ui5: {
@@ -845,20 +837,28 @@ describe("Error logging", () => {
 		}));
 	});
 
-	it("Should throw if multiple frameworks have been defined (qunit)", () => {
+	it("Should not throw if a non-backlisted framework has been defined", () => {
+		const config = {
+			frameworks: ["foo", "ui5"]
+		};
+		expect(() => framework.init({config, logger})).toThrow(); // some unrelated exception
+		expect(framework.logger.message).not.toBe(ErrorMessage.blacklistedFrameworks(["foo", "ui5"]));
+	});
+
+	it("Should throw if a blacklisted framework has been defined (qunit)", () => {
 		const config = {
 			frameworks: ["qunit", "ui5"]
 		};
 		expect(() => framework.init({config, logger})).toThrow();
-		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["qunit", "ui5"]));
+		expect(framework.logger.message).toBe(ErrorMessage.blacklistedFrameworks(["qunit", "ui5"]));
 	});
 
-	it("Should throw if multiple frameworks have been defined (qunit + sinon)", () => {
+	it("Should throw if a blacklisted framework has been defined (qunit + sinon)", () => {
 		const config = {
 			frameworks: ["qunit", "sinon", "ui5"]
 		};
 		expect(() => framework.init({config, logger})).toThrow();
-		expect(framework.logger.message).toBe(ErrorMessage.multipleFrameworks(["qunit", "sinon", "ui5"]));
+		expect(framework.logger.message).toBe(ErrorMessage.blacklistedFrameworks(["qunit", "sinon", "ui5"]));
 	});
 
 	it("Should throw if files have been defined in config", () => {
