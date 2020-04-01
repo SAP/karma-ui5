@@ -13,6 +13,3 @@ matrix:
     - os: linux
       node_js:
         - "10"
-    - os: linux
-      node_js:
-        - "8"
