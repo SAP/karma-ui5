@@ -82,6 +82,7 @@ afterAll(() => {
 
 describe("Integration Tests", () => {
 	const configPaths = glob.sync(["./*/karma*.conf.js"], {cwd: __dirname});
+	// const configPaths = glob.sync(["./application-script-mode/karma*.conf.js"], {cwd: __dirname});
 	for (const configPath of configPaths) {
 		registerIntegrationTest(configPath);
 	}
