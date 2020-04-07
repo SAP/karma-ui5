@@ -59,4 +59,6 @@ module.exports.assertions = function({expect, log}) {
 	const files = Object.keys(coverage);
 	expect(files).toHaveLength(1);
 	expect(files[0]).toEndWith("application-script-mode/webapp/foo.js");
+
+	expect(log).toContain("TOTAL: 1 SUCCESS");
 };

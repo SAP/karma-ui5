@@ -43,4 +43,6 @@ module.exports.assertions = function({expect, log}) {
 	const files = Object.keys(coverage);
 	expect(files).toHaveLength(1);
 	expect(files[0]).toEndWith("library-ui5-tooling-multiple-testsuites/src/sap/test/lib/library.js");
+
+	expect(log).toContain("TOTAL: 4 SUCCESS");
 };

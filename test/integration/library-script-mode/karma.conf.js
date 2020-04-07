@@ -54,4 +54,6 @@ module.exports.assertions = function({expect, log}) {
 	const files = Object.keys(coverage);
 	expect(files).toHaveLength(1);
 	expect(files[0]).toEndWith("library-script-mode/src/sap/test/lib/library.js");
+
+	expect(log).toContain("TOTAL: 1 SUCCESS");
 };

@@ -20,3 +20,7 @@ module.exports = function(config) {
 
 	});
 };
+
+module.exports.assertions = function({expect, log}) {
+	expect(log).toContain("TOTAL: 1 SUCCESS");
+};
