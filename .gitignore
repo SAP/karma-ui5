@@ -11,8 +11,9 @@ pids
 *.seed
 *.pid.lock
 
-# Coverage directory used by tools like istanbul
+# Coverage / reports directories used by tools like istanbul / nyc and stryker
 coverage
+reports
 
 # nyc test coverage
 .nyc_output
@@ -56,3 +57,6 @@ deploy_key
 
 # Custom directories
 dist/
+
+# stryker temp files
+.stryker-tmp

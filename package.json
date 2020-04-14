@@ -46,7 +46,7 @@
     "files": [
       "test/unit/**/*.js",
       "!test/unit/__helper__/**/*",
-      "!test/unit/__mocks__/**/*"
+      "!test/unit/__stryker__/**/*"
     ]
   },
   "peerDependencies": {
@@ -64,6 +64,8 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@openui5/sap.ui.core": "^1.76.0",
+    "@stryker-mutator/core": "^3.1.0",
+    "@stryker-mutator/javascript-mutator": "^3.1.0",
     "ava": "^3.6.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.4",

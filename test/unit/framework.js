@@ -133,7 +133,7 @@ test.serial("init", async (t) => {
 	assertCalls(t, project.init,
 		{
 			args: [config, log, {createTree: true}],
-			assert: [t.is, t.is, t.deepEqual]
+			assert: [t.is, t.is, t.deepEqual] // options object should be compared with deepEqual
 		}
 	);
 
