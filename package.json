@@ -30,8 +30,9 @@
     "lint": "eslint ./",
     "lint-fix": "eslint ./ --fix",
     "test": "npm run lint && npm run unit-coverage && npm run integration",
-    "unit": "jest -c test/unit/jest.config.js",
-    "unit-coverage": "jest -c test/unit/jest.config.js --coverage",
+    "unit": "ava",
+    "unit-watch": "ava --watch",
+    "coverage": "nyc npm run unit",
     "integration": "jest -c test/integration/jest.config.js",
     "integration-internet-explorer": "jest -c test/integration/jest.config.js --browsers=IE",
     "dev": "webpack --watch --mode=development",
@@ -40,6 +41,13 @@
     "version": "git-chglog --next-tag v$npm_package_version -o CHANGELOG.md && git add CHANGELOG.md",
     "postversion": "git push --follow-tags",
     "release-note": "git-chglog -c .chglog/release-config.yml v$npm_package_version"
+  },
+  "ava": {
+    "files": [
+      "test/unit/**/*.js",
+      "!test/unit/__helper__/**/*",
+      "!test/unit/__mocks__/**/*"
+    ]
   },
   "peerDependencies": {
     "karma": ">= 4.3.0"
@@ -56,6 +64,7 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@openui5/sap.ui.core": "^1.76.0",
+    "ava": "^3.6.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.4",
     "eslint": "^6.8.0",
@@ -73,9 +82,12 @@
     "karma-ie-launcher": "^1.0.0",
     "karma-qunit": "^4.0.0",
     "license-webpack-plugin": "^2.1.4",
+    "mock-require": "^3.0.3",
+    "nyc": "^15.0.1",
     "puppeteer": "^2.1.1",
     "qunit": "^2.9.3",
     "rimraf": "^3.0.2",
+    "sinon": "^9.0.1",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
