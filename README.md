@@ -13,6 +13,7 @@
   - [url](#url)
   - [type](#type)
   - [paths](#paths)
+  - [configPath](#configPath)
   - [mode](#mode)
     - [html](#html)
     - [script](#script)
@@ -193,6 +194,21 @@ ui5: {
     src: "src/main/js",
     test: "src/test/js"
   }
+}
+```
+
+### configPath
+Type: `string`  
+Default: `"ui5.yaml"`  
+CLI: `--ui5.configPath`
+
+Path to the UI5 configuration file.
+It is resolved relative to the project root.
+
+Example:
+```js
+ui5: {
+  configPath: "ui5-test.yaml"
 }
 ```
 
