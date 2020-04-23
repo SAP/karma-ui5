@@ -12,4 +12,9 @@ fs.resourceFactory = {
 };
 class ReaderCollectionPrioritized {}
 fs.ReaderCollectionPrioritized = ReaderCollectionPrioritized;
+
+fs.fsInterface = function() {
+	return {}; // TODO
+};
+
 module.exports = fs;

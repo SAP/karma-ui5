@@ -2,10 +2,43 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v1.1.0...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.1.0...HEAD).
+
+<a name="v2.1.0"></a>
+## [v2.1.0] - 2020-04-07
+### Features
+- Add "configPath" option [`6f90051`](https://github.com/SAP/karma-ui5/commit/6f90051cca0859c7ebc694eb2c29ab133e44051b)
+
+
+<a name="v2.0.0"></a>
+## [v2.0.0] - 2020-04-02
+### Breaking Changes
+- Require karma >= 4.3.0 [`ee0dbc0`](https://github.com/SAP/karma-ui5/commit/ee0dbc0ece4e66b4b5956e0c83817823c5381772)
+- Require Node.js >= 10 [`ca4ed45`](https://github.com/SAP/karma-ui5/commit/ca4ed459d4f079c5055753f958af21c66dd12b07)
+
+### Features
+- Support UI5 Tooling specVersion 2.0 / Add all ui5 serve middlewares [`fbfcb09`](https://github.com/SAP/karma-ui5/commit/fbfcb09e2a5eadf9203edc334bec26d1be1f8837)
+
+### BREAKING CHANGE
+
+The ui5 framework is now initialized asynchronous, which is only
+supported starting with karma v4.3.0.
+
+Support for older Node.js releases has been dropped.
+Only Node.js v10 or higher is supported.
+
+
+<a name="v1.2.0"></a>
+## [v1.2.0] - 2020-04-01
+### Bug Fixes
+- **Error Handling:** Prevent UnhandledRejection [`4e1db52`](https://github.com/SAP/karma-ui5/commit/4e1db528fe15346d1009e97a3a36323f3ba29715)
+
+### Features
+- Allow usage with non-blacklisted karma plugins ([#163](https://github.com/SAP/karma-ui5/issues/163)) [`1d41181`](https://github.com/SAP/karma-ui5/commit/1d411816fe8d524a0df4e214f33e15fc1556facb)
+
 
 <a name="v1.1.0"></a>
-## [v1.1.0] - 2019-09-05
+## [v1.1.0] - 2019-09-06
 ### Bug Fixes
 - Resolve absolute paths (webapp / src / test) [`4f8c180`](https://github.com/SAP/karma-ui5/commit/4f8c180c0f38e3f6950b9f1bfb40d4d0dbb03c6e)
 - Fix link in testsuite error messages [`8129dfd`](https://github.com/SAP/karma-ui5/commit/8129dfd5a9a9e10353145e06ec2aae5da93513f4)
@@ -87,6 +120,9 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v2.1.0]: https://github.com/SAP/karma-ui5/compare/v2.0.0...v2.1.0
+[v2.0.0]: https://github.com/SAP/karma-ui5/compare/v1.2.0...v2.0.0
+[v1.2.0]: https://github.com/SAP/karma-ui5/compare/v1.1.0...v1.2.0
 [v1.1.0]: https://github.com/SAP/karma-ui5/compare/v1.0.1...v1.1.0
 [v1.0.1]: https://github.com/SAP/karma-ui5/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/SAP/karma-ui5/compare/v1.0.0-beta.2...v1.0.0

@@ -1,5 +1,7 @@
 language: node_js # don't install any environment
 
+dist: xenial
+
 node_js:
 - "node"
 
@@ -8,11 +10,10 @@ os:
 - osx
 # - windows # Integration tests are failing on windows
 
+osx_image: xcode11.3
+
 matrix:
   include:
     - os: linux
       node_js:
         - "10"
-    - os: linux
-      node_js:
-        - "8"

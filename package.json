@@ -1,7 +1,7 @@
 {
   "name": "karma-ui5",
   "description": "A Karma plugin for UI5",
-  "version": "1.1.0",
+  "version": "2.1.0",
   "author": "SAP SE (https://www.sap.com)",
   "license": "Apache-2.0",
   "homepage": "https://github.com/SAP/karma-ui5",
@@ -14,7 +14,7 @@
     "karma-plugin"
   ],
   "engines": {
-    "node": ">= 8.5",
+    "node": ">= 10.0",
     "npm": ">= 5"
   },
   "repository": {
@@ -42,32 +42,33 @@
     "release-note": "git-chglog -c .chglog/release-config.yml v$npm_package_version"
   },
   "peerDependencies": {
-    "karma": ">= 1.7.1"
+    "karma": ">= 4.3.0"
   },
   "dependencies": {
-    "@ui5/fs": "^1.1.2",
-    "@ui5/project": "^1.2.0",
-    "@ui5/server": "^1.6.0",
+    "@ui5/fs": "^2.0.0",
+    "@ui5/project": "^2.0.3",
+    "@ui5/server": "^2.0.1",
+    "express": "^4.17.1",
     "http-proxy": "^1.18.0",
     "js-yaml": "^3.13.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
-    "@openui5/sap.ui.core": "^1.75.0",
+    "@babel/preset-env": "^7.9.5",
+    "@openui5/sap.ui.core": "^1.76.0",
     "babel-loader": "^8.1.0",
-    "core-js": "^3.6.4",
+    "core-js": "^3.6.5",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-jest": "^23.8.2",
-    "eslint-plugin-jsdoc": "^22.1.0",
+    "eslint-plugin-jsdoc": "^22.2.0",
     "execa": "^3.4.0",
     "istanbul-lib-coverage": "^3.0.0",
-    "jest": "^25.1.0",
+    "jest": "^25.3.0",
     "jest-extended": "^0.11.5",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^3.1.0",
-    "karma-coverage": "^2.0.1",
+    "karma-coverage": "^2.0.2",
     "karma-edge-launcher": "^0.4.2",
     "karma-ie-launcher": "^1.0.0",
     "karma-qunit": "^4.0.0",
@@ -75,7 +76,8 @@
     "puppeteer": "^2.1.1",
     "qunit": "^2.9.3",
     "rimraf": "^3.0.2",
-    "webpack": "^4.42.0",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   }
 }
