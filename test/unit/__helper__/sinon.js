@@ -1,3 +1,18 @@
+/**
+ * @typedef SinonHelperCallObject
+ * @type {object}
+ * @property {any[]} args
+ * @property {Function} assert
+ */
+/**
+ * @typedef SinonHelperCall
+ * @type {any[] | SinonHelperCallObject}
+ */
+/**
+ * @param {import('ava').ExecutionContext} t
+ * @param {import('sinon').SinonStub} stub
+ * @param {SinonHelperCall[]} calls
+ */
 module.exports.assertCalls = (t, stub, ...calls) => {
 	t.is(stub.callCount, calls.length,
 		`${stub.name} should be called ${calls.length} times`);
@@ -17,6 +32,3 @@ module.exports.assertCalls = (t, stub, ...calls) => {
 		});
 	});
 };
-
-// TODO
-// sinon.addBehavior(name, fn);
