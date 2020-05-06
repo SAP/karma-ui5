@@ -16,8 +16,9 @@ module.exports = function(config) {
 		ui5: {
 			type: "application",
 			mode: "html",
-			testpage: "webapp/test/test.qunit.html",
-			url: "http://localhost:" + config.localUI5ServerPort
+			testpage: "webapp/test/GherkinTestRunner.html",
+			url: "http://localhost:" + config.localUI5ServerPort,
+			logAssertions: true
 		},
 
 		frameworks: ["ui5"],
@@ -26,8 +27,8 @@ module.exports = function(config) {
 			"{webapp,webapp/!(test)}/*.js": ["coverage"]
 		},
 		cucumberReporter: {
-			out: "cucumber.json",
-			prefix: "Feature"
+			out: "application-log-assersion/cucumber.json",
+			prefix: ""
 		},
 
 		coverageReporter: {
@@ -48,14 +49,19 @@ module.exports = function(config) {
 				}
 			}
 		},
+		autoWatch: false,
+		singleRun: true,
 
-		reporters: ["progress", "coverage"]
+		reporters: ["progress", "coverage", "cucumber"]
 
 	});
 };
 
 module.exports.assertions = function({expect, log}) {
-	const coverage = require("./coverage/json/coverage-final.json");
-	const files = Object.keys(coverage);
-	expect(files).toHaveLength(1);
+	const features = require("./cucumber.json");
+	const scenarios = features[0].elements;
+	const steps = scenarios[0].steps;
+	expect(features).toHaveLength(1);
+	expect(scenarios).toHaveLength(12);
+	expect(steps).toHaveLength(2);
 };

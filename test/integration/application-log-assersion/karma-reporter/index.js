@@ -18,10 +18,8 @@ var CucumberReporter = function (baseReporterDecorator, config, logger, helper) 
     }];
 
     this.onSpecComplete = function (browser, result) {
-        console.log("--------------------------------- debug ---------------------------------");
-        console.log(JSON.stringify(result));
         var suite = result.suite[1];
-        var scenario = result.suite[2];
+        var scenario = result.description;
         var step = result.suite[3];
 
         if (!reporterConfig.prefix || reporterConfig.prefix && _.startsWith(suite, reporterConfig.prefix)) {
@@ -31,7 +29,6 @@ var CucumberReporter = function (baseReporterDecorator, config, logger, helper) 
                 history[suite][scenario].push(result);
             }
         }
-        console.log("--------------------------------- debug ---------------------------------");
     };
 
     this.onRunComplete = function () {

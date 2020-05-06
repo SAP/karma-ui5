@@ -56,3 +56,5 @@ deploy_key
 
 # Custom directories
 dist/
+
+cucumber.js

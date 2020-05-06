@@ -58,5 +58,9 @@ module.exports.assertions = function({expect, log}) {
 	const coverage = require("./coverage/json/coverage-final.json");
 	const files = Object.keys(coverage);
 	expect(files).toHaveLength(1);
-	expect(files[0]).toEndWith("application-script-mode/webapp/foo.js");
+
+	const sWindowsExpect = "application-script-mode\\webapp\\foo.js";
+	const sLinuxExpect = "application-script-mode/webapp/foo.js";
+	const sActual = files[0] && files[0].replace(sWindowsExpect, sLinuxExpect);
+	expect(sActual).toEndWith(sLinuxExpect);
 };

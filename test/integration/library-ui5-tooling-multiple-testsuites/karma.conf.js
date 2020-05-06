@@ -42,5 +42,9 @@ module.exports.assertions = function({expect, log}) {
 	const coverage = require("./coverage/json/coverage-final.json");
 	const files = Object.keys(coverage);
 	expect(files).toHaveLength(1);
-	expect(files[0]).toEndWith("library-ui5-tooling-multiple-testsuites/src/sap/test/lib/library.js");
+
+	const sWindowsExpect = "library-ui5-tooling-multiple-testsuites\\src\\sap\\test\\lib\\library.js";
+	const sLinuxExpect = "library-ui5-tooling-multiple-testsuites/src/sap/test/lib/library.js";
+	const sActual = files[0] && files[0].replace(sWindowsExpect, sLinuxExpect);
+	expect(sActual).toEndWith(sLinuxExpect);
 };

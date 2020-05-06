@@ -54,7 +54,7 @@ const registerIntegrationTest = async (configPath) => {
 };
 
 // Increase test timeout to 10s (default 5s)
-jest.setTimeout(10000);
+jest.setTimeout(100000);
 
 beforeAll(async (done) => {
 	try {
