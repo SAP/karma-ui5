@@ -1,50 +1,50 @@
 "use strict";
 
-var _ = require("lodash");
+const _ = require("lodash");
 
-var formatter = require("./formatter");
-var writer = require("./writer");
+const formatter = require("./formatter");
+const writer = require("./writer");
 
-var CucumberReporter = function (baseReporterDecorator, config, logger, helper) {
-    var log = logger.create("reporter.cucumber");
-    var reporterConfig = config.cucumberReporter || {};
-    var out = reporterConfig.out || "stdout";
-    var history = {};
+const CucumberReporter = function(baseReporterDecorator, config, logger, helper) {
+	const log = logger.create("reporter.cucumber");
+	const reporterConfig = config.cucumberReporter || {};
+	const out = reporterConfig.out || "stdout";
+	const history = {};
 
-    baseReporterDecorator(this);
+	baseReporterDecorator(this);
 
-    this.adapters = [function (msg) {
-        process.stdout.write.bind(process.stdout)(msg);
-    }];
+	this.adapters = [function(msg) {
+		process.stdout.write.bind(process.stdout)(msg);
+	}];
 
-    this.onSpecComplete = function (browser, result) {
-        var suite = result.suite[1];
-        var scenario = result.description;
-        var step = result.suite[3];
+	this.onSpecComplete = function(browser, result) {
+		const suite = result.suite[1];
+		const scenario = result.description;
+		const step = result.suite[3];
 
-        if (!reporterConfig.prefix || reporterConfig.prefix && _.startsWith(suite, reporterConfig.prefix)) {
-            history[suite] = history[suite] || {};
-            history[suite][scenario] = history[suite][scenario] || [];
-            if (step) {
-                history[suite][scenario].push(result);
-            }
-        }
-    };
+		if (!reporterConfig.prefix || reporterConfig.prefix && _.startsWith(suite, reporterConfig.prefix)) {
+			history[suite] = history[suite] || {};
+			history[suite][scenario] = history[suite][scenario] || [];
+			if (step) {
+				history[suite][scenario].push(result);
+			}
+		}
+	};
 
-    this.onRunComplete = function () {
-        var cucumberJson = formatter(history);
-        var jsonResult = JSON.stringify(cucumberJson, null, 2) + "\n";
+	this.onRunComplete = function() {
+		const cucumberJson = formatter(history);
+		const jsonResult = JSON.stringify(cucumberJson, null, 2) + "\n";
 
-        if (out === "stdout") {
-            process.stdout.write(jsonResult);
-        } else {
-            writer(helper, out, log, jsonResult);
-        }
-    };
+		if (out === "stdout") {
+			process.stdout.write(jsonResult);
+		} else {
+			writer(helper, out, log, jsonResult);
+		}
+	};
 };
 
 CucumberReporter.$inject = ["baseReporterDecorator", "config", "logger", "helper", "formatError"];
 
 module.exports = {
-    "reporter:cucumber": ["type", CucumberReporter]
+	"reporter:cucumber": ["type", CucumberReporter]
 };

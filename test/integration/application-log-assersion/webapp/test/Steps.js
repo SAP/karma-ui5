@@ -6,26 +6,25 @@ sap.ui.define([
 ], function(Log, StepDefinitions, Opa5, Press) {
 	"use strict";
 
-	var oOpa5 = new Opa5();
+	const oOpa5 = new Opa5();
 
 	/**
-	 * @param {function} fnCallback - executed once the number of lemmings saved is determined.
+	 * @param {Function} fnCallback - executed once the number of lemmings saved is determined.
 	 *																Receives one parameter: "iNumberOfLemmingsSaved"
 	 */
 	function getNumberOfLemmingsSaved(fnCallback) {
 		oOpa5.waitFor({
 			id: "num-lemmings-saved",
 			success: function(oLabel) {
-				var sNumberOfLemmingsSaved = oLabel.getText().match(/Number of lemmings saved: (\d+)/)[1];
-				var iNumberOfLemmingsSaved = parseInt(sNumberOfLemmingsSaved);
+				const sNumberOfLemmingsSaved = oLabel.getText().match(/Number of lemmings saved: (\d+)/)[1];
+				const iNumberOfLemmingsSaved = parseInt(sNumberOfLemmingsSaved);
 				fnCallback(iNumberOfLemmingsSaved);
 			}
 		});
 	}
 
-	var Steps = StepDefinitions.extend("GherkinWithOPA5.Steps", {
+	const Steps = StepDefinitions.extend("GherkinWithOPA5.Steps", {
 		init: function() {
-
 			this.register(/^I have started the app$/i, function() {
 				oOpa5.iStartMyAppInAFrame(sap.ui.require.toUrl("GherkinWithOPA5/Website.html"));
 			});
@@ -43,13 +42,14 @@ sap.ui.define([
 			this.register(/^I check how many lemmings have been saved already$/i, function() {
 				getNumberOfLemmingsSaved(function(iNumberOfLemmingsSaved) {
 					this.iNumLemmings = iNumberOfLemmingsSaved;
+				/* eslint-disable */
 				}.bind(this));
+				/* eslint-enable */
 			});
 
-			this.register(/^I click on the life saving button\s*(\d*)?(?:\s*times)?$/i,
-			function(sNumTimes) {
-				var iNumTimes = (sNumTimes) ? parseInt(sNumTimes) : 1;
-				for (var i = 0; i < iNumTimes; ++i) {
+			this.register(/^I click on the life saving button\s*(\d*)?(?:\s*times)?$/i, function(sNumTimes) {
+				const iNumTimes = (sNumTimes) ? parseInt(sNumTimes) : 1;
+				for (let i = 0; i < iNumTimes; ++i) {
 					oOpa5.waitFor({
 						id: "life-saving-button",
 						actions: new Press()
@@ -59,10 +59,12 @@ sap.ui.define([
 
 			this.register(/^I save a lemming's life$/i, function() {
 				getNumberOfLemmingsSaved(function(iNumberOfLemmingsSaved) {
-					var iExpectedSavedLemmings = this.iNumLemmings + 1;
+					const iExpectedSavedLemmings = this.iNumLemmings + 1;
 					Opa5.assert.strictEqual(iNumberOfLemmingsSaved, iExpectedSavedLemmings,
 						"Verified correct number of lemmings saved");
+				/* eslint-disable */
 				}.bind(this));
+				/* eslint-enable */
 			});
 
 			this.register(/^I can see the following named lemmings:$/i, function(aDataTable) {
@@ -81,8 +83,8 @@ sap.ui.define([
 				oOpa5.waitFor({
 					id: "layout",
 					success: function(oLayout) {
-						var aContent = oLayout.getContent();
-						var oLastContentItem = aContent[aContent.length - 1];
+						const aContent = oLayout.getContent();
+						const oLastContentItem = aContent[aContent.length - 1];
 						Opa5.assert.strictEqual(oLastContentItem.getText(), sName,
 							"Verified lemming: " + sName);
 					}
@@ -96,5 +98,4 @@ sap.ui.define([
 	});
 
 	return Steps;
-
 });

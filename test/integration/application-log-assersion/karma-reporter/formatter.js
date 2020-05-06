@@ -1,44 +1,44 @@
 "use strict";
 
-var _ = require("lodash");
+const _ = require("lodash");
 
-module.exports = function (history) {
-    var cucumberJson = [];
+module.exports = function(history) {
+	const cucumberJson = [];
 
-    _.forEach(history, function (feature, featureName) {
-        var elements = [];
-        var identifier = _.split(featureName, " ");
-        var tag = identifier[0];
-        var name = identifier.slice(1).join(" ");
+	_.forEach(history, function(feature, featureName) {
+		const elements = [];
+		const identifier = _.split(featureName, " ");
+		const tag = identifier[0];
+		const name = identifier.slice(1).join(" ");
 
-        _.forEach(feature, function (scenario, scenarioName) {
-            elements.push({
-                name: scenarioName,
-                type: "scenario",
-                keyword: "Scenario",
-                steps: _.map(scenario, function (step) {
-                    return {
-                        keyword: "",
-                        name: step.description,
-                        result: {
-                            duration: step.time * 1000000,
-                            status: step.success ? "passed" : "failed"
-                        }
-                    };
-                })
-            });
-        });
+		_.forEach(feature, function(scenario, scenarioName) {
+			elements.push({
+				name: scenarioName,
+				type: "scenario",
+				keyword: "Scenario",
+				steps: _.map(scenario, function(step) {
+					return {
+						keyword: "",
+						name: step.description,
+						result: {
+							duration: step.time * 1000000,
+							status: step.success ? "passed" : "failed"
+						}
+					};
+				})
+			});
+		});
 
-        cucumberJson.push({
-            keyword: "Feature",
-            name: name,
-            uri: _.camelCase(name),
-            tags: [{
-                name: tag
-            }],
-            elements: elements
-        });
-    });
+		cucumberJson.push({
+			keyword: "Feature",
+			name: name,
+			uri: _.camelCase(name),
+			tags: [{
+				name: tag
+			}],
+			elements: elements
+		});
+	});
 
-    return cucumberJson;
+	return cucumberJson;
 };
