@@ -3,3 +3,8 @@ specVersion: "1.0"
 type: library
 metadata:
   name: test.app
+resources:
+  configuration:
+    paths:
+      src: "src/main/js"
+      test: "src/test/js"
