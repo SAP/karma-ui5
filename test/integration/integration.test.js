@@ -27,27 +27,41 @@ const registerIntegrationTest = async (configPath) => {
 		// Clean up coverage folder
 		await rimraf(path.join(path.dirname(fullConfigPath), "coverage"));
 
-		const karmaProcess = await execa("karma", args, {
+		const karmaProcess = execa("karma", args, {
 			cwd: __dirname,
 			preferLocal: true, // allow executing local karma binary
 			reject: false,
 			all: true
 		});
 
-		console.log(configPath); // eslint-disable-line no-console
-		console.log(karmaProcess.all); // eslint-disable-line no-console
+		let processKilled = false;
+		const killTimeout = setTimeout(() => {
+			processKilled = true;
+			karmaProcess.kill();
+		}, 9900);
 
-		if (integrationTest.shouldFail && !karmaProcess.failed) {
+		const karmaProcessResult = await karmaProcess;
+
+		clearTimeout(killTimeout);
+
+		console.log(configPath); // eslint-disable-line no-console
+		console.log(karmaProcessResult.all); // eslint-disable-line no-console
+
+		if (processKilled) {
+			throw new Error("Karma execution timed out!");
+		}
+
+		if (integrationTest.shouldFail && !karmaProcessResult.failed) {
 			throw new Error("Karma execution should have failed!");
 		}
-		if (!integrationTest.shouldFail && karmaProcess.failed) {
+		if (!integrationTest.shouldFail && karmaProcessResult.failed) {
 			throw new Error("Karma execution should not have failed!");
 		}
 
 		if (integrationTest.assertions) {
 			integrationTest.assertions({
 				expect,
-				log: karmaProcess.all
+				log: karmaProcessResult.all
 			});
 		}
 	});
@@ -82,7 +96,7 @@ afterAll(() => {
 
 describe("Integration Tests", () => {
 	const configPaths = glob.sync(["./*/karma*.conf.js"], {cwd: __dirname});
-	// const configPaths = glob.sync(["./application-script-mode/karma*.conf.js"], {cwd: __dirname});
+	// const configPaths = glob.sync(["./application-ui5-tooling/karma*.conf.js"], {cwd: __dirname});
 	for (const configPath of configPaths) {
 		registerIntegrationTest(configPath);
 	}
