@@ -2,10 +2,16 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.1.0...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.1.1...HEAD).
+
+<a name="v2.1.1"></a>
+## [v2.1.1] - 2020-05-19
+### Bug Fixes
+- Improve performance when serving UI5 resources via URL [`20b6512`](https://github.com/SAP/karma-ui5/commit/20b651258722973ec8dc4a8391808dab8bc335f0)
+
 
 <a name="v2.1.0"></a>
-## [v2.1.0] - 2020-04-07
+## [v2.1.0] - 2020-04-09
 ### Features
 - Add "configPath" option [`6f90051`](https://github.com/SAP/karma-ui5/commit/6f90051cca0859c7ebc694eb2c29ab133e44051b)
 
@@ -120,6 +126,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v2.1.1]: https://github.com/SAP/karma-ui5/compare/v2.1.0...v2.1.1
 [v2.1.0]: https://github.com/SAP/karma-ui5/compare/v2.0.0...v2.1.0
 [v2.0.0]: https://github.com/SAP/karma-ui5/compare/v1.2.0...v2.0.0
 [v1.2.0]: https://github.com/SAP/karma-ui5/compare/v1.1.0...v1.2.0
