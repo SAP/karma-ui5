@@ -147,9 +147,13 @@ describe("Proxy for UI5 ", () => {
 
 		const createProxyServer = require("http-proxy").createProxyServer;
 
-		expect(createProxyServer).toBeCalledWith({
+		const lastCall = createProxyServer.mock.calls[createProxyServer.mock.calls.length - 1];
+		expect(lastCall[0]).toMatchObject({
 			target: "http://localhost",
-			changeOrigin: true
+			changeOrigin: true,
+			agent: expect.objectContaining({
+				keepAlive: true
+			})
 		});
 
 		// const proxy = require("http-proxy").createProxyServer.mock.results[0].value;
