@@ -140,7 +140,7 @@ describe("Middleware for UI5", () => {
 });
 
 describe("Proxy for UI5 ", () => {
-	it("Should call proxy module from serveResources middleware", (done) => {
+	it("Should call proxy module from serveResources middleware (http)", (done) => {
 		const proxyServer = new Framework().setupProxy({
 			url: "http://localhost"
 		});
@@ -152,7 +152,38 @@ describe("Proxy for UI5 ", () => {
 			target: "http://localhost",
 			changeOrigin: true,
 			agent: expect.objectContaining({
-				keepAlive: true
+				keepAlive: true,
+				protocol: "http:"
+			})
+		});
+
+		// const proxy = require("http-proxy").createProxyServer.mock.results[0].value;
+
+		expect(proxyServer.serveThemes).toBeUndefined();
+
+		const req = {};
+		const res = {};
+		const next = function() {
+			// expect(proxy.web).toBeCalledWith(req, res, next); // TODO: check why this fails
+			done();
+		};
+		proxyServer.serveResources(req, res, next);
+	});
+
+	it("Should call proxy module from serveResources middleware (https)", (done) => {
+		const proxyServer = new Framework().setupProxy({
+			url: "https://localhost"
+		});
+
+		const createProxyServer = require("http-proxy").createProxyServer;
+
+		const lastCall = createProxyServer.mock.calls[createProxyServer.mock.calls.length - 1];
+		expect(lastCall[0]).toMatchObject({
+			target: "https://localhost",
+			changeOrigin: true,
+			agent: expect.objectContaining({
+				keepAlive: true,
+				protocol: "https:"
 			})
 		});
 
