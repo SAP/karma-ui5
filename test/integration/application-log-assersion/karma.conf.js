@@ -27,7 +27,7 @@ module.exports = function(config) {
 			"{webapp,webapp/!(test)}/*.js": ["coverage"]
 		},
 		cucumberReporter: {
-			out: "application-log-assersion/cucumber.json",
+			out: "application-log-assertion/cucumber.json",
 			prefix: ""
 		},
 
