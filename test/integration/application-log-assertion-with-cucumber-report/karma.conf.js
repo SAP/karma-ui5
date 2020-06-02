@@ -18,7 +18,8 @@ module.exports = function(config) {
 			mode: "html",
 			testpage: "webapp/test/GherkinTestRunner.html",
 			url: "http://localhost:" + config.localUI5ServerPort,
-			logAssertions: true
+			logAssertions: true,
+			logHTMLFilePath: false
 		},
 
 		frameworks: ["ui5"],
@@ -27,7 +28,7 @@ module.exports = function(config) {
 			"{webapp,webapp/!(test)}/*.js": ["coverage"]
 		},
 		cucumberReporter: {
-			out: "application-log-assertion/cucumber.json",
+			out: "application-log-assertion-with-cucumber-report/reports/test_report.json",
 			prefix: ""
 		},
 
@@ -52,16 +53,13 @@ module.exports = function(config) {
 		autoWatch: false,
 		singleRun: true,
 
-		reporters: ["progress", "coverage", "cucumber"]
+		reporters: ["progress", "coverage", "testReporter"]
 
 	});
 };
 
 module.exports.assertions = function({expect, log}) {
-	const features = require("./cucumber.json");
-	const scenarios = features[0].elements;
-	const steps = scenarios[0].steps;
-	expect(features).toHaveLength(1);
-	expect(scenarios).toHaveLength(12);
-	expect(steps).toHaveLength(2);
+	const features = require("./reports/test_report.json");
+	const featureName = features[0].suite[0];
+	expect(featureName).toBe("Feature: Clicking Buttons Is a Life Saving Activity");
 };

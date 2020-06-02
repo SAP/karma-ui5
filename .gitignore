@@ -57,4 +57,4 @@ deploy_key
 # Custom directories
 dist/
 
-cucumber.js
+**/reports/cucumber_report.json
