@@ -1,5 +1,6 @@
 const customCucumberReporter = require("./karma-reporter/index");
 const customKarmaUI5 = require("../../../lib/index");
+
 module.exports = function(config) {
 	"use strict";
 

@@ -27,9 +27,8 @@ module.exports = function(config) {
 		preprocessors: {
 			"{webapp,webapp/!(test)}/*.js": ["coverage"]
 		},
-		cucumberReporter: {
-			out: "application-log-assertion-with-cucumber-report/reports/test_report.json",
-			prefix: ""
+		testReporter: {
+			out: "application-log-assertion-with-cucumber-report/reports/test_report.json"
 		},
 
 		coverageReporter: {
@@ -60,6 +59,6 @@ module.exports = function(config) {
 
 module.exports.assertions = function({expect, log}) {
 	const features = require("./reports/test_report.json");
-	const featureName = features[0].suite[0];
-	expect(featureName).toBe("Feature: Clicking Buttons Is a Life Saving Activity");
+	expect(features).toHaveLength(16);
+	expect(features[0].suite[0]).toBe("Feature: Clicking Buttons Is a Life Saving Activity");
 };
