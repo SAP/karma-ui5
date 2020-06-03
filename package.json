@@ -29,7 +29,7 @@
   "scripts": {
     "lint": "eslint ./",
     "lint-fix": "eslint ./ --fix",
-    "test": "npm run lint && npm run unit-coverage && npm run integration",
+    "test": "npm run lint && npm run coverage && npm run integration",
     "unit": "ava",
     "unit-watch": "ava --watch",
     "coverage": "nyc npm run unit",
@@ -69,6 +69,7 @@
     "ava": "^3.6.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.4",
+    "create-cert": "^1.0.6",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-jest": "^23.8.2",
@@ -90,6 +91,7 @@
     "qunit": "^2.9.3",
     "rimraf": "^3.0.2",
     "sinon": "^9.0.1",
+    "syswide-cas": "^5.3.0",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"

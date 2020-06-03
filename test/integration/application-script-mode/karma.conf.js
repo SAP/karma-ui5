@@ -6,7 +6,7 @@ module.exports = function(config) {
 
 		ui5: {
 			mode: "script",
-			url: "http://localhost:" + config.localUI5ServerPort,
+			url: "http://localhost:" + config.localUI5ServerPortHttp,
 			config: {
 				theme: "base",
 				language: "EN",

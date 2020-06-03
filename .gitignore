@@ -60,3 +60,6 @@ dist/
 
 # stryker temp files
 .stryker-tmp
+
+# Temporary CA certificate for testing
+test/integration/tmp/ca.pem

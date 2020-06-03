@@ -17,6 +17,12 @@ module.exports = function(config) {
 				flags: [
 					"--no-sandbox"
 				]
+			},
+			ChromeNoSandbox: {
+				base: "Chrome",
+				flags: [
+					"--no-sandbox"
+				]
 			}
 		},
 

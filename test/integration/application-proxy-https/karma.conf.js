@@ -5,18 +5,14 @@ module.exports = function(config) {
 	config.set({
 
 		ui5: {
-			type: "library",
-			url: "http://localhost:" + config.localUI5ServerPortHttp,
-			paths: {
-				src: "src/main/js",
-				test: "src/test/js"
-			}
+			type: "application",
+			url: "https://localhost:" + config.localUI5ServerPortHttps
 		},
 
 		frameworks: ["ui5"],
 
 		preprocessors: {
-			"src/main/js/**/*.js": ["coverage"]
+			"{webapp,webapp/!(test)}/*.js": ["coverage"]
 		},
 
 		coverageReporter: {
@@ -47,7 +43,7 @@ module.exports.assertions = function({expect, log}) {
 	const coverage = require("./coverage/json/coverage-final.json");
 	const files = Object.keys(coverage);
 	expect(files).toHaveLength(1);
-	expect(files[0]).toEndWith("library-custompath/src/main/js/sap/test/lib/library.js");
+	expect(files[0]).toEndWith("application-proxy-https/webapp/foo.js");
 
 	expect(log).toContain("TOTAL: 1 SUCCESS");
 };
