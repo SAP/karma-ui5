@@ -55,7 +55,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
-    "@openui5/sap.ui.core": "^1.78.0",
+    "@openui5/sap.ui.core": "^1.78.1",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
     "eslint": "^6.8.0",
@@ -73,10 +73,10 @@
     "karma-ie-launcher": "^1.0.0",
     "karma-qunit": "^4.1.1",
     "license-webpack-plugin": "^2.2.0",
-    "puppeteer": "^3.2.0",
+    "puppeteer": "^3.3.0",
     "qunit": "^2.10.0",
     "rimraf": "^3.0.2",
-    "typescript": "^3.9.3",
+    "typescript": "^3.9.5",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   }
