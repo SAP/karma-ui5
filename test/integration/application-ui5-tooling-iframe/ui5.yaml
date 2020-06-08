@@ -1,0 +1,5 @@
+---
+specVersion: "1.0"
+type: application
+metadata:
+  name: test.app
