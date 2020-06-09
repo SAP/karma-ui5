@@ -58,5 +58,5 @@ module.exports = function(config) {
 
 module.exports.assertions = function({expect, log}) {
 	const features = require("./reports/test_report.json");
-	expect(features).toHaveLength(16);
+	expect(features).toHaveLength(21);
 };
