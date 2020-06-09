@@ -2,7 +2,6 @@ module.exports = function(config) {
 	"use strict";
 
 	require("../karma-base.conf")(config);
-	require("../../../")();
 	config.set({
 
 		frameworks: ["ui5"],
@@ -36,6 +35,7 @@ module.exports = function(config) {
 		logLevel: "DEBUG"
 
 	});
+	require("../../../helper").configureIframeCoverage(config);
 };
 
 module.exports.assertions = function({expect, log}) {

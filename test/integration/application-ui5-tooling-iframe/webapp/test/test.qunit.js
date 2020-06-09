@@ -6,7 +6,7 @@ sap.ui.getCore().attachInit(function() {
 	"use strict";
 
 	QUnit.test("Karma", function(assert) {
-		var done = assert.async();
+		const done = assert.async();
 		window._iframeDone = function() {
 			assert.ok(true, "assertion succeeded");
 			done();
