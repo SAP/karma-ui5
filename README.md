@@ -8,19 +8,21 @@
   - [Installation](#installation)
   - [Configuration](#configuration)
   - [Execution](#execution)
-- [Karma configuration requirements](#karma-configuration-requirements)
+- [Karma Configuration Requirements](#karma-configuration-requirements)
 - [Options](#options)
   - [url](#url)
   - [type](#type)
   - [paths](#paths)
-  - [configPath](#configPath)
+  - [configPath](#configpath)
   - [mode](#mode)
     - [html](#html)
     - [script](#script)
   - [testpage](#testpage)
-  - [urlParameters](#urlParameters)
+  - [urlParameters](#urlparameters)
   - [config](#config)
   - [tests](#tests)
+  - [logAssertions](#logassertions)
+  - [logHTMLFilePath](#loghtmlfilepath)
 - [License](#license)
 
 
@@ -320,6 +322,32 @@ ui5: {
     "sap/ui/demo/todo/test/unit/AllTests",
     "sap/ui/demo/todo/test/integration/AllJourneys"
   ]
+}
+```
+
+### logAssertions
+Type: `Boolean`  
+Default: `false`  
+
+If set to `true`, the framework would report the result of the assertions.
+
+Example:
+```js
+ui5: {
+  logAssertions: true
+}
+```
+
+### logHTMLFilePath
+Type: `Boolean`  
+Default: `true`  
+
+If set to `false`, the `log.suite[0]` of the test log would be the feature name. Otherwise it would be the path of the testsuite.
+
+Example:
+```js
+ui5: {
+  logHTMLFilePath: false
 }
 ```
 
