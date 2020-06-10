@@ -2,10 +2,19 @@ const helper = require("../../helper");
 
 
 describe("helper for config", () => {
-	it("Should not modify the config if coverageReporter is not set", async () => {
+	it("Should modify the config if coverageReporter is not set", async () => {
 		const config = {};
 		helper.configureIframeCoverage(config);
-		expect(config).toStrictEqual({});
+		expect(config).toStrictEqual({
+			"coverageReporter": {
+				"instrumenterOptions": {
+					"istanbul": {
+						"coverageGlobalScope":
+							"(function() { var g=window;while(!g.__karma__&&g!==g.parent){g=g.parent;}; return g; })();"
+					}
+				}
+			}
+		});
 	});
 
 	it("Should add coverageReporter", async () => {
@@ -17,14 +26,15 @@ describe("helper for config", () => {
 			"coverageReporter": {
 				"instrumenterOptions": {
 					"istanbul": {
-						"coverageGlobalScope": "(function() { var g=window;while(!g.__karma__&&g!==g.parent){g=g.parent;}; return g; })();"
+						"coverageGlobalScope":
+							"(function() { var g=window;while(!g.__karma__&&g!==g.parent){g=g.parent;}; return g; })();"
 					}
 				}
 			}
 		});
 	});
 
-	it("Should not modify coverageReporter", async () => {
+	it("Should overwrite coverageReporter", async () => {
 		const config = {
 			"coverageReporter": {
 				"instrumenterOptions": {
@@ -39,7 +49,8 @@ describe("helper for config", () => {
 			"coverageReporter": {
 				"instrumenterOptions": {
 					"istanbul": {
-						"coverageGlobalScope": "mytest"
+						"coverageGlobalScope":
+							"(function() { var g=window;while(!g.__karma__&&g!==g.parent){g=g.parent;}; return g; })();"
 					}
 				}
 			}

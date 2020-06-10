@@ -10,17 +10,7 @@ module.exports = function(config) {
 			"{webapp,webapp/!(test)}/*.js": ["coverage"]
 		},
 
-		client: {
-			// useIframe: false
-		},
-
 		coverageReporter: {
-
-			instrumenterOptions: {
-				istanbul: {
-					coverageGlobalScope: "(function() { var g=window;while(!g.__karma__&&g!==g.parent){g=g.parent;}; return g; })();"
-				}
-			},
 
 			includeAllSources: true,
 			reporters: [

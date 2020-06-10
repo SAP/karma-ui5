@@ -30,9 +30,7 @@ module.exports = function(config) {
 			}
 		},
 
-		reporters: ["progress", "coverage"],
-
-		logLevel: "DEBUG"
+		reporters: ["progress", "coverage"]
 
 	});
 	require("../../../helper").configureIframeCoverage(config);

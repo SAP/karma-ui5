@@ -8,11 +8,8 @@
     <script>
 
 	    sap.ui.getCore().attachInit(function() {
-	    	// TODO extract into separate script
 		    sap.ui.require(["test/app/foo"], function() {
-
 			    window.parent._iframeDone();
-
 		    });
 	    });
 
