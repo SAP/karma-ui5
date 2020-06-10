@@ -20,7 +20,6 @@ module.exports.setup = function(config) {
 				SauceLabs_firefox: {
 					base: "SauceLabs",
 					browserName: "firefox",
-					browserVersion: "68",
 					platformName: "Windows 10"
 				},
 				SauceLabs_ie11: {
@@ -36,7 +35,7 @@ module.exports.setup = function(config) {
 				region: "eu"
 			},
 
-			browsers: ["SauceLabs_firefox"/* , "SauceLabs_ie11"*/],
+			browsers: ["SauceLabs_firefox", "SauceLabs_ie11"],
 
 			captureTimeout: 0,
 
