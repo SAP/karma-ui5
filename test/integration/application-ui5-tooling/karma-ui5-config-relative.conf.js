@@ -13,4 +13,6 @@ module.exports = function(config) {
 		reporters: ["progress"]
 
 	});
+
+	require("../saucelabs").setTestName(config, __filename);
 };
