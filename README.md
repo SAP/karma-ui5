@@ -335,7 +335,7 @@ This plugin also comes with a helper module to be used in your Karma configurati
 #### configureIframeCoverage
 
 Enables code coverage for iframes.
-Can only be used in combination with the [karma-coverage](https://github.com/karma-runner/karma-coverage) plugin.
+Can only be used in combination with the [karma-coverage](https://github.com/karma-runner/karma-coverage) plugin (v2.0.0+).
 
 Must be called from the karma configuration function after the coverage plugin has been configured.
 The `config` object must be passed as a parameter.
