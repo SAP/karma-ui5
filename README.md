@@ -5,22 +5,25 @@
 **Table of Contents**
 - [About](#about)
 - [Quickstart](#quickstart)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-  - [Execution](#execution)
-- [Karma configuration requirements](#karma-configuration-requirements)
+	- [Installation](#installation)
+	- [Configuration](#configuration)
+	- [Execution](#execution)
+- [Karma Configuration Requirements](#karma-configuration-requirements)
 - [Options](#options)
-  - [url](#url)
-  - [type](#type)
-  - [paths](#paths)
-  - [configPath](#configPath)
-  - [mode](#mode)
-    - [html](#html)
-    - [script](#script)
-  - [testpage](#testpage)
-  - [urlParameters](#urlParameters)
-  - [config](#config)
-  - [tests](#tests)
+	- [url](#url)
+	- [type](#type)
+	- [paths](#paths)
+	- [configPath](#configpath)
+	- [mode](#mode)
+		- [html](#html)
+		- [script](#script)
+	- [testpage](#testpage)
+	- [urlParameters](#urlparameters)
+	- [config](#config)
+	- [tests](#tests)
+- [API](#api)
+	- [helper](#helper)
+		- [configureIframeCoverage](#configureiframecoverage)
 - [License](#license)
 
 
@@ -321,6 +324,31 @@ ui5: {
     "sap/ui/demo/todo/test/integration/AllJourneys"
   ]
 }
+```
+
+## API
+
+### helper
+
+This plugin also comes with a helper module to be used in your Karma configuration file.
+
+#### configureIframeCoverage
+
+Enables code coverage for iframes.
+Can only be used in combination with the [karma-coverage](https://github.com/karma-runner/karma-coverage) plugin (v2.0.0+).
+
+Must be called from the karma configuration function after the coverage plugin has been configured.
+The `config` object must be passed as a parameter.
+
+```js
+module.exports = function(config) {
+	config.set({
+
+		// ...
+
+	});
+	require("karma-ui5/helper").configureIframeCoverage(config);
+};
 ```
 
 ## License

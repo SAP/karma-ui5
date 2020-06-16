@@ -33,11 +33,12 @@ module.exports = function(config) {
 		reporters: ["progress", "coverage"]
 
 	});
+	require("../../../helper").configureIframeCoverage(config);
 };
 
 module.exports.assertions = function({expect, log}) {
 	const coverage = require("./coverage/json/coverage-final.json");
 	const files = Object.keys(coverage);
 	expect(files).toHaveLength(1);
-	expect(files[0]).toEndWith("application-ui5-tooling/webapp/foo.js");
+	expect(files[0]).toEndWith("application-ui5-tooling-iframe/webapp/foo.js");
 };
