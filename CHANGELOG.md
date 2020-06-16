@@ -2,7 +2,13 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.1.2...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.2.0...HEAD).
+
+<a name="v2.2.0"></a>
+## [v2.2.0] - 2020-06-16
+### Features
+- Add iframe coverage support ([#194](https://github.com/SAP/karma-ui5/issues/194)) [`3b5e67b`](https://github.com/SAP/karma-ui5/commit/3b5e67bb8a291da3c64e8c3c361765d6bbd010b1)
+
 
 <a name="v2.1.2"></a>
 ## [v2.1.2] - 2020-05-25
@@ -132,6 +138,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v2.2.0]: https://github.com/SAP/karma-ui5/compare/v2.1.2...v2.2.0
 [v2.1.2]: https://github.com/SAP/karma-ui5/compare/v2.1.1...v2.1.2
 [v2.1.1]: https://github.com/SAP/karma-ui5/compare/v2.1.0...v2.1.1
 [v2.1.0]: https://github.com/SAP/karma-ui5/compare/v2.0.0...v2.1.0
