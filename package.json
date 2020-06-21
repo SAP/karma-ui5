@@ -48,20 +48,20 @@
   "dependencies": {
     "@ui5/fs": "^2.0.1",
     "@ui5/project": "^2.1.4",
-    "@ui5/server": "^2.0.3",
+    "@ui5/server": "^2.1.0",
     "express": "^4.17.1",
     "http-proxy": "^1.18.1",
     "js-yaml": "^3.14.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "@babel/preset-env": "^7.10.2",
-    "@openui5/sap.ui.core": "^1.78.1",
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@openui5/sap.ui.core": "^1.79.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-jest": "^23.13.2",
+    "eslint-plugin-jest": "^23.14.0",
     "eslint-plugin-jsdoc": "^22.2.0",
     "execa": "^3.4.0",
     "istanbul-lib-coverage": "^3.0.0",
@@ -79,6 +79,6 @@
     "rimraf": "^3.0.2",
     "typescript": "^3.9.5",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   }
 }
