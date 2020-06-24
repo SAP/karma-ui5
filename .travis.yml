@@ -1,4 +1,4 @@
-language: node_js # don't install any environment
+language: node_js
 
 dist: xenial
 
@@ -7,19 +7,17 @@ node_js:
 
 script:
 - npm test
-- if [[ -v "$SAUCE_ACCESS_KEY" ]]; then
-    npm run integration-saucelabs
+- if [[ "$RUN_SAUCELABS_IT" && "$SAUCE_ACCESS_KEY" ]]; then
+    npm run integration-saucelabs;
   fi
-
-os:
-- linux
-- osx
-# - windows # Integration tests are failing on windows
 
 osx_image: xcode11.3
 
-matrix:
+jobs:
   include:
+    - os: linux
+      env: RUN_SAUCELABS_IT=true # Only run SauceLabs tests in one build
+    - os: osx
     - os: linux
       node_js:
         - "10"
