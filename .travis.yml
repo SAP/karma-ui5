@@ -5,6 +5,12 @@ dist: xenial
 node_js:
 - "node"
 
+script:
+- npm test
+- if [[ -v "$SAUCE_ACCESS_KEY" ]]; then
+    npm run integration-saucelabs
+  fi
+
 os:
 - linux
 - osx
