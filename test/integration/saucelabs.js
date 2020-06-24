@@ -38,6 +38,7 @@ module.exports.setup = function(config) {
 			browsers: ["SauceLabs_firefox", "SauceLabs_ie11"],
 
 			captureTimeout: 0,
+			browserDisconnectTimeout: 0,
 
 			reporters: ["progress", "coverage", "saucelabs"]
 
