@@ -48,16 +48,16 @@
   },
   "dependencies": {
     "@ui5/fs": "^2.0.1",
-    "@ui5/project": "^2.1.4",
-    "@ui5/server": "^2.2.0",
+    "@ui5/project": "^2.1.5",
+    "@ui5/server": "^2.2.1",
     "express": "^4.17.1",
     "http-proxy": "^1.18.1",
     "js-yaml": "^3.14.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.4",
+    "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
-    "@openui5/sap.ui.core": "^1.79.0",
+    "@openui5/sap.ui.core": "^1.80.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
     "eslint": "^6.8.0",
@@ -75,11 +75,11 @@
     "karma-ie-launcher": "^1.0.0",
     "karma-qunit": "^4.1.1",
     "karma-sauce-launcher": "^4.1.5",
-    "license-webpack-plugin": "^2.2.0",
+    "license-webpack-plugin": "^2.3.0",
     "puppeteer": "^3.3.0",
     "qunit": "^2.10.1",
     "rimraf": "^3.0.2",
-    "typescript": "^3.9.6",
+    "typescript": "^3.9.7",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
   }
