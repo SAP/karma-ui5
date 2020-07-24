@@ -24,6 +24,11 @@ const registerIntegrationTest = async (configPath) => {
 		// Pass port of local server to be used in "url" config scenarios
 		args.push("--localUI5ServerPort=" + server.port);
 
+		if (process.argv[process.argv.length - 1] === "--useSauceLabs=true") {
+			// Enable execution via SauceLabs
+			args.push("--useSauceLabs=true");
+		}
+
 		// Clean up coverage folder
 		await rimraf(path.join(path.dirname(fullConfigPath), "coverage"));
 
@@ -53,8 +58,9 @@ const registerIntegrationTest = async (configPath) => {
 	});
 };
 
-// Increase test timeout to 10s (default 5s)
-jest.setTimeout(100000);
+
+// Increase test timeout to 300s (default 5s)
+jest.setTimeout(300000);
 
 beforeAll(async (done) => {
 	try {

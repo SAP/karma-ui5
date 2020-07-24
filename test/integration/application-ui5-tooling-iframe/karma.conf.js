@@ -4,11 +4,6 @@ module.exports = function(config) {
 	require("../karma-base.conf")(config);
 	config.set({
 
-		ui5: {
-			type: "application",
-			url: "http://localhost:" + config.localUI5ServerPort
-		},
-
 		frameworks: ["ui5"],
 
 		preprocessors: {
@@ -16,6 +11,7 @@ module.exports = function(config) {
 		},
 
 		coverageReporter: {
+
 			includeAllSources: true,
 			reporters: [
 				{
@@ -32,19 +28,17 @@ module.exports = function(config) {
 					lines: 100
 				}
 			}
-		}
+		},
+
+		reporters: ["progress", "coverage"]
 
 	});
-
-	require("../saucelabs").setTestName(config, __filename);
+	require("../../../helper").configureIframeCoverage(config);
 };
 
 module.exports.assertions = function({expect, log}) {
 	const coverage = require("./coverage/json/coverage-final.json");
 	const files = Object.keys(coverage);
 	expect(files).toHaveLength(1);
-	const sWindowsExpect = "application-proxy\\webapp\\foo.js";
-	const sLinuxExpect = "application-proxy/webapp/foo.js";
-	const sActual = files[0] && files[0].replace(sWindowsExpect, sLinuxExpect);
-	expect(sActual).toEndWith(sLinuxExpect);
+	expect(files[0]).toEndWith("application-ui5-tooling-iframe/webapp/foo.js");
 };

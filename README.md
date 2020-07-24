@@ -5,24 +5,27 @@
 **Table of Contents**
 - [About](#about)
 - [Quickstart](#quickstart)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-  - [Execution](#execution)
+	- [Installation](#installation)
+	- [Configuration](#configuration)
+	- [Execution](#execution)
 - [Karma Configuration Requirements](#karma-configuration-requirements)
 - [Options](#options)
-  - [url](#url)
-  - [type](#type)
-  - [paths](#paths)
-  - [configPath](#configpath)
-  - [mode](#mode)
-    - [html](#html)
-    - [script](#script)
-  - [testpage](#testpage)
-  - [urlParameters](#urlparameters)
-  - [config](#config)
-  - [tests](#tests)
+	- [url](#url)
+	- [type](#type)
+	- [paths](#paths)
+	- [configPath](#configpath)
+	- [mode](#mode)
+		- [html](#html)
+		- [script](#script)
+	- [testpage](#testpage)
+	- [urlParameters](#urlparameters)
+	- [config](#config)
+	- [tests](#tests)
   - [logAssertions](#logassertions)
   - [logHTMLFilePath](#loghtmlfilepath)
+- [API](#api)
+	- [helper](#helper)
+		- [configureIframeCoverage](#configureiframecoverage)
 - [License](#license)
 
 
@@ -351,7 +354,38 @@ ui5: {
 }
 ```
 
+## API
+
+### helper
+
+This plugin also comes with a helper module to be used in your Karma configuration file.
+
+#### configureIframeCoverage
+
+Enables code coverage for iframes.
+Can only be used in combination with the [karma-coverage](https://github.com/karma-runner/karma-coverage) plugin (v2.0.0+).
+
+Must be called from the karma configuration function after the coverage plugin has been configured.
+The `config` object must be passed as a parameter.
+
+```js
+module.exports = function(config) {
+	config.set({
+
+		// ...
+
+	});
+	require("karma-ui5/helper").configureIframeCoverage(config);
+};
+```
+
+## Big Thanks
+
+Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs](https://saucelabs.com).
+
+<img width="200px" alt="Testing Provided by Sauce Labs" src="./resources/saucelabs.svg">
+
 ## License
-(c) Copyright 2019 SAP SE or an SAP affiliate company
+(c) Copyright 2020 SAP SE or an SAP affiliate company
 
 Licensed under the Apache License, Version 2.0 - see LICENSE.

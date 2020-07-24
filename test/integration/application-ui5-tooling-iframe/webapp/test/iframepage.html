@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script id="sap-ui-bootstrap" src="../resources/sap-ui-core.js" data-sap-ui-resourceRoots='{ "test.app": "../" }'></script>
+
+    <script>
+
+	    sap.ui.getCore().attachInit(function() {
+		    sap.ui.require(["test/app/foo"], function() {
+			    window.parent._iframeDone();
+		    });
+	    });
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

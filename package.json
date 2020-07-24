@@ -1,7 +1,7 @@
 {
   "name": "karma-ui5",
   "description": "A Karma plugin for UI5",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": "SAP SE (https://www.sap.com)",
   "license": "Apache-2.0",
   "homepage": "https://github.com/SAP/karma-ui5",
@@ -24,7 +24,8 @@
   "main": "lib/index.js",
   "files": [
     "dist",
-    "lib"
+    "lib",
+    "helper.js"
   ],
   "scripts": {
     "lint": "eslint ./",
@@ -34,6 +35,7 @@
     "unit-coverage": "jest -c test/unit/jest.config.js --coverage",
     "integration": "jest -c test/integration/jest.config.js",
     "integration-internet-explorer": "jest -c test/integration/jest.config.js --browsers=IE",
+    "integration-saucelabs": "jest -c test/integration/jest.config.js --useSauceLabs=true",
     "dev": "webpack --watch --mode=development",
     "prepare": "webpack",
     "preversion": "npm test",
@@ -45,39 +47,40 @@
     "karma": ">= 4.3.0"
   },
   "dependencies": {
-    "@ui5/fs": "^2.0.0",
-    "@ui5/project": "^2.0.3",
-    "@ui5/server": "^2.0.1",
+    "@ui5/fs": "^2.0.1",
+    "@ui5/project": "^2.1.5",
+    "@ui5/server": "^2.2.1",
     "express": "^4.17.1",
-    "http-proxy": "^1.18.0",
-    "js-yaml": "^3.13.1"
+    "http-proxy": "^1.18.1",
+    "js-yaml": "^3.14.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@openui5/sap.ui.core": "^1.76.0",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@openui5/sap.ui.core": "^1.80.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-jest": "^23.18.0",
     "eslint-plugin-jsdoc": "^22.2.0",
     "execa": "^3.4.0",
     "istanbul-lib-coverage": "^3.0.0",
-    "jest": "^25.3.0",
+    "jest": "^25.5.4",
     "jest-extended": "^0.11.5",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^3.1.0",
-    "karma-coverage": "^2.0.2",
+    "karma-coverage": "2.0.1",
     "karma-edge-launcher": "^0.4.2",
     "karma-ie-launcher": "^1.0.0",
-    "karma-qunit": "^4.0.0",
-    "license-webpack-plugin": "^2.1.4",
-    "puppeteer": "^2.1.1",
-    "qunit": "^2.9.3",
+    "karma-qunit": "^4.1.1",
+    "karma-sauce-launcher": "^4.1.5",
+    "license-webpack-plugin": "^2.3.0",
+    "puppeteer": "^3.3.0",
+    "qunit": "^2.10.1",
     "rimraf": "^3.0.2",
-    "typescript": "^3.8.3",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "typescript": "^3.9.7",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   }
 }
