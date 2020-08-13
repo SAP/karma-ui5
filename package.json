@@ -25,7 +25,9 @@
   "files": [
     "dist",
     "lib",
-    "helper.js"
+    "helper.js",
+    "LICENSES/**",
+    ".reuse/**"
   ],
   "scripts": {
     "lint": "eslint ./",
