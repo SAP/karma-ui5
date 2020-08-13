@@ -356,8 +356,3 @@ module.exports = function(config) {
 Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs](https://saucelabs.com).
 
 <img width="200px" alt="Testing Provided by Sauce Labs" src="./resources/saucelabs.svg">
-
-## License
-(c) Copyright 2020 SAP SE or an SAP affiliate company
-
-Licensed under the Apache License, Version 2.0 - see LICENSE.
