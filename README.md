@@ -1,5 +1,6 @@
 ![UI5 icon](https://raw.githubusercontent.com/SAP/ui5-tooling/master/docs/images/UI5_logo_wide.png)
 
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/karma-ui5)](https://api.reuse.software/info/github.com/SAP/karma-ui5)
 [![NPM Version](https://img.shields.io/npm/v/karma-ui5.svg?style=flat)](https://www.npmjs.org/package/karma-ui5)
 
 **Table of Contents**
