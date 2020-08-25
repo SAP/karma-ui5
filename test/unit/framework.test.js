@@ -216,6 +216,7 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		await framework.init({config, logger});
 
 		expect(setupProxySpy).toHaveBeenCalledWith({
+			failOnNoTests: false,
 			mode: "html",
 			url: "http://localhost",
 			type: "application",
