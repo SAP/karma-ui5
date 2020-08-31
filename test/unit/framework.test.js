@@ -684,6 +684,76 @@ describe("urlParameters", () => {
 	});
 });
 
+describe("failOnEmptyTestPage", () => {
+	it("should default to 'false'", async () => {
+		const config = {
+			ui5: {}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({
+			config: config,
+			logger: logger
+		});
+
+		expect(config.ui5.failOnEmptyTestPage).toBe(false);
+	});
+	it("should pass 'true' value to client", async () => {
+		const config = {
+			ui5: {
+				failOnEmptyTestPage: true
+			}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({
+			config: config,
+			logger: logger
+		});
+
+		expect(config.client.ui5.failOnEmptyTestPage).toBe(true);
+	});
+	it("should pass 'false' value to client", async () => {
+		const config = {
+			ui5: {
+				failOnEmptyTestPage: false
+			}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({
+			config: config,
+			logger: logger
+		});
+
+		expect(config.client.ui5.failOnEmptyTestPage).toBe(false);
+	});
+	it("Should throw if failOnEmptyTestPage is not of type boolean (string)", async () => {
+		const config = {
+			ui5: {failOnEmptyTestPage: "true"}
+		};
+		const framework = new Framework();
+		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
+		expect(framework.logger.message).toBe(ErrorMessage.failOnEmptyTestPageNotTypeBoolean("true"));
+	});
+	it("Should throw if failOnEmptyTestPage is not of type boolean (object)", async () => {
+		const config = {
+			ui5: {failOnEmptyTestPage: {foo: "bar"}}
+		};
+		const framework = new Framework();
+		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
+		expect(framework.logger.message).toBe(ErrorMessage.failOnEmptyTestPageNotTypeBoolean({foo: "bar"}));
+	});
+	it("Should throw if failOnEmptyTestPage is used with script mode", async () => {
+		const config = {
+			ui5: {mode: "script", failOnEmptyTestPage: true}
+		};
+		const framework = new Framework();
+		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
+		expect(framework.logger.message).toBe(ErrorMessage.failOnEmptyTestPageInNonHtmlMode("script"));
+	});
+});
+
 describe("Without QUnit HTML Runner (with URL)", () => {
 	it("Should include sap-ui-config.js and sap-ui-core.js", async () => {
 		const config = {
