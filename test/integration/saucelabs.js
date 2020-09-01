@@ -33,9 +33,15 @@ module.exports.setup = function(config) {
 			sauceLabs: {
 				testName: "karma-ui5",
 				region: "eu",
-				build: process.env.TRAVIS_JOB_NUMBER,
+				build: process.env.GITHUB_RUN_ID,
 				recordVideo: false,
-				recordScreenshots: false
+				recordScreenshots: false,
+				customData: {
+					sha: process.env.GITHUB_SHA
+				},
+				// Sauce connect is started via GitHub Action in .github/workflows/saucelabs.yml
+				startConnect: false,
+				tunnelIdentifier: `github-${process.env.GITHUB_RUN_ID}`
 			},
 
 			browsers: ["SauceLabs_firefox", "SauceLabs_ie11"],
