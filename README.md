@@ -8,6 +8,7 @@
 - [Quickstart](#quickstart)
 	- [Installation](#installation)
 	- [Configuration](#configuration)
+		- [Script Mode](#script-mode)
 	- [Execution](#execution)
 - [Karma Configuration Requirements](#karma-configuration-requirements)
 - [Options](#options)
@@ -83,6 +84,78 @@ module.exports = function(config) {
 
     browsers: ["Chrome"]
 
+  });
+};
+```
+
+#### Script Mode
+
+*(Optional, next step: [Execution](#execution))*
+
+The configuration above implies to use the [`html` mode](#html), which is recommended.
+It runs your existing test pages and does not require additional Karma plugins or configuration.
+
+However the [`script` mode](#script) is more flexible and better allows integration with other karma plugins / frameworks.
+
+The following steps describe a minimal configuration for the `script` mode.
+
+With the `script` mode you need to also include a testing framework and its Karma adapter, like [QUnit](https://qunitjs.com/) and [karma-qunit](https://github.com/karma-runner/karma-qunit).
+```shell
+npm install --save-dev qunit karma-qunit
+```
+
+To use test spies, stubs and mocks you need to install [Sinon.JS](https://sinonjs.org/) and [karma-sinon](https://github.com/yanoosh/karma-sinon).
+```shell
+npm install --save-dev sinon karma-sinon
+```
+
+Both frameworks need to be added to the `karma.conf.js`.  
+Note that `ui5` should be the first entry.
+```js
+frameworks: ["ui5", "qunit", "sinon"]
+```
+
+Next, you need to provide the UI5 bootstrap configuration (see [config](#config)).  
+The `resourceRoots` configuration should be aligned with your project namespace.
+```js
+ui5: {
+  config: {
+    async: true,
+    resourceRoots: {
+      "sap.ui.demo.todo": "./base/webapp"
+    }
+  }
+}
+```
+
+Last but not least the test modules need to be listed, so that they are executed.
+```js
+ui5: {
+  tests: [
+    "sap/ui/demo/todo/test/unit/AllTests"
+  ]
+}
+```
+
+Here is the full example for the `script` mode:
+```js
+module.exports = function(config) {
+  config.set({
+    frameworks: ["ui5", "qunit", "sinon"],
+    ui5: {
+      url: "https://openui5.hana.ondemand.com",
+      mode: "script",
+      config: {
+        async: true,
+        resourceRoots: {
+          "sap.ui.demo.todo": "./base/webapp"
+        }
+      },
+      tests: [
+        "sap/ui/demo/todo/test/unit/AllTests"
+      ]
+    },
+    browsers: ["Chrome"]
   });
 };
 ```
