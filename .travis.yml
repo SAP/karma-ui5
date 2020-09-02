@@ -5,6 +5,10 @@ dist: xenial
 node_js:
 - "node"
 
+branches:
+  only:
+    - master
+
 script:
 - npm test
 - if [[ "$RUN_SAUCELABS" && "$SAUCE_ACCESS_KEY" ]]; then
