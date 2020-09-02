@@ -19,7 +19,6 @@ module.exports = function(config) {
 module.exports.shouldFail = false;
 module.exports.assertions = ({expect, log}) => {
 	expect(log).toMatch(/Executed 1 of 1/);
-	expect(log).toMatch(/TOTAL: 1 SUCCESS/);
 	expect(log).toMatch(/Testpage "\/base\/webapp\/test\/empty-testpage\/empty.qunit.html" did not define any tests/);
 	expect(log).toMatch(/Please consider enabling the "failOnEmptyTestPage" option/);
 };
