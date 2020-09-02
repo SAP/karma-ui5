@@ -2,7 +2,16 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.2.1...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.3.0...HEAD).
+
+<a name="v2.3.0"></a>
+## [v2.3.0] - 2020-09-02
+### Bug Fixes
+- **README:** Add Script Mode configuration to Quickstart Guide ([#221](https://github.com/SAP/karma-ui5/issues/221)) [`3fe2d4e`](https://github.com/SAP/karma-ui5/commit/3fe2d4ef225dd947f9965e076997e4ca305f31a4)
+
+### Features
+- Add "failOnEmptyTestPage" option ([#228](https://github.com/SAP/karma-ui5/issues/228)) [`6b9648b`](https://github.com/SAP/karma-ui5/commit/6b9648b322ecea824c2981feb8becd840f601174)
+
 
 <a name="v2.2.1"></a>
 ## [v2.2.1] - 2020-08-24
@@ -144,6 +153,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v2.3.0]: https://github.com/SAP/karma-ui5/compare/v2.2.1...v2.3.0
 [v2.2.1]: https://github.com/SAP/karma-ui5/compare/v2.2.0...v2.2.1
 [v2.2.0]: https://github.com/SAP/karma-ui5/compare/v2.1.2...v2.2.0
 [v2.1.2]: https://github.com/SAP/karma-ui5/compare/v2.1.1...v2.1.2
