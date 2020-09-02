@@ -32,7 +32,10 @@ module.exports.setup = function(config) {
 
 			sauceLabs: {
 				testName: "karma-ui5",
-				region: "eu"
+				region: "eu",
+				build: process.env.TRAVIS_JOB_NUMBER,
+				recordVideo: false,
+				recordScreenshots: false
 			},
 
 			browsers: ["SauceLabs_firefox", "SauceLabs_ie11"],
