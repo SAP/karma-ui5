@@ -21,6 +21,7 @@
 		- [script](#script)
 	- [testpage](#testpage)
 	- [urlParameters](#urlparameters)
+	- [failOnEmptyTestPage](#failonemptytestpage)
 	- [config](#config)
 	- [tests](#tests)
 - [API](#api)
@@ -309,6 +310,7 @@ ui5: {
 Specific config options:
 - [testpage](#testpage)
 - [urlParameters](#urlParameters)
+- [failOnEmptyTestPage](#failonemptytestpage)
 
 #### script
 
@@ -358,6 +360,23 @@ ui5: {
         key: "hidepassed",
         value: true
     }]
+}
+```
+
+### failOnEmptyTestPage
+Type: `boolean`  
+Default: `false`  
+CLI: `--ui5.failOnEmptyTestPage`  
+Specific to ["html" mode](#html)
+
+Reports an error when a test page does not define any tests.  
+The [Karma configuration `failOnEmptyTestSuite`](https://karma-runner.github.io/latest/config/configuration-file.html) only covers the case when no tests were defined at all, but not when just one testpage doesn't define tests.
+
+Example:
+```js
+ui5: {
+		mode: "html",
+		failOnEmptyTestPage: true
 }
 ```
 
