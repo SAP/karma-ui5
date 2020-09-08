@@ -19,7 +19,7 @@ jobs:
         node-version: 14.x
     - run: npm ci
     - name: Start sauce-connect
-      uses: saucelabs/sauce-connect-action@700df7880fd47f04be30d2517eb189a89e2fb386
+      uses: saucelabs/sauce-connect-action@bd4efdc5ec24eaaca1afeb3b333133d6df0d7b29
       with:
         username: ${{ secrets.SAUCE_USERNAME }}
         accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
