@@ -5,8 +5,11 @@ const {promisify} = require("util");
 const rimraf = promisify(require("rimraf"));
 const ui5Normalizer = require("@ui5/project").normalizer;
 const ui5Server = require("@ui5/server").server;
-
+const TEST_TIMEOUT = 5 * 60 * 1000; // 5 minutes
 let server;
+
+// Increase test timeout (default 5s)
+jest.setTimeout(TEST_TIMEOUT);
 
 const registerIntegrationTest = async (configPath) => {
 	it(configPath, async () => {
@@ -32,34 +35,50 @@ const registerIntegrationTest = async (configPath) => {
 		// Clean up coverage folder
 		await rimraf(path.join(path.dirname(fullConfigPath), "coverage"));
 
-		const karmaProcess = await execa("karma", args, {
+		const karmaProcess = execa("karma", args, {
 			cwd: __dirname,
 			preferLocal: true, // allow executing local karma binary
 			reject: false,
 			all: true
 		});
 
-		console.log(configPath); // eslint-disable-line no-console
-		console.log(karmaProcess.all); // eslint-disable-line no-console
+		let processKilled = false;
+		const killTimeout = setTimeout(
+			() => {
+				processKilled = true;
+				karmaProcess.kill();
+			},
+			// Set timeout 1s earlier than jest to ensure that it's reached before.
+			// This ensures that the process output is logged in case of a timeout.
+			TEST_TIMEOUT - 1000
+		);
 
-		if (integrationTest.shouldFail && !karmaProcess.failed) {
+		const karmaProcessResult = await karmaProcess;
+
+		clearTimeout(killTimeout);
+
+		console.log(configPath); // eslint-disable-line no-console
+		console.log(karmaProcessResult.all); // eslint-disable-line no-console
+
+		if (processKilled) {
+			throw new Error("Karma execution timed out!");
+		}
+
+		if (integrationTest.shouldFail && !karmaProcessResult.failed) {
 			throw new Error("Karma execution should have failed!");
 		}
-		if (!integrationTest.shouldFail && karmaProcess.failed) {
+		if (!integrationTest.shouldFail && karmaProcessResult.failed) {
 			throw new Error("Karma execution should not have failed!");
 		}
 
 		if (integrationTest.assertions) {
 			integrationTest.assertions({
 				expect,
-				log: karmaProcess.all
+				log: karmaProcessResult.all
 			});
 		}
 	});
 };
-
-// Increase test timeout to 300s (default 5s)
-jest.setTimeout(300000);
 
 beforeAll(async (done) => {
 	try {
