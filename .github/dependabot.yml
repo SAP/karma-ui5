@@ -11,8 +11,3 @@ updates:
   - matz3
   - RandomByte
   versioning-strategy: increase
-  ignore:
-  - dependency-name: execa
-    versions:
-    - ">= 4.a"
-    - "< 5"
