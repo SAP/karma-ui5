@@ -1,0 +1,18 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: sunday
+    time: "10:00"
+    timezone: Etc/UCT
+  reviewers:
+  - matz3
+  - RandomByte
+  versioning-strategy: increase
+  ignore:
+  - dependency-name: execa
+    versions:
+    - ">= 4.a"
+    - "< 5"
