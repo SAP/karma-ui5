@@ -62,7 +62,7 @@
     "@openui5/sap.ui.core": "^1.82.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
-    "eslint": "^6.8.0",
+    "eslint": "^7.9.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-jsdoc": "^30.5.1",
