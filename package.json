@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@ui5/fs": "^2.0.3",
-    "@ui5/project": "^2.2.1",
+    "@ui5/project": "^2.2.2",
     "@ui5/server": "^2.2.4",
     "express": "^4.17.1",
     "http-proxy": "^1.18.1",
@@ -59,13 +59,13 @@
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
-    "@openui5/sap.ui.core": "^1.81.2",
+    "@openui5/sap.ui.core": "^1.82.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-jest": "^23.20.0",
-    "eslint-plugin-jsdoc": "^30.4.2",
+    "eslint-plugin-jsdoc": "^30.5.1",
     "execa": "^3.4.0",
     "istanbul-lib-coverage": "^3.0.0",
     "jest": "^25.5.4",
@@ -82,7 +82,7 @@
     "qunit": "^2.11.2",
     "rimraf": "^3.0.2",
     "typescript": "^3.9.7",
-    "webpack": "^4.44.1",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   }
 }
