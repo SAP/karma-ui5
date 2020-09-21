@@ -34,6 +34,8 @@ module.exports = function(config) {
 
 	});
 	require("../../../helper").configureIframeCoverage(config);
+
+	require("../saucelabs").setTestName(config, __filename);
 };
 
 module.exports.assertions = function({expect, log}) {
