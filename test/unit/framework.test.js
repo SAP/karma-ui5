@@ -17,56 +17,12 @@ const logger = {
 };
 
 describe("Middleware for UI5", () => {
-	it("Should pause requests during UI5 server setup and resume once ready", async () => {
+	it("Should rewrite url in middleware", async () => {
 		let resolve;
 		const donePromise = new Promise((_resolve) => {
 			resolve = _resolve;
 		});
-		expect.assertions(7);
-
-		const config = {
-			ui5: {
-				useMiddleware: true
-			}
-		};
-		const framework = new Framework();
-		framework.exists = () => true;
-		const initPromise = framework.init({config, logger});
-
-		expect(config["beforeMiddleware"]).toContain("ui5--pauseRequests");
-		expect(framework.isPaused).toBe(true);
-
-		const processRequestsSpy = jest.spyOn(framework, "processRequests");
-
-		const pauseRequestsMiddleware = framework.pauseRequests();
-		pauseRequestsMiddleware({}, {}, function() {
-			expect(processRequestsSpy).toBeCalled();
-			expect(framework.isPaused).toBe(false);
-
-			setTimeout(function() {
-				// Queue should be empty after paused requests have been called
-				expect(framework.queue).toHaveLength(0);
-
-				// New requests shouldn't be queued anymore
-				pauseRequestsMiddleware({}, {}, function() {
-					expect(framework.queue).toHaveLength(0);
-					resolve();
-				});
-			}, 0);
-		});
-		expect(framework.queue).toHaveLength(1);
-
-		await initPromise;
-
-		return donePromise;
-	});
-
-	it("Should rewrite url in serveResources middleware", async () => {
-		let resolve;
-		const donePromise = new Promise((_resolve) => {
-			resolve = _resolve;
-		});
-		expect.assertions(6);
+		expect.assertions(3);
 
 		const config = {
 			ui5: {
@@ -76,31 +32,22 @@ describe("Middleware for UI5", () => {
 		};
 		const framework = new Framework();
 		framework.exists = () => true;
-		const initPromise = framework.init({config, logger});
-		expect(config["middleware"]).toContain("ui5--serveResources");
-		expect(framework.isPaused).toBe(true);
+		await framework.init({config, logger});
+		expect(config["middleware"]).toContain("ui5--middleware");
 
 		const rewriteUrlSpy = jest.spyOn(framework, "rewriteUrl");
 
-		const pauseRequestsMiddleware = framework.pauseRequests();
-		const serveResourcesMiddleware = framework.serveResources();
+		const middleware = framework.middleware;
 
-		pauseRequestsMiddleware({}, {}, function() {
-			expect(framework.isPaused).toBe(false);
-			const internalServeResourcesSpy = jest.spyOn(framework, "_serveResources");
+		const req = {
+			url: "/foo"
+		};
 
-			const req = {url: "/foo"};
-			const res = {};
-			const next = function() {
-				expect(internalServeResourcesSpy).toBeCalledWith(req, res, next);
-				expect(rewriteUrlSpy).toBeCalledWith("/foo");
-				expect(req.url).toBe("/foo");
-				resolve();
-			};
-			serveResourcesMiddleware(req, res, next);
+		middleware(req, {}, function() {
+			expect(rewriteUrlSpy).toBeCalledWith("/foo");
+			expect(req.url).toBe("/foo");
+			resolve();
 		});
-
-		await initPromise;
 
 		return donePromise;
 	});
@@ -159,15 +106,13 @@ describe("Proxy for UI5 ", () => {
 
 		// const proxy = require("http-proxy").createProxyServer.mock.results[0].value;
 
-		expect(proxyServer.serveThemes).toBeUndefined();
-
 		const req = {};
 		const res = {};
 		const next = function() {
 			// expect(proxy.web).toBeCalledWith(req, res, next); // TODO: check why this fails
 			done();
 		};
-		proxyServer.serveResources(req, res, next);
+		proxyServer(req, res, next);
 	});
 
 	it("Should call proxy module from serveResources middleware (https)", (done) => {
@@ -189,15 +134,13 @@ describe("Proxy for UI5 ", () => {
 
 		// const proxy = require("http-proxy").createProxyServer.mock.results[0].value;
 
-		expect(proxyServer.serveThemes).toBeUndefined();
-
 		const req = {};
 		const res = {};
 		const next = function() {
 			// expect(proxy.web).toBeCalledWith(req, res, next); // TODO: check why this fails
 			done();
 		};
-		proxyServer.serveResources(req, res, next);
+		proxyServer(req, res, next);
 	});
 });
 
@@ -619,9 +562,6 @@ describe("Types configuration", () => {
 		await framework.init({config, logger});
 		expect(config.files.find((file) => file.pattern.endsWith("/{src/**,src/**/.*}"))).toBeDefined();
 		expect(config.files.find((file) => file.pattern.endsWith("/{test/**,test/**/.*}"))).toBeDefined();
-
-		expect(config.proxies["/base/resources/"]).toEqual("/base/src/");
-		expect(config.proxies["/base/test-resources/"]).toEqual("/base/test/");
 	});
 
 	// TODO: What should happen?
