@@ -17,6 +17,41 @@ const logger = {
 };
 
 describe("Middleware for UI5", () => {
+	it("Should rewrite url in beforeMiddleware (library only)", async () => {
+		let resolve;
+		const donePromise = new Promise((_resolve) => {
+			resolve = _resolve;
+		});
+		expect.assertions(4);
+
+		const config = {
+			ui5: {
+				type: "library"
+			}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		await framework.init({config, logger});
+		expect(config["middleware"]).toContain("ui5--middleware");
+		expect(config["beforeMiddleware"]).toContain("ui5--beforeMiddleware");
+
+		const rewriteUrlBeforeSpy = jest.spyOn(framework, "rewriteUrlBefore");
+
+		const beforeMiddleware = framework.beforeMiddleware;
+
+		const req = {
+			url: "/foo"
+		};
+
+		beforeMiddleware(req, {}, function() {
+			expect(rewriteUrlBeforeSpy).toBeCalledWith("/foo");
+			expect(req.url).toBe("/foo");
+			resolve();
+		});
+
+		return donePromise;
+	});
+
 	it("Should rewrite url in middleware", async () => {
 		let resolve;
 		const donePromise = new Promise((_resolve) => {
@@ -26,8 +61,7 @@ describe("Middleware for UI5", () => {
 
 		const config = {
 			ui5: {
-				type: "application",
-				useMiddleware: true
+				type: "application"
 			}
 		};
 		const framework = new Framework();
@@ -330,7 +364,7 @@ describe("ui5.paths handling", () => {
 	});
 });
 
-describe("Utility functions", () => {
+describe("rewriteUrl", () => {
 	const framework = new Framework();
 	framework.exists = () => true;
 	framework.init({config: { }, logger});
@@ -471,6 +505,135 @@ describe("Utility functions", () => {
 		const loggerSpy = jest.spyOn(framework.logger, "log");
 		framework.rewriteUrl("/foo");
 		expect(loggerSpy).toBeCalled();
+	});
+});
+
+describe("rewriteUrlBefore", () => {
+	const framework = new Framework();
+	framework.exists = () => true;
+	framework.init({config: { }, logger});
+
+	const assertRewriteUrlBefore = ([input, expected]) => {
+		expect(framework.rewriteUrlBefore(input)).toEqual(expected);
+	};
+
+	it("Should rewrite url for library", async () => {
+		framework.config.ui5.type = "library";
+
+		// Good path
+		assertRewriteUrlBefore([
+			"/base/resources/sap-ui-core.js",
+			"/base/src/sap-ui-core.js",
+		]);
+		assertRewriteUrlBefore([
+			"/base/test-resources/sap/ui/test/",
+			"/base/test/sap/ui/test/"
+		]);
+
+		// Sad path (no rewrite)
+		assertRewriteUrlBefore([
+			"/base/src/sap-ui-core.js",
+			"/base/src/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/test/sap/ui/test/",
+			"/base/test/sap/ui/test/"
+		]);
+	});
+
+	it("Should rewrite url for library (nested paths)", async () => {
+		framework.config.ui5.type = "library";
+		framework.config.ui5.paths = {
+			src: "src/main/js",
+			test: "src/test/js"
+		};
+
+		// Good path
+		assertRewriteUrlBefore([
+			"/base/src/main/resources/sap-ui-core.js",
+			"/base/src/main/js/sap-ui-core.js",
+		]);
+		assertRewriteUrlBefore([
+			"/base/src/test/test-resources/sap/ui/test/",
+			"/base/src/test/js/sap/ui/test/"
+		]);
+
+		assertRewriteUrlBefore([
+			"/base/src/test/resources/sap-ui-core.js",
+			"/base/src/main/js/sap-ui-core.js",
+		]);
+		assertRewriteUrlBefore([
+			"/base/src/main/test-resources/sap/ui/test/",
+			"/base/src/test/js/sap/ui/test/"
+		]);
+
+		// Sad path (no rewrite)
+		assertRewriteUrlBefore([
+			"/base/src/main/js/sap-ui-core.js",
+			"/base/src/main/js/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/src/test/js/sap/ui/test/",
+			"/base/src/test/js/sap/ui/test/"
+		]);
+	});
+
+	it("Should not rewrite url for type application", async () => {
+		framework.config.ui5.type = "application";
+
+		assertRewriteUrlBefore([
+			"/base/webapp/resources/sap-ui-core.js",
+			"/base/webapp/resources/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/webapp/test-resources/sap/ui/test/",
+			"/base/webapp/test-resources/sap/ui/test/"
+		]);
+		assertRewriteUrlBefore([
+			"/base/webapp/foo.js",
+			"/base/webapp/foo.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/src/sap-ui-core.js",
+			"/base/src/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/test/sap/ui/test/",
+			"/base/test/sap/ui/test/"
+		]);
+		assertRewriteUrlBefore([
+			"/base/foo.js",
+			"/base/foo.js"
+		]);
+	});
+
+	it("Should not rewrite url when no type is given", async () => {
+		framework.config.ui5.type = undefined;
+
+		assertRewriteUrlBefore([
+			"/base/webapp/resources/sap-ui-core.js",
+			"/base/webapp/resources/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/webapp/test-resources/sap/ui/test/",
+			"/base/webapp/test-resources/sap/ui/test/"
+		]);
+		assertRewriteUrlBefore([
+			"/base/webapp/foo.js",
+			"/base/webapp/foo.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/src/sap-ui-core.js",
+			"/base/src/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/test/sap/ui/test/",
+			"/base/test/sap/ui/test/"
+		]);
+		assertRewriteUrlBefore([
+			"/base/foo.js",
+			"/base/foo.js"
+		]);
 	});
 });
 
