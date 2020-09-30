@@ -85,43 +85,10 @@ describe("Middleware for UI5", () => {
 
 		return donePromise;
 	});
-
-	it.skip("Should not rewrite url in serveThemes middleware", async (done) => {
-		const config = {
-			ui5: {
-				useMiddleware: true
-			}
-		};
-		const framework = new Framework();
-		framework.exists = () => true;
-		await framework.init({config, logger});
-		expect(config["middleware"]).toContain("ui5--serveThemes");
-		expect(framework.isPaused).toBe(true);
-
-		const rewriteUrlSpy = jest.spyOn(framework, "rewriteUrl");
-
-		const pauseRequestsMiddleware = framework.pauseRequests();
-		const serveThemesMiddleware = framework.serveThemes();
-
-		pauseRequestsMiddleware({}, {}, function() {
-			expect(framework.isPaused).toBe(false);
-			const internalServeThemesSpy = jest.spyOn(framework, "_serveThemes");
-
-			const req = {url: "/foo"};
-			const res = {};
-			const next = function() {
-				expect(internalServeThemesSpy).toBeCalledWith(req, res, next);
-				expect(rewriteUrlSpy).not.toBeCalled();
-				expect(req.url).toBe("/foo");
-				done();
-			};
-			serveThemesMiddleware(req, res, next);
-		});
-	});
 });
 
 describe("Proxy for UI5 ", () => {
-	it("Should call proxy module from serveResources middleware (http)", (done) => {
+	it("Should call proxy module from middleware (http)", (done) => {
 		const proxyServer = new Framework().setupProxy({
 			url: "http://localhost"
 		});
@@ -149,7 +116,7 @@ describe("Proxy for UI5 ", () => {
 		proxyServer(req, res, next);
 	});
 
-	it("Should call proxy module from serveResources middleware (https)", (done) => {
+	it("Should call proxy module from middleware (https)", (done) => {
 		const proxyServer = new Framework().setupProxy({
 			url: "https://localhost"
 		});
