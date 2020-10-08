@@ -1031,28 +1031,28 @@ describe("Error logging", () => {
 		}));
 	});
 
-	it("Should not throw if a non-excluded framework has been defined", async () => {
+	it("Should not throw if a compatible framework has been defined", async () => {
 		const config = {
 			frameworks: ["foo", "ui5"]
 		};
 		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure()); // some unrelated exception
-		expect(framework.logger.message).not.toBe(ErrorMessage.excludedFrameworks(["foo", "ui5"]));
+		expect(framework.logger.message).not.toBe(ErrorMessage.incompatibleFrameworks(["foo", "ui5"]));
 	});
 
-	it("Should throw if an excluded framework has been defined (qunit)", async () => {
+	it("Should throw if an incompatible framework has been defined (qunit)", async () => {
 		const config = {
 			frameworks: ["qunit", "ui5"]
 		};
 		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
-		expect(framework.logger.message).toBe(ErrorMessage.excludedFrameworks(["qunit", "ui5"]));
+		expect(framework.logger.message).toBe(ErrorMessage.incompatibleFrameworks(["qunit", "ui5"]));
 	});
 
-	it("Should throw if an excluded framework has been defined (qunit + sinon)", async () => {
+	it("Should throw if an incompatible framework has been defined (qunit + sinon)", async () => {
 		const config = {
 			frameworks: ["qunit", "sinon", "ui5"]
 		};
 		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
-		expect(framework.logger.message).toBe(ErrorMessage.excludedFrameworks(["qunit", "sinon", "ui5"]));
+		expect(framework.logger.message).toBe(ErrorMessage.incompatibleFrameworks(["qunit", "sinon", "ui5"]));
 	});
 
 	it("Should throw if files have been defined in config", async () => {
