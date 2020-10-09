@@ -88,7 +88,7 @@ describe("Middleware for UI5", () => {
 });
 
 describe("Proxy for UI5 ", () => {
-	it("Should call proxy module from middleware (http)", (done) => {
+	it("Should call proxy module from middleware (http)", () => {
 		const proxyServer = new Framework().setupProxy({
 			url: "http://localhost"
 		});
@@ -105,18 +105,18 @@ describe("Proxy for UI5 ", () => {
 			})
 		});
 
-		// const proxy = require("http-proxy").createProxyServer.mock.results[0].value;
+		const proxy = createProxyServer.mock.results[createProxyServer.mock.results.length - 1].value;
+
+		expect(proxy.on).toBeCalledWith("error", expect.any(Function));
 
 		const req = {};
 		const res = {};
-		const next = function() {
-			// expect(proxy.web).toBeCalledWith(req, res, next); // TODO: check why this fails
-			done();
-		};
-		proxyServer(req, res, next);
+		proxyServer(req, res);
+
+		expect(proxy.web).toBeCalledWith(req, res);
 	});
 
-	it("Should call proxy module from middleware (https)", (done) => {
+	it("Should call proxy module from middleware (https)", () => {
 		const proxyServer = new Framework().setupProxy({
 			url: "https://localhost"
 		});
@@ -133,15 +133,15 @@ describe("Proxy for UI5 ", () => {
 			})
 		});
 
-		// const proxy = require("http-proxy").createProxyServer.mock.results[0].value;
+		const proxy = createProxyServer.mock.results[createProxyServer.mock.results.length - 1].value;
+
+		expect(proxy.on).toBeCalledWith("error", expect.any(Function));
 
 		const req = {};
 		const res = {};
-		const next = function() {
-			// expect(proxy.web).toBeCalledWith(req, res, next); // TODO: check why this fails
-			done();
-		};
-		proxyServer(req, res, next);
+		proxyServer(req, res);
+
+		expect(proxy.web).toBeCalledWith(req, res);
 	});
 });
 
