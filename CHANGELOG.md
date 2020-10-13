@@ -2,7 +2,14 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.3.0...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.3.1...HEAD).
+
+<a name="v2.3.1"></a>
+## [v2.3.1] - 2020-10-13
+### Bug Fixes
+- Add error logging for proxy requests ([#254](https://github.com/SAP/karma-ui5/issues/254)) [`e79e77d`](https://github.com/SAP/karma-ui5/commit/e79e77df4b23e306974deb0e6e888c0274099e76)
+- Improve library request handling ([#251](https://github.com/SAP/karma-ui5/issues/251)) [`762cde2`](https://github.com/SAP/karma-ui5/commit/762cde2e389c5293295377c8c372e1711d17bb14)
+
 
 <a name="v2.3.0"></a>
 ## [v2.3.0] - 2020-09-02
@@ -153,6 +160,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v2.3.1]: https://github.com/SAP/karma-ui5/compare/v2.3.0...v2.3.1
 [v2.3.0]: https://github.com/SAP/karma-ui5/compare/v2.2.1...v2.3.0
 [v2.2.1]: https://github.com/SAP/karma-ui5/compare/v2.2.0...v2.2.1
 [v2.2.0]: https://github.com/SAP/karma-ui5/compare/v2.1.2...v2.2.0
