@@ -2,7 +2,29 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.2.0...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.3.1...HEAD).
+
+<a name="v2.3.1"></a>
+## [v2.3.1] - 2020-10-13
+### Bug Fixes
+- Add error logging for proxy requests ([#254](https://github.com/SAP/karma-ui5/issues/254)) [`e79e77d`](https://github.com/SAP/karma-ui5/commit/e79e77df4b23e306974deb0e6e888c0274099e76)
+- Improve library request handling ([#251](https://github.com/SAP/karma-ui5/issues/251)) [`762cde2`](https://github.com/SAP/karma-ui5/commit/762cde2e389c5293295377c8c372e1711d17bb14)
+
+
+<a name="v2.3.0"></a>
+## [v2.3.0] - 2020-09-02
+### Bug Fixes
+- **README:** Add Script Mode configuration to Quickstart Guide ([#221](https://github.com/SAP/karma-ui5/issues/221)) [`3fe2d4e`](https://github.com/SAP/karma-ui5/commit/3fe2d4ef225dd947f9965e076997e4ca305f31a4)
+
+### Features
+- Add "failOnEmptyTestPage" option ([#228](https://github.com/SAP/karma-ui5/issues/228)) [`6b9648b`](https://github.com/SAP/karma-ui5/commit/6b9648b322ecea824c2981feb8becd840f601174)
+
+
+<a name="v2.2.1"></a>
+## [v2.2.1] - 2020-08-24
+### Bug Fixes
+- **HTML mode:** QUnit.config.noglobals with coverage enabled ([#223](https://github.com/SAP/karma-ui5/issues/223)) [`3764e9f`](https://github.com/SAP/karma-ui5/commit/3764e9f36751335c34c653c43332823ef5655463)
+
 
 <a name="v2.2.0"></a>
 ## [v2.2.0] - 2020-06-16
@@ -138,6 +160,9 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v2.3.1]: https://github.com/SAP/karma-ui5/compare/v2.3.0...v2.3.1
+[v2.3.0]: https://github.com/SAP/karma-ui5/compare/v2.2.1...v2.3.0
+[v2.2.1]: https://github.com/SAP/karma-ui5/compare/v2.2.0...v2.2.1
 [v2.2.0]: https://github.com/SAP/karma-ui5/compare/v2.1.2...v2.2.0
 [v2.1.2]: https://github.com/SAP/karma-ui5/compare/v2.1.1...v2.1.2
 [v2.1.1]: https://github.com/SAP/karma-ui5/compare/v2.1.0...v2.1.1

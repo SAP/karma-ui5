@@ -17,130 +17,78 @@ const logger = {
 };
 
 describe("Middleware for UI5", () => {
-	it("Should pause requests during UI5 server setup and resume once ready", async () => {
+	it("Should rewrite url in beforeMiddleware (library only)", async () => {
 		let resolve;
 		const donePromise = new Promise((_resolve) => {
 			resolve = _resolve;
 		});
-		expect.assertions(7);
+		expect.assertions(4);
 
 		const config = {
 			ui5: {
-				useMiddleware: true
-			}
-		};
-		const framework = new Framework();
-		framework.exists = () => true;
-		const initPromise = framework.init({config, logger});
-
-		expect(config["beforeMiddleware"]).toContain("ui5--pauseRequests");
-		expect(framework.isPaused).toBe(true);
-
-		const processRequestsSpy = jest.spyOn(framework, "processRequests");
-
-		const pauseRequestsMiddleware = framework.pauseRequests();
-		pauseRequestsMiddleware({}, {}, function() {
-			expect(processRequestsSpy).toBeCalled();
-			expect(framework.isPaused).toBe(false);
-
-			setTimeout(function() {
-				// Queue should be empty after paused requests have been called
-				expect(framework.queue).toHaveLength(0);
-
-				// New requests shouldn't be queued anymore
-				pauseRequestsMiddleware({}, {}, function() {
-					expect(framework.queue).toHaveLength(0);
-					resolve();
-				});
-			}, 0);
-		});
-		expect(framework.queue).toHaveLength(1);
-
-		await initPromise;
-
-		return donePromise;
-	});
-
-	it("Should rewrite url in serveResources middleware", async () => {
-		let resolve;
-		const donePromise = new Promise((_resolve) => {
-			resolve = _resolve;
-		});
-		expect.assertions(6);
-
-		const config = {
-			ui5: {
-				type: "application",
-				useMiddleware: true
-			}
-		};
-		const framework = new Framework();
-		framework.exists = () => true;
-		const initPromise = framework.init({config, logger});
-		expect(config["middleware"]).toContain("ui5--serveResources");
-		expect(framework.isPaused).toBe(true);
-
-		const rewriteUrlSpy = jest.spyOn(framework, "rewriteUrl");
-
-		const pauseRequestsMiddleware = framework.pauseRequests();
-		const serveResourcesMiddleware = framework.serveResources();
-
-		pauseRequestsMiddleware({}, {}, function() {
-			expect(framework.isPaused).toBe(false);
-			const internalServeResourcesSpy = jest.spyOn(framework, "_serveResources");
-
-			const req = {url: "/foo"};
-			const res = {};
-			const next = function() {
-				expect(internalServeResourcesSpy).toBeCalledWith(req, res, next);
-				expect(rewriteUrlSpy).toBeCalledWith("/foo");
-				expect(req.url).toBe("/foo");
-				resolve();
-			};
-			serveResourcesMiddleware(req, res, next);
-		});
-
-		await initPromise;
-
-		return donePromise;
-	});
-
-	it.skip("Should not rewrite url in serveThemes middleware", async (done) => {
-		const config = {
-			ui5: {
-				useMiddleware: true
+				type: "library"
 			}
 		};
 		const framework = new Framework();
 		framework.exists = () => true;
 		await framework.init({config, logger});
-		expect(config["middleware"]).toContain("ui5--serveThemes");
-		expect(framework.isPaused).toBe(true);
+		expect(config["middleware"]).toContain("ui5--middleware");
+		expect(config["beforeMiddleware"]).toContain("ui5--beforeMiddleware");
+
+		const rewriteUrlBeforeSpy = jest.spyOn(framework, "rewriteUrlBefore");
+
+		const beforeMiddleware = framework.beforeMiddleware;
+
+		const req = {
+			url: "/foo"
+		};
+
+		beforeMiddleware(req, {}, function() {
+			expect(rewriteUrlBeforeSpy).toBeCalledWith("/foo");
+			expect(req.url).toBe("/foo");
+			resolve();
+		});
+
+		return donePromise;
+	});
+
+	it("Should rewrite url in middleware", async () => {
+		let resolve;
+		const donePromise = new Promise((_resolve) => {
+			resolve = _resolve;
+		});
+		expect.assertions(3);
+
+		const config = {
+			ui5: {
+				type: "application"
+			}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		await framework.init({config, logger});
+		expect(config["middleware"]).toContain("ui5--middleware");
 
 		const rewriteUrlSpy = jest.spyOn(framework, "rewriteUrl");
 
-		const pauseRequestsMiddleware = framework.pauseRequests();
-		const serveThemesMiddleware = framework.serveThemes();
+		const middleware = framework.middleware;
 
-		pauseRequestsMiddleware({}, {}, function() {
-			expect(framework.isPaused).toBe(false);
-			const internalServeThemesSpy = jest.spyOn(framework, "_serveThemes");
+		const req = {
+			url: "/foo"
+		};
 
-			const req = {url: "/foo"};
-			const res = {};
-			const next = function() {
-				expect(internalServeThemesSpy).toBeCalledWith(req, res, next);
-				expect(rewriteUrlSpy).not.toBeCalled();
-				expect(req.url).toBe("/foo");
-				done();
-			};
-			serveThemesMiddleware(req, res, next);
+		middleware(req, {}, function() {
+			expect(rewriteUrlSpy).toBeCalledWith("/foo");
+			expect(req.url).toBe("/foo");
+			resolve();
 		});
+
+		return donePromise;
 	});
 });
 
 describe("Proxy for UI5 ", () => {
-	it("Should call proxy module from serveResources middleware (http)", (done) => {
+	it("Should call proxy module from middleware (http)", () => {
 		const proxyServer = new Framework().setupProxy({
 			url: "http://localhost"
 		});
@@ -157,20 +105,18 @@ describe("Proxy for UI5 ", () => {
 			})
 		});
 
-		// const proxy = require("http-proxy").createProxyServer.mock.results[0].value;
+		const proxy = createProxyServer.mock.results[createProxyServer.mock.results.length - 1].value;
 
-		expect(proxyServer.serveThemes).toBeUndefined();
+		expect(proxy.on).toBeCalledWith("error", expect.any(Function));
 
 		const req = {};
 		const res = {};
-		const next = function() {
-			// expect(proxy.web).toBeCalledWith(req, res, next); // TODO: check why this fails
-			done();
-		};
-		proxyServer.serveResources(req, res, next);
+		proxyServer(req, res);
+
+		expect(proxy.web).toBeCalledWith(req, res);
 	});
 
-	it("Should call proxy module from serveResources middleware (https)", (done) => {
+	it("Should call proxy module from middleware (https)", () => {
 		const proxyServer = new Framework().setupProxy({
 			url: "https://localhost"
 		});
@@ -187,17 +133,15 @@ describe("Proxy for UI5 ", () => {
 			})
 		});
 
-		// const proxy = require("http-proxy").createProxyServer.mock.results[0].value;
+		const proxy = createProxyServer.mock.results[createProxyServer.mock.results.length - 1].value;
 
-		expect(proxyServer.serveThemes).toBeUndefined();
+		expect(proxy.on).toBeCalledWith("error", expect.any(Function));
 
 		const req = {};
 		const res = {};
-		const next = function() {
-			// expect(proxy.web).toBeCalledWith(req, res, next); // TODO: check why this fails
-			done();
-		};
-		proxyServer.serveResources(req, res, next);
+		proxyServer(req, res);
+
+		expect(proxy.web).toBeCalledWith(req, res);
 	});
 });
 
@@ -216,6 +160,7 @@ describe("UI5 Middleware / Proxy configuration", () => {
 		await framework.init({config, logger});
 
 		expect(setupProxySpy).toHaveBeenCalledWith({
+			failOnEmptyTestPage: false,
 			mode: "html",
 			url: "http://localhost",
 			type: "application",
@@ -386,7 +331,7 @@ describe("ui5.paths handling", () => {
 	});
 });
 
-describe("Utility functions", () => {
+describe("rewriteUrl", () => {
 	const framework = new Framework();
 	framework.exists = () => true;
 	framework.init({config: { }, logger});
@@ -530,6 +475,135 @@ describe("Utility functions", () => {
 	});
 });
 
+describe("rewriteUrlBefore", () => {
+	const framework = new Framework();
+	framework.exists = () => true;
+	framework.init({config: { }, logger});
+
+	const assertRewriteUrlBefore = ([input, expected]) => {
+		expect(framework.rewriteUrlBefore(input)).toEqual(expected);
+	};
+
+	it("Should rewrite url for library", async () => {
+		framework.config.ui5.type = "library";
+
+		// Good path
+		assertRewriteUrlBefore([
+			"/base/resources/sap-ui-core.js",
+			"/base/src/sap-ui-core.js",
+		]);
+		assertRewriteUrlBefore([
+			"/base/test-resources/sap/ui/test/",
+			"/base/test/sap/ui/test/"
+		]);
+
+		// Sad path (no rewrite)
+		assertRewriteUrlBefore([
+			"/base/src/sap-ui-core.js",
+			"/base/src/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/test/sap/ui/test/",
+			"/base/test/sap/ui/test/"
+		]);
+	});
+
+	it("Should rewrite url for library (nested paths)", async () => {
+		framework.config.ui5.type = "library";
+		framework.config.ui5.paths = {
+			src: "src/main/js",
+			test: "src/test/js"
+		};
+
+		// Good path
+		assertRewriteUrlBefore([
+			"/base/src/main/resources/sap-ui-core.js",
+			"/base/src/main/js/sap-ui-core.js",
+		]);
+		assertRewriteUrlBefore([
+			"/base/src/test/test-resources/sap/ui/test/",
+			"/base/src/test/js/sap/ui/test/"
+		]);
+
+		assertRewriteUrlBefore([
+			"/base/src/test/resources/sap-ui-core.js",
+			"/base/src/main/js/sap-ui-core.js",
+		]);
+		assertRewriteUrlBefore([
+			"/base/src/main/test-resources/sap/ui/test/",
+			"/base/src/test/js/sap/ui/test/"
+		]);
+
+		// Sad path (no rewrite)
+		assertRewriteUrlBefore([
+			"/base/src/main/js/sap-ui-core.js",
+			"/base/src/main/js/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/src/test/js/sap/ui/test/",
+			"/base/src/test/js/sap/ui/test/"
+		]);
+	});
+
+	it("Should not rewrite url for type application", async () => {
+		framework.config.ui5.type = "application";
+
+		assertRewriteUrlBefore([
+			"/base/webapp/resources/sap-ui-core.js",
+			"/base/webapp/resources/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/webapp/test-resources/sap/ui/test/",
+			"/base/webapp/test-resources/sap/ui/test/"
+		]);
+		assertRewriteUrlBefore([
+			"/base/webapp/foo.js",
+			"/base/webapp/foo.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/src/sap-ui-core.js",
+			"/base/src/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/test/sap/ui/test/",
+			"/base/test/sap/ui/test/"
+		]);
+		assertRewriteUrlBefore([
+			"/base/foo.js",
+			"/base/foo.js"
+		]);
+	});
+
+	it("Should not rewrite url when no type is given", async () => {
+		framework.config.ui5.type = undefined;
+
+		assertRewriteUrlBefore([
+			"/base/webapp/resources/sap-ui-core.js",
+			"/base/webapp/resources/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/webapp/test-resources/sap/ui/test/",
+			"/base/webapp/test-resources/sap/ui/test/"
+		]);
+		assertRewriteUrlBefore([
+			"/base/webapp/foo.js",
+			"/base/webapp/foo.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/src/sap-ui-core.js",
+			"/base/src/sap-ui-core.js"
+		]);
+		assertRewriteUrlBefore([
+			"/base/test/sap/ui/test/",
+			"/base/test/sap/ui/test/"
+		]);
+		assertRewriteUrlBefore([
+			"/base/foo.js",
+			"/base/foo.js"
+		]);
+	});
+});
+
 describe("Plugin setup", () => {
 	it("Should include browser bundle", async () => {
 		const config = {
@@ -618,9 +692,6 @@ describe("Types configuration", () => {
 		await framework.init({config, logger});
 		expect(config.files.find((file) => file.pattern.endsWith("/{src/**,src/**/.*}"))).toBeDefined();
 		expect(config.files.find((file) => file.pattern.endsWith("/{test/**,test/**/.*}"))).toBeDefined();
-
-		expect(config.proxies["/base/resources/"]).toEqual("/base/src/");
-		expect(config.proxies["/base/test-resources/"]).toEqual("/base/test/");
 	});
 
 	// TODO: What should happen?
@@ -680,6 +751,76 @@ describe("urlParameters", () => {
 			key: 0,
 			value: "🐴"
 		}]);
+	});
+});
+
+describe("failOnEmptyTestPage", () => {
+	it("should default to 'false'", async () => {
+		const config = {
+			ui5: {}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({
+			config: config,
+			logger: logger
+		});
+
+		expect(config.ui5.failOnEmptyTestPage).toBe(false);
+	});
+	it("should pass 'true' value to client", async () => {
+		const config = {
+			ui5: {
+				failOnEmptyTestPage: true
+			}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({
+			config: config,
+			logger: logger
+		});
+
+		expect(config.client.ui5.failOnEmptyTestPage).toBe(true);
+	});
+	it("should pass 'false' value to client", async () => {
+		const config = {
+			ui5: {
+				failOnEmptyTestPage: false
+			}
+		};
+		const framework = new Framework();
+		framework.exists = () => true;
+		framework.init({
+			config: config,
+			logger: logger
+		});
+
+		expect(config.client.ui5.failOnEmptyTestPage).toBe(false);
+	});
+	it("Should throw if failOnEmptyTestPage is not of type boolean (string)", async () => {
+		const config = {
+			ui5: {failOnEmptyTestPage: "true"}
+		};
+		const framework = new Framework();
+		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
+		expect(framework.logger.message).toBe(ErrorMessage.failOnEmptyTestPageNotTypeBoolean("true"));
+	});
+	it("Should throw if failOnEmptyTestPage is not of type boolean (object)", async () => {
+		const config = {
+			ui5: {failOnEmptyTestPage: {foo: "bar"}}
+		};
+		const framework = new Framework();
+		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
+		expect(framework.logger.message).toBe(ErrorMessage.failOnEmptyTestPageNotTypeBoolean({foo: "bar"}));
+	});
+	it("Should throw if failOnEmptyTestPage is used with script mode", async () => {
+		const config = {
+			ui5: {mode: "script", failOnEmptyTestPage: true}
+		};
+		const framework = new Framework();
+		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
+		expect(framework.logger.message).toBe(ErrorMessage.failOnEmptyTestPageInNonHtmlMode("script"));
 	});
 });
 
@@ -890,28 +1031,28 @@ describe("Error logging", () => {
 		}));
 	});
 
-	it("Should not throw if a non-backlisted framework has been defined", async () => {
+	it("Should not throw if a compatible framework has been defined", async () => {
 		const config = {
 			frameworks: ["foo", "ui5"]
 		};
 		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure()); // some unrelated exception
-		expect(framework.logger.message).not.toBe(ErrorMessage.blacklistedFrameworks(["foo", "ui5"]));
+		expect(framework.logger.message).not.toBe(ErrorMessage.incompatibleFrameworks(["foo", "ui5"]));
 	});
 
-	it("Should throw if a blacklisted framework has been defined (qunit)", async () => {
+	it("Should throw if an incompatible framework has been defined (qunit)", async () => {
 		const config = {
 			frameworks: ["qunit", "ui5"]
 		};
 		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
-		expect(framework.logger.message).toBe(ErrorMessage.blacklistedFrameworks(["qunit", "ui5"]));
+		expect(framework.logger.message).toBe(ErrorMessage.incompatibleFrameworks(["qunit", "ui5"]));
 	});
 
-	it("Should throw if a blacklisted framework has been defined (qunit + sinon)", async () => {
+	it("Should throw if an incompatible framework has been defined (qunit + sinon)", async () => {
 		const config = {
 			frameworks: ["qunit", "sinon", "ui5"]
 		};
 		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
-		expect(framework.logger.message).toBe(ErrorMessage.blacklistedFrameworks(["qunit", "sinon", "ui5"]));
+		expect(framework.logger.message).toBe(ErrorMessage.incompatibleFrameworks(["qunit", "sinon", "ui5"]));
 	});
 
 	it("Should throw if files have been defined in config", async () => {

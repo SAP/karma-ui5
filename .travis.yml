@@ -5,18 +5,15 @@ dist: xenial
 node_js:
 - "node"
 
-script:
-- npm test
-- if [[ "$RUN_SAUCELABS" && "$SAUCE_ACCESS_KEY" ]]; then
-    npm run integration-saucelabs;
-  fi
+branches:
+  only:
+    - master
 
 osx_image: xcode11.3
 
 jobs:
   include:
     - os: linux
-      env: RUN_SAUCELABS=true # Only run SauceLabs tests in one build
     - os: osx
     - os: linux
       node_js:
