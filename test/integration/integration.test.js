@@ -9,7 +9,7 @@ const TEST_TIMEOUT = 5 * 60 * 1000; // 5 minutes
 let server;
 
 // Increase test timeout (default 5s)
-jest.(TEST_TIMEOUT);
+jest.setTimeout(TEST_TIMEOUT);
 
 const registerIntegrationTest = async (configPath) => {
 	it(configPath, async () => {
