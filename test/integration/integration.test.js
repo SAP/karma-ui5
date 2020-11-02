@@ -11,7 +11,7 @@ let server;
 // Increase test timeout (default 5s)
 jest.setTimeout(TEST_TIMEOUT);
 
-const registerIntegrationTest = async (configPath) => {
+const registerIntegrationTest = (configPath) => {
 	it(configPath, async () => {
 		const fullConfigPath = path.join(__dirname, configPath);
 		const integrationTest = require(fullConfigPath);
@@ -35,12 +35,16 @@ const registerIntegrationTest = async (configPath) => {
 		// Clean up coverage folder
 		await rimraf(path.join(path.dirname(fullConfigPath), "coverage"));
 
+		process.stdout.write("\n" + configPath + "\n");
+
 		const karmaProcess = execa("karma", args, {
 			cwd: __dirname,
 			preferLocal: true, // allow executing local karma binary
-			reject: false,
-			all: true
+			reject: false
 		});
+
+		karmaProcess.stdout.pipe(process.stdout);
+		karmaProcess.stderr.pipe(process.stderr);
 
 		let processKilled = false;
 		const killTimeout = setTimeout(
@@ -57,9 +61,6 @@ const registerIntegrationTest = async (configPath) => {
 
 		clearTimeout(killTimeout);
 
-		console.log(configPath); // eslint-disable-line no-console
-		console.log(karmaProcessResult.all); // eslint-disable-line no-console
-
 		if (processKilled) {
 			throw new Error("Karma execution timed out!");
 		}
@@ -74,7 +75,7 @@ const registerIntegrationTest = async (configPath) => {
 		if (integrationTest.assertions) {
 			integrationTest.assertions({
 				expect,
-				log: karmaProcessResult.all
+				log: karmaProcessResult.stdout
 			});
 		}
 	});
