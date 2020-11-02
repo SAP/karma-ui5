@@ -7,7 +7,12 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  test:
+
+    name: SauceLabs Integration Tests
+
+    # Prevents job from running for forks, which doesn't work as secrets are not available
+    if: secrets.SAUCE_USERNAME
 
     runs-on: ubuntu-latest
 
