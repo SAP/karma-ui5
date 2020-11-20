@@ -287,13 +287,15 @@ describe("ui5.paths handling", () => {
 
 	it("application: Should throw error when absolute path is not within basePath", async () => {
 		const framework = new Framework();
+		const basePath = path.resolve("/", "test", "bar");
+		const pathValue = path.resolve("/", "test", "foo", "webapp-path");
 		const config = {
-			basePath: "/test/bar",
+			basePath,
 			ui5: {
 				url: "http://localhost",
 				type: "application",
 				paths: {
-					webapp: "/test/foo/webapp-path"
+					webapp: pathValue
 				}
 			}
 		};
@@ -302,20 +304,22 @@ describe("ui5.paths handling", () => {
 
 		expect(framework.logger.message).toBe(ErrorMessage.pathNotWithinBasePath({
 			pathName: "webapp",
-			pathValue: "/test/foo/webapp-path",
-			absolutePathValue: "/test/foo/webapp-path",
-			basePath: "/test/bar"
+			pathValue,
+			absolutePathValue: pathValue,
+			basePath
 		}));
 	});
 	it("application: Should throw error when relative path is not within basePath", async () => {
 		const framework = new Framework();
+		const basePath = path.resolve("/", "test", "bar");
+		const pathValue = "../foo/webapp-path";
 		const config = {
-			basePath: "/test/bar",
+			basePath,
 			ui5: {
 				url: "http://localhost",
 				type: "application",
 				paths: {
-					webapp: "../foo/webapp-path"
+					webapp: pathValue
 				}
 			}
 		};
@@ -324,9 +328,9 @@ describe("ui5.paths handling", () => {
 
 		expect(framework.logger.message).toBe(ErrorMessage.pathNotWithinBasePath({
 			pathName: "webapp",
-			pathValue: "../foo/webapp-path",
-			absolutePathValue: "/test/foo/webapp-path",
-			basePath: "/test/bar"
+			pathValue,
+			absolutePathValue: path.resolve(basePath, "..", "foo", "webapp-path"),
+			basePath
 		}));
 	});
 });
