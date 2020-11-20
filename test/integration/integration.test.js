@@ -85,7 +85,7 @@ beforeAll(async (done) => {
 		// Start server for sap.ui.core library to be used for integration tests
 		// that run against a configured "url"
 		const tree = await ui5Normalizer.generateProjectTree({
-			cwd: path.join(__dirname, "..", "..", "node_modules", "@openui5", "sap.ui.core")
+			cwd: path.dirname(require.resolve("@openui5/sap.ui.core/package.json"))
 		});
 		server = await ui5Server.serve(tree, {
 			port: 5000,

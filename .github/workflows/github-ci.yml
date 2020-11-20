@@ -1,0 +1,69 @@
+name: GitHub CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  general-checks-test-coverage:
+    name: General checks, tests and coverage reporting
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js LTS 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Check for unused and missing dependencies
+      run: npm run depcheck
+
+    - name: Generate test coverage report
+      run: npm run coverage
+
+    - name: Send report to Coveralls
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  test-matrix:
+    name: Unit / Integration tests on Node.js ${{ matrix.node-version }} and ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        include:
+          - node-version: 15
+            os: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    # Using 'install' instead of 'ci' as npm v7 doesn't run the 'prepare' script
+    # (see https://github.com/npm/cli/issues/1905)
+    - run: npm install
+      name: Install dependencies
+
+    - run: npm run unit
+      name: Run unit tests
+
+    - run: npm run integration
+      name: Run integration tests
