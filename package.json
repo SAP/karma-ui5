@@ -34,7 +34,7 @@
     "lint-fix": "eslint ./ --fix",
     "test": "npm run lint && npm run unit-coverage && npm run integration",
     "unit": "jest -c test/unit/jest.config.js",
-    "unit-coverage": "jest -c test/unit/jest.config.js --coverage",
+    "coverage": "jest -c test/unit/jest.config.js --coverage",
     "integration": "jest -c test/integration/jest.config.js",
     "integration-internet-explorer": "jest -c test/integration/jest.config.js --browsers=IE",
     "integration-saucelabs": "jest -c test/integration/jest.config.js --useSauceLabs=true",
