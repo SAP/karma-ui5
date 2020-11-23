@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = function(config) {
 	require("../karma-base.conf")(config);
 	config.set({
@@ -58,5 +60,5 @@ module.exports.assertions = function({expect, log}) {
 	const coverage = require("./coverage/json/coverage-final.json");
 	const files = Object.keys(coverage);
 	expect(files).toHaveLength(1);
-	expect(files[0]).toEndWith("application-script-mode/webapp/foo.js");
+	expect(files[0]).toEndWith(path.join("application-script-mode", "webapp", "foo.js"));
 };

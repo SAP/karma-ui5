@@ -7,7 +7,9 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  test:
+
+    name: SauceLabs Integration Tests
 
     runs-on: ubuntu-latest
 
@@ -25,7 +27,14 @@ jobs:
         accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
         tunnelIdentifier: github-${{ github.run_id }}
         restUrl: https://eu-central-1.saucelabs.com/rest/v1
+      # Prevents step from running for forks, which doesn't work as secrets are not available
+      if: env.SAUCE_USERNAME != null
+      env:
+        SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+
     - run: npm run integration-saucelabs
       env:
         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
         SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+      # Prevents step from running for forks, which doesn't work as secrets are not available
+      if: env.SAUCE_USERNAME != null

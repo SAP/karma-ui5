@@ -44,7 +44,10 @@ module.exports.setup = function(config) {
 				tunnelIdentifier: `github-${process.env.GITHUB_RUN_ID}`
 			},
 
-			browsers: ["SauceLabs_firefox", "SauceLabs_ie11"],
+			// Running with 2 browsers in parallel is unstable.
+			// For now we only run on IE11.
+			// browsers: ["SauceLabs_firefox", "SauceLabs_ie11"],
+			browsers: ["SauceLabs_ie11"],
 
 			captureTimeout: 300000, // 5 minutes
 			browserDisconnectTolerance: 3,

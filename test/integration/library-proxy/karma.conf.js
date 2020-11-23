@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = function(config) {
 	"use strict";
 
@@ -43,5 +45,5 @@ module.exports.assertions = function({expect, log}) {
 	const coverage = require("./coverage/json/coverage-final.json");
 	const files = Object.keys(coverage);
 	expect(files).toHaveLength(1);
-	expect(files[0]).toEndWith("library-proxy/src/sap/test/lib/library.js");
+	expect(files[0]).toEndWith(path.join("library-proxy", "src", "sap", "test", "lib", "library.js"));
 };
