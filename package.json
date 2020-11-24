@@ -32,7 +32,7 @@
   "scripts": {
     "lint": "eslint ./",
     "lint-fix": "eslint ./ --fix",
-    "test": "npm run lint && npm run unit-coverage && npm run integration",
+    "test": "npm run lint && npm run coverage && npm run integration",
     "unit": "jest -c test/unit/jest.config.js",
     "coverage": "jest -c test/unit/jest.config.js --coverage",
     "integration": "jest -c test/integration/jest.config.js",
