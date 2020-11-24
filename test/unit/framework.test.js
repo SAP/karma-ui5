@@ -37,7 +37,7 @@ describe("Middleware for UI5", () => {
 
 		const rewriteUrlBeforeSpy = jest.spyOn(framework, "rewriteUrlBefore");
 
-		const beforeMiddleware = framework.beforeMiddleware;
+		const beforeMiddleware = config.ui5._beforeMiddleware;
 
 		const req = {
 			url: "/foo"
@@ -71,7 +71,7 @@ describe("Middleware for UI5", () => {
 
 		const rewriteUrlSpy = jest.spyOn(framework, "rewriteUrl");
 
-		const middleware = framework.middleware;
+		const middleware = config.ui5._middleware;
 
 		const req = {
 			url: "/foo"
@@ -168,7 +168,8 @@ describe("UI5 Middleware / Proxy configuration", () => {
 				webapp: "webapp",
 				src: "src",
 				test: "test"
-			}
+			},
+			_middleware: expect.any(Function)
 		});
 	});
 
