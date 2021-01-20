@@ -1040,7 +1040,8 @@ describe("Error logging", () => {
 		const config = {
 			frameworks: ["foo", "ui5"]
 		};
-		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure()); // some unrelated exception
+		// some unrelated exception
+		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
 		expect(framework.logger.message).not.toBe(ErrorMessage.incompatibleFrameworks(["foo", "ui5"]));
 	});
 
