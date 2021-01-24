@@ -78,7 +78,7 @@
     "karma-coverage": "2.0.3",
     "karma-ie-launcher": "^1.0.0",
     "karma-qunit": "^4.1.1",
-    "karma-sauce-launcher": "^4.3.4",
+    "karma-sauce-launcher": "^4.3.5",
     "license-webpack-plugin": "^2.3.11",
     "puppeteer": "^5.5.0",
     "qunit": "^2.14.0",
