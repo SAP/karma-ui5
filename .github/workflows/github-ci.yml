@@ -61,3 +61,33 @@ jobs:
 
     - run: npm run integration
       name: Run integration tests
+
+  # Test matrix for older karma versions to ensure compatibility
+  test-karma-matrix:
+    name: Integration tests with karma v${{matrix.karma-version}}
+    strategy:
+      fail-fast: false
+      matrix:
+        karma-version: [
+          "4.3.0", # minimum v4.x version as defined in package.json#peerDependencies
+          "4",     # latest v4.x
+          "5"      # latest v5.x
+        ]
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js LTS 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install karma v${{matrix.karma-version}}
+      run: npm i -D karma@${{matrix.karma-version}}
+
+    - name: Run integration tests
+      run: npm run integration
