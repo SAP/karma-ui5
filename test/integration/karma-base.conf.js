@@ -29,7 +29,11 @@ module.exports = function(config) {
 
 		reporters: ["progress", "coverage"],
 
-		singleRun: true
+		singleRun: true,
+
+		// Increase disconnect timeout and tolerance to avoid sporadic CI issues on macOS
+		browserDisconnectTimeout: 10000,
+		browserDisconnectTolerance: 2
 
 	});
 
