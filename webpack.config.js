@@ -7,7 +7,7 @@ const allowedLicenses = [
 
 module.exports = {
 	mode: "production",
-	devtool: "none",
+	devtool: false,
 	entry: {
 		"browser-bundle": "./lib/client/browser.js"
 	},
