@@ -15,6 +15,7 @@ module.exports = {
 		path: path.resolve(__dirname, "dist"),
 		filename: "browser-bundle.js"
 	},
+	target: ["web", "es5"],
 	module: {
 		rules: [
 			{
