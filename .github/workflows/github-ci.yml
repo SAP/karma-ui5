@@ -56,6 +56,9 @@ jobs:
     - run: npm install
       name: Install dependencies
 
+    - run: npm ls --prod
+      name: Check for missing / extraneous dependencies
+
     - run: npm run unit
       name: Run unit tests
 
