@@ -17,11 +17,6 @@ module.exports.setup = function(config) {
 		config.set({
 
 			customLaunchers: {
-				SauceLabs_firefox: {
-					base: "SauceLabs",
-					browserName: "firefox",
-					platformName: "Windows 10"
-				},
 				SauceLabs_ie11: {
 					base: "SauceLabs",
 					browserName: "internet explorer",
@@ -44,9 +39,10 @@ module.exports.setup = function(config) {
 				tunnelIdentifier: `github-${process.env.GITHUB_RUN_ID}`
 			},
 
-			// Running with 2 browsers in parallel is unstable.
-			// For now we only run on IE11.
-			// browsers: ["SauceLabs_firefox", "SauceLabs_ie11"],
+			// Running with IE11 to ensure legacy compatibility of karma-ui5
+			// UI5 dropped IE11 support starting with 1.88 (see https://blogs.sap.com/2021/02/02/internet-explorer-11-will-no-longer-be-supported-by-various-sap-ui-technologies-in-newer-releases/)
+			// But as this plugin should stay compatible with all maintained
+			// UI5 versions it still needs to be tested with IE11
 			browsers: ["SauceLabs_ie11"],
 
 			captureTimeout: 300000, // 5 minutes
