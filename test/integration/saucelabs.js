@@ -52,6 +52,7 @@ module.exports.setup = function(config) {
 			browserDisconnectTimeout: 300000, // 5 minutes
 			browserSocketTimeout: 120000, // 2 minutes
 			browserNoActivityTimeout: 300000, // 5 minutes
+			pingTimeout: 90000, // 90 seconds, see: https://github.com/karma-runner/karma/issues/3359#issuecomment-772699091
 
 			reporters: ["progress", "coverage", "saucelabs"]
 
