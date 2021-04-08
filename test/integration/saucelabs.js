@@ -45,6 +45,8 @@ module.exports.setup = function(config) {
 			// UI5 versions it still needs to be tested with IE11
 			browsers: ["SauceLabs_ie11"],
 
+			logLevel: "DEBUG",
+
 			captureTimeout: 300000, // 5 minutes
 			browserDisconnectTolerance: 3,
 			browserDisconnectTimeout: 300000, // 5 minutes
