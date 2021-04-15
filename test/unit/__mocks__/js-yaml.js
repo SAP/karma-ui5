@@ -3,7 +3,7 @@ const yaml = jest.genMockFromModule("js-yaml");
 const yamlException = new Error("Could not parse YAML");
 yamlException.name = "YAMLException";
 
-yaml.safeLoadAll = jest.fn(function(fileContent) {
+yaml.loadAll = jest.fn(function(fileContent) {
 	switch (fileContent) {
 	case "--1-\nfoo: 1":
 		throw yamlException;
