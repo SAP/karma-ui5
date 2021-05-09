@@ -67,7 +67,7 @@
 		"eslint": "^7.26.0",
 		"eslint-config-google": "^0.14.0",
 		"eslint-plugin-jest": "^24.3.6",
-		"eslint-plugin-jsdoc": "^32.3.4",
+		"eslint-plugin-jsdoc": "^33.1.0",
 		"execa": "^5.0.0",
 		"fast-glob": "^3.2.5",
 		"istanbul-lib-coverage": "^3.0.0",
