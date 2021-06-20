@@ -58,13 +58,13 @@
 		"js-yaml": "^4.1.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.14.5",
+		"@babel/core": "^7.14.6",
 		"@babel/preset-env": "^7.14.5",
-		"@openui5/sap.ui.core": "^1.90.1",
+		"@openui5/sap.ui.core": "^1.91.0",
 		"babel-loader": "^8.2.2",
 		"core-js": "^3.14.0",
 		"depcheck": "^1.4.1",
-		"eslint": "^7.28.0",
+		"eslint": "^7.29.0",
 		"eslint-config-google": "^0.14.0",
 		"eslint-plugin-jest": "^24.3.6",
 		"eslint-plugin-jsdoc": "^32.3.4",
@@ -73,7 +73,7 @@
 		"istanbul-lib-coverage": "^3.0.0",
 		"jest": "^26.6.3",
 		"jest-extended": "^0.11.5",
-		"karma": "^6.3.3",
+		"karma": "^6.3.4",
 		"karma-chrome-launcher": "^3.1.0",
 		"karma-coverage": "2.0.3",
 		"karma-ie-launcher": "^1.0.0",
@@ -83,8 +83,8 @@
 		"puppeteer": "^8.0.0",
 		"qunit": "^2.16.0",
 		"rimraf": "^3.0.2",
-		"typescript": "^4.3.2",
-		"webpack": "^5.38.1",
+		"typescript": "^4.3.4",
+		"webpack": "^5.39.1",
 		"webpack-cli": "^4.7.2"
 	}
 }
