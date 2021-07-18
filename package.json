@@ -71,7 +71,7 @@
 		"execa": "^5.1.1",
 		"fast-glob": "^3.2.7",
 		"istanbul-lib-coverage": "^3.0.0",
-		"jest": "^26.6.3",
+		"jest": "^27.0.6",
 		"jest-extended": "^0.11.5",
 		"karma": "^6.3.4",
 		"karma-chrome-launcher": "^3.1.0",
