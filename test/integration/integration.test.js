@@ -81,21 +81,16 @@ const registerIntegrationTest = (configPath) => {
 	});
 };
 
-beforeAll(async (done) => {
-	try {
-		// Start server for sap.ui.core library to be used for integration tests
-		// that run against a configured "url"
-		const tree = await ui5Normalizer.generateProjectTree({
-			cwd: path.dirname(require.resolve("@openui5/sap.ui.core/package.json"))
-		});
-		server = await ui5Server.serve(tree, {
-			port: 5000,
-			changePortIfInUse: true
-		});
-		done();
-	} catch (err) {
-		done(err);
-	}
+beforeAll(async () => {
+	// Start server for sap.ui.core library to be used for integration tests
+	// that run against a configured "url"
+	const tree = await ui5Normalizer.generateProjectTree({
+		cwd: path.dirname(require.resolve("@openui5/sap.ui.core/package.json"))
+	});
+	server = await ui5Server.serve(tree, {
+		port: 5000,
+		changePortIfInUse: true
+	});
 });
 
 afterAll(() => {
