@@ -22,6 +22,13 @@ describe("Karma Plugin", () => {
 		expect(plugin["middleware:ui5--middleware"][0]).toBe("factory");
 		expect(plugin["middleware:ui5--middleware"][1]).toStrictEqual(expect.any(Function));
 		expect(plugin["middleware:ui5--middleware"][1].$inject).toStrictEqual(["config.ui5"]);
+	});	it("Should export reporter:customFiles", async () => {
+		const plugin = require("../../");
+		expect(plugin["reporter:customFiles"]).toStrictEqual(expect.any(Array));
+		expect(plugin["reporter:customFiles"]).toHaveLength(2);
+		expect(plugin["reporter:customFiles"][0]).toBe("type");
+		expect(plugin["reporter:customFiles"][1]).toStrictEqual(expect.any(Function));
+		expect(plugin["reporter:customFiles"][1].$inject).toStrictEqual(["baseReporterDecorator", "config", "logger", "helper"]);
 	});
 	it("Should be able to initialize multiple times", async () => {
 		const Framework = require("../../lib/framework");
