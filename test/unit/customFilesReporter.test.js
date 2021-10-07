@@ -16,29 +16,29 @@ describe("customFilesReporter plugin", () => {
 		fsJoinPathsMock.mockRestore();
 	});
 
-	let base = jest.fn();
-	let resolvedTestPath = "x://some/path/myCustomFilesDir";
-	let config = {
+	const base = jest.fn();
+	const resolvedTestPath = "x://some/path/myCustomFilesDir";
+	const config = {
 		basePath: "somepath",
 		customFilesReporter: {
 			outputDir: "myCustomFilesDir"
 		}
 	};
-	let configNoDir = {
+	const configNoDir = {
 		basePath: "somepath"
 	};
-	let log = {
+	const log = {
 		info: jest.fn(),
 		warn: jest.fn(),
 		debug: jest.fn()
 	};
-	let logger = {
+	const logger = {
 		create: jest.fn(() => {
 			return log;
 		})
 	};
-	let helper = {
-		mkdirIfNotExists: function (path, callback) {
+	const helper = {
+		mkdirIfNotExists: function(path, callback) {
 			callback();
 		},
 		normalizeWinPath: jest.fn()
@@ -46,8 +46,8 @@ describe("customFilesReporter plugin", () => {
 
 	helper.normalizeWinPath	.mockImplementation(() => resolvedTestPath);
 
-	let customFilesReporter = new CustomFilesReporter(base, config, logger, helper);
-	let customFilesReporterDefaultPath = new CustomFilesReporter(base, configNoDir, logger, helper);
+	const customFilesReporter = new CustomFilesReporter(base, config, logger, helper);
+	const customFilesReporterDefaultPath = new CustomFilesReporter(base, configNoDir, logger, helper);
 
 	it("Reading outputDir from config", async () => {
 		expect(base).toBeCalledWith(customFilesReporter);
@@ -57,12 +57,12 @@ describe("customFilesReporter plugin", () => {
 	});
 
 	it("onBrowserComplete - save incoming custom files", async () => {
-		let browser = {};
-		let filecontent1 = "content1";
-		let filecontent2 = "content2";
-		let filePath1 = "filePath1";
-		let filePath2 = "filePath2";
-		let result = {
+		const browser = {};
+		const filecontent1 = "content1";
+		const filecontent2 = "content2";
+		const filePath1 = "filePath1";
+		const filePath2 = "filePath2";
+		const result = {
 			customFiles: [{
 				name: "filename1",
 				content: filecontent1
@@ -82,20 +82,22 @@ describe("customFilesReporter plugin", () => {
 		expect(fsWriteFileMock).toBeCalledWith(filePath2, filecontent2, expect.any(Function));
 
 		// callback test - success // error
-		let callback = fsWriteFileMock.mock.calls[0][2];
+		const callback = fsWriteFileMock.mock.calls[0][2];
 
 		callback();
 
 		expect(log.info).toBeCalledWith(pluginName + ": Saved file '%s'.", filePath1);
 
-		callback({ message : "error"});
+		callback({
+			message: "error"
+		});
 
 		expect(log.warn).toBeCalledWith(pluginName + ": Failed to write file\n\t" + "error");
 	});
 
 	it("onBrowserComplete - no files provided", async () => {
-		let browser = {};
-		let result = {
+		const browser = {};
+		const result = {
 			customFiles: null
 		};
 
@@ -105,7 +107,7 @@ describe("customFilesReporter plugin", () => {
 	});
 
 	it("onBrowserComplete - tests crashed", async () => {
-		let browser = {};
+		const browser = {};
 
 		customFilesReporter.onBrowserComplete(browser, null);
 
