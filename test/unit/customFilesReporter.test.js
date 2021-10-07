@@ -52,7 +52,7 @@ describe("customFilesReporter plugin", () => {
 	it("Reading outputDir from config", async () => {
 		expect(base).toBeCalledWith(customFilesReporter);
 		expect(base).toBeCalledWith(customFilesReporterDefaultPath);
-		expect(log.debug).toBeCalledWith(pluginName + ": outputDir is: %s", resolvedTestPath + "\\");
+		expect(log.debug).toBeCalledWith(pluginName + ": outputDir is: %s", resolvedTestPath + path.sep);
 		expect(log.debug).toHaveBeenCalledTimes(2);
 	});
 
