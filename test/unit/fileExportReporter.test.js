@@ -59,7 +59,7 @@ describe("fileExportReporter plugin", () => {
 	it("Reading outputDir from config", async () => {
 		expect(base).toBeCalledWith(fileExportReporter);
 		expect(base).toBeCalledWith(fileExportReporterDefaultPath);
-		expect(log.debug).toBeCalledWith("outputDir is: %s", resolvedTestPath + path.sep);
+		expect(log.debug).toBeCalledWith("outputDir is: " + resolvedTestPath + path.sep);
 		expect(log.debug).toHaveBeenCalledTimes(2);
 	});
 
