@@ -56,3 +56,4 @@ deploy_key
 
 # Custom directories
 dist/
+test/integration/*/karma-ui5-reports*

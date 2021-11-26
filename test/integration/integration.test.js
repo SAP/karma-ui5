@@ -32,8 +32,10 @@ const registerIntegrationTest = (configPath) => {
 			args.push("--useSauceLabs=true");
 		}
 
-		// Clean up coverage folder
+		// Clean up coverage and FileExport folders
 		await rimraf(path.join(path.dirname(fullConfigPath), "coverage"));
+		await rimraf(path.join(path.dirname(fullConfigPath), "karma-ui5-reports"));
+		await rimraf(path.join(path.dirname(fullConfigPath), "karma-ui5-reports-customized-path"));
 
 		process.stdout.write("\n" + configPath + "\n");
 
