@@ -134,6 +134,9 @@ describe("fileExportReporter plugin", () => {
 			}]
 		};
 
+		pathJoinMock
+			.mockReturnValueOnce("/BrowserA/filename1")
+			.mockReturnValueOnce("/BrowserB/filename2");
 		fsAccessMock
 			.mockRejectedValueOnce({code: "ENOENT"})
 			.mockRejectedValueOnce({code: "ENOENT"});
@@ -146,9 +149,13 @@ describe("fileExportReporter plugin", () => {
 		await fileExportReporter.onBrowserComplete(browser1, result1);
 		await fileExportReporter.onBrowserComplete(browser2, result2);
 
+		expect(pathJoinMock).toHaveBeenCalledTimes(2);
+		expect(pathJoinMock).toBeCalledWith(resolvedTestPath + path.sep, "BrowserA", "filename1");
+		expect(pathJoinMock).toBeCalledWith(resolvedTestPath + path.sep, "BrowserB", "filename2");
+
 		expect(fsWriteFileMock).toHaveBeenCalledTimes(2);
-		expect(fsWriteFileMock).toBeCalledWith("x:/some/path/myFileExportDir/BrowserA/filename1", "content1");
-		expect(fsWriteFileMock).toBeCalledWith("x:/some/path/myFileExportDir/BrowserB/filename2", "content2");
+		expect(fsWriteFileMock).toBeCalledWith("/BrowserA/filename1", "content1");
+		expect(fsWriteFileMock).toBeCalledWith("/BrowserB/filename2", "content2");
 	});
 
 	it("onBrowserComplete - save incoming export files (ensure unique file names)", async () => {
