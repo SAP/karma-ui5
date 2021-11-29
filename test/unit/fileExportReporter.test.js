@@ -1,7 +1,9 @@
-const FileExportReporter = require("../../lib/fileExportReporter");
-
 const fs = require("fs").promises;
 const path = require("path");
+
+jest.mock("mkdirp", () => jest.fn());
+const mkdirp = require("mkdirp");
+const FileExportReporter = require("../../lib/fileExportReporter");
 
 describe("fileExportReporter plugin", () => {
 	let fsAccessMock;
@@ -45,9 +47,6 @@ describe("fileExportReporter plugin", () => {
 		})
 	};
 	const helper = {
-		mkdirIfNotExists: function(path, callback) {
-			callback();
-		},
 		normalizeWinPath: jest.fn()
 	};
 
@@ -59,8 +58,11 @@ describe("fileExportReporter plugin", () => {
 	it("Reading outputDir from config", async () => {
 		expect(base).toBeCalledWith(fileExportReporter);
 		expect(base).toBeCalledWith(fileExportReporterDefaultPath);
-		expect(log.debug).toBeCalledWith("outputDir is: " + resolvedTestPath + path.sep);
+		expect(helper.normalizeWinPath).toHaveBeenCalledTimes(2);
+		expect(helper.normalizeWinPath).toBeCalledWith(expect.stringMatching(/myFileExportDir$/));
+		expect(helper.normalizeWinPath).toBeCalledWith(expect.stringMatching(/karma-ui5-reports$/));
 		expect(log.debug).toHaveBeenCalledTimes(2);
+		expect(log.debug).toBeCalledWith("outputDir is: " + resolvedTestPath);
 	});
 
 	it("onBrowserComplete - no files provided", async () => {
@@ -108,6 +110,9 @@ describe("fileExportReporter plugin", () => {
 
 		await fileExportReporter.onBrowserComplete(browser, result);
 
+		expect(mkdirp).toHaveBeenCalledTimes(2);
+		expect(mkdirp).toBeCalledWith("./karma-ui5-reports");
+
 		expect(fsWriteFileMock).toHaveBeenCalledTimes(2);
 		expect(fsWriteFileMock).toBeCalledWith(filePath1, "content1");
 		expect(fsWriteFileMock).toBeCalledWith(filePath2, "content2");
@@ -150,8 +155,8 @@ describe("fileExportReporter plugin", () => {
 		await fileExportReporter.onBrowserComplete(browser2, result2);
 
 		expect(pathJoinMock).toHaveBeenCalledTimes(2);
-		expect(pathJoinMock).toBeCalledWith(resolvedTestPath + path.sep, "BrowserA", "filename1");
-		expect(pathJoinMock).toBeCalledWith(resolvedTestPath + path.sep, "BrowserB", "filename2");
+		expect(pathJoinMock).toBeCalledWith(resolvedTestPath, "BrowserA", "filename1");
+		expect(pathJoinMock).toBeCalledWith(resolvedTestPath, "BrowserB", "filename2");
 
 		expect(fsWriteFileMock).toHaveBeenCalledTimes(2);
 		expect(fsWriteFileMock).toBeCalledWith("/BrowserA/filename1", "content1");

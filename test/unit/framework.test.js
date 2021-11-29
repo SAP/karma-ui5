@@ -1217,7 +1217,7 @@ describe("FileExportReporter settings", () => {
 			};
 			framework.init({config, logger});
 
-			expect(config.ui5.fileExport).not.toBeDefined();
+			expect(config.ui5).toEqual(ui5Config);
 			expect(config.client.ui5.fileExport).toBe(false);
 			expect(config.reporters).toEqual([]);
 		});
@@ -1229,8 +1229,7 @@ describe("FileExportReporter settings", () => {
 		};
 
 		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
-		expect(framework.logger.message)
-			.toBe("Configured reporters must not include 'fileExport'. It has to be activated in the ui5 settings.");
+		expect(framework.logger.message).toBe(ErrorMessage.invalidFileExportReporterUsage());
 	});
 });
 // TODO: add test to check for client.clearContext

@@ -419,6 +419,29 @@ ui5: {
 }
 ```
 
+### fileExport
+Type: `boolean` or `object`  
+Default: `false`
+
+Configures whether report files provided by tools like the UI5 Support Assistant are exported to the file system.  
+Optionally, an output directory can be set to specify the export path.
+
+Example `boolean`:
+```js
+ui5: {
+  fileExport: true
+}
+```
+
+Example `object`:
+```js
+ui5: {
+  fileExport: {
+    outputDir: "directory/to/export/files"
+  }
+}
+```
+
 ## API
 
 ### helper
