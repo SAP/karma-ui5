@@ -442,6 +442,15 @@ ui5: {
 }
 ```
 
+Projects can also add report files by itself by setting or enhancing the global `window._$files` array in the executed source code on the following way:
+```js
+window._$files = window._$files || [];
+window._$files.push({
+  name: "file_name.txt",
+  content: "file content"
+});
+```
+
 ## API
 
 ### helper
