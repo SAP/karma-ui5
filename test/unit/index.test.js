@@ -30,7 +30,7 @@ describe("Karma Plugin", () => {
 		expect(plugin["reporter:ui5--fileExport"][0]).toBe("type");
 		expect(plugin["reporter:ui5--fileExport"][1]).toStrictEqual(expect.any(Function));
 		expect(plugin["reporter:ui5--fileExport"][1].$inject)
-			.toStrictEqual(["baseReporterDecorator", "config", "logger", "helper"]);
+			.toStrictEqual(["baseReporterDecorator", "config", "logger"]);
 	});
 	it("Should be able to initialize multiple times", async () => {
 		const Framework = require("../../lib/framework");

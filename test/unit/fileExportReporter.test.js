@@ -23,7 +23,7 @@ describe("fileExportReporter plugin", () => {
 	const base = jest.fn();
 	const resolvedTestPath = "x://some/path/myFileExportDir";
 	const config = {
-		basePath: "somepath",
+		basePath: resolvedTestPath,
 		ui5: {
 			fileExport: {
 				outputDir: "myFileExportDir"
@@ -31,7 +31,7 @@ describe("fileExportReporter plugin", () => {
 		}
 	};
 	const configNoDir = {
-		basePath: "somepath",
+		basePath: resolvedTestPath,
 		ui5: {
 			fileExport: true
 		}
@@ -46,23 +46,25 @@ describe("fileExportReporter plugin", () => {
 			return log;
 		})
 	};
-	const helper = {
-		normalizeWinPath: jest.fn()
-	};
-
-	helper.normalizeWinPath.mockImplementation(() => resolvedTestPath);
-
-	const fileExportReporter = new FileExportReporter(base, config, logger, helper);
-	const fileExportReporterDefaultPath = new FileExportReporter(base, configNoDir, logger, helper);
 
 	it("Reading outputDir from config", async () => {
+		pathJoinMock
+			.mockReturnValueOnce(resolvedTestPath + "/path1")
+			.mockReturnValueOnce(resolvedTestPath + "/path2");
+
+		const fileExportReporter = new FileExportReporter(base, config, logger);
+		const fileExportReporterDefaultPath = new FileExportReporter(base, configNoDir, logger);
+
 		expect(base).toBeCalledWith(fileExportReporter);
 		expect(base).toBeCalledWith(fileExportReporterDefaultPath);
-		expect(helper.normalizeWinPath).toHaveBeenCalledTimes(2);
-		expect(helper.normalizeWinPath).toBeCalledWith(expect.stringMatching(/myFileExportDir$/));
-		expect(helper.normalizeWinPath).toBeCalledWith(expect.stringMatching(/karma-ui5-reports$/));
+
+		expect(pathJoinMock).toHaveBeenCalledTimes(2);
+		expect(pathJoinMock).toBeCalledWith(resolvedTestPath, "./karma-ui5-reports");
+		expect(pathJoinMock).toBeCalledWith(resolvedTestPath, "myFileExportDir");
+
 		expect(log.debug).toHaveBeenCalledTimes(2);
-		expect(log.debug).toBeCalledWith("outputDir is: " + resolvedTestPath);
+		expect(log.debug).toBeCalledWith("outputDir is: " + resolvedTestPath + "/path1");
+		expect(log.debug).toBeCalledWith("outputDir is: " + resolvedTestPath + "/path2");
 	});
 
 	it("onBrowserComplete - no files provided", async () => {
@@ -71,6 +73,7 @@ describe("fileExportReporter plugin", () => {
 			exportFiles: null
 		};
 
+		const fileExportReporter = new FileExportReporter(base, config, logger);
 		fileExportReporter.onBrowserComplete(browser, result);
 
 		expect(log.debug).toBeCalledWith("No export files provided");
@@ -79,6 +82,7 @@ describe("fileExportReporter plugin", () => {
 	it("onBrowserComplete - tests crashed", async () => {
 		const browser = {};
 
+		const fileExportReporter = new FileExportReporter(base, config, logger);
 		fileExportReporter.onBrowserComplete(browser, null);
 
 		expect(log.debug).toBeCalledWith("skipped due to incomplete test run.");
@@ -93,14 +97,15 @@ describe("fileExportReporter plugin", () => {
 				name: "filename1",
 				content: "content1"
 			}, {
-				name: "filename2",
+				name: "/some/path/filename2", // prevent using deeper path structures
 				content: "content2"
 			}]
 		};
 
 		pathJoinMock
-			.mockImplementationOnce(() => filePath1)
-			.mockImplementationOnce(() => filePath2);
+			.mockReturnValueOnce(resolvedTestPath)
+			.mockReturnValueOnce(filePath1)
+			.mockReturnValueOnce(filePath2);
 		fsAccessMock
 			.mockRejectedValueOnce({code: "ENOENT"})
 			.mockRejectedValueOnce({code: "ENOENT"});
@@ -108,6 +113,7 @@ describe("fileExportReporter plugin", () => {
 			.mockResolvedValueOnce() // first file: success
 			.mockRejectedValueOnce(new Error("errorMsg")); // second file: failed
 
+		const fileExportReporter = new FileExportReporter(base, config, logger);
 		await fileExportReporter.onBrowserComplete(browser, result);
 
 		expect(mkdirp).toHaveBeenCalledTimes(2);
@@ -125,7 +131,7 @@ describe("fileExportReporter plugin", () => {
 
 	it("onBrowserComplete - save incoming export files (different browsers)", async () => {
 		const browser1 = {name: "BrowserA"};
-		const browser2 = {name: "BrowserB"};
+		const browser2 = {name: "/some/path/BrowserB"}; // prevent using deeper path structures
 		const result1 = {
 			exportFiles: [{
 				name: "filename1",
@@ -140,6 +146,7 @@ describe("fileExportReporter plugin", () => {
 		};
 
 		pathJoinMock
+			.mockReturnValueOnce(resolvedTestPath)
 			.mockReturnValueOnce("/BrowserA/filename1")
 			.mockReturnValueOnce("/BrowserB/filename2");
 		fsAccessMock
@@ -150,11 +157,12 @@ describe("fileExportReporter plugin", () => {
 			.mockResolvedValueOnce();
 
 		const configInclBrowsers = Object.assign({browsers: ["A", "B"]}, config);
-		const fileExportReporter = new FileExportReporter(base, configInclBrowsers, logger, helper);
+		const fileExportReporter = new FileExportReporter(base, configInclBrowsers, logger);
 		await fileExportReporter.onBrowserComplete(browser1, result1);
 		await fileExportReporter.onBrowserComplete(browser2, result2);
 
-		expect(pathJoinMock).toHaveBeenCalledTimes(2);
+		expect(pathJoinMock).toHaveBeenCalledTimes(3);
+		expect(pathJoinMock).toBeCalledWith(resolvedTestPath, "myFileExportDir"); // outputDir creation
 		expect(pathJoinMock).toBeCalledWith(resolvedTestPath, "BrowserA", "filename1");
 		expect(pathJoinMock).toBeCalledWith(resolvedTestPath, "BrowserB", "filename2");
 
@@ -180,9 +188,10 @@ describe("fileExportReporter plugin", () => {
 		};
 
 		pathJoinMock
-			.mockImplementationOnce(() => filePath)
-			.mockImplementationOnce(() => filePath)
-			.mockImplementationOnce(() => filePath);
+			.mockReturnValueOnce(resolvedTestPath)
+			.mockReturnValueOnce(filePath)
+			.mockReturnValueOnce(filePath)
+			.mockReturnValueOnce(filePath);
 		fsAccessMock
 			// file 1
 			.mockRejectedValueOnce({code: "ENOENT"})
@@ -198,6 +207,7 @@ describe("fileExportReporter plugin", () => {
 			.mockResolvedValueOnce()
 			.mockResolvedValueOnce();
 
+		const fileExportReporter = new FileExportReporter(base, config, logger);
 		await fileExportReporter.onBrowserComplete(browser, result);
 
 		expect(fsWriteFileMock).toHaveBeenCalledTimes(3);
