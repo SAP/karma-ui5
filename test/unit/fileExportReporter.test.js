@@ -15,6 +15,7 @@ describe("fileExportReporter plugin", () => {
 		log = {
 			info: jest.fn(),
 			warn: jest.fn(),
+			error: jest.fn(),
 			debug: jest.fn()
 		};
 		logger = {
@@ -318,16 +319,12 @@ describe("fileExportReporter plugin", () => {
 		fileExportReporter.onExit(doneFunction);
 		expect(doneFunction).toHaveBeenCalledTimes(0); // done-function not yet called
 
-		pathJoinMock
-			.mockReturnValueOnce(resolvedTestPath)
-			.mockImplementationOnce(() => {
-				throw new Error("errorMsg");
-			});
-		fsAccessMock.mockRejectedValueOnce({code: "ENOENT"});
-		fsWriteFileMock.mockResolvedValueOnce();
+		fsAccessMock.mockImplementationOnce(() => {
+			throw new Error("errorMsg");
+		});
 		await fileExportReporter.onBrowserComplete({}, result);
 
-		expect(log.warn).toBeCalledWith("An unexpected error occured while exporting files\n\terrorMsg");
+		expect(log.error).toBeCalledWith("An unexpected error occured while exporting files\n\terrorMsg");
 		expect(doneFunction).toHaveBeenCalledTimes(1);
 		expect(doneFunction).toBeCalledWith(1);
 	});
