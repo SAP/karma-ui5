@@ -24,6 +24,7 @@
 	- [failOnEmptyTestPage](#failonemptytestpage)
 	- [config](#config)
 	- [tests](#tests)
+	- [fileExport](#fileexport)
 - [API](#api)
 	- [helper](#helper)
 		- [configureIframeCoverage](#configureiframecoverage)
