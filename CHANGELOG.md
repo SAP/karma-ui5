@@ -2,7 +2,13 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.3.4...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.4.0...HEAD).
+
+<a name="v2.4.0"></a>
+## [v2.4.0] - 2021-12-08
+### Features
+- Add fileExport capability ([#352](https://github.com/SAP/karma-ui5/issues/352)) [`56aac75`](https://github.com/SAP/karma-ui5/commit/56aac75077793eb377ecd5d6f179654ef4b3ddfe)
+
 
 <a name="v2.3.4"></a>
 ## [v2.3.4] - 2021-06-10
@@ -175,6 +181,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v2.4.0]: https://github.com/SAP/karma-ui5/compare/v2.3.4...v2.4.0
 [v2.3.4]: https://github.com/SAP/karma-ui5/compare/v2.3.3...v2.3.4
 [v2.3.3]: https://github.com/SAP/karma-ui5/compare/v2.3.2...v2.3.3
 [v2.3.2]: https://github.com/SAP/karma-ui5/compare/v2.3.1...v2.3.2
