@@ -55,7 +55,8 @@
 		"@ui5/server": "^2.4.0",
 		"express": "^4.17.1",
 		"http-proxy": "^1.18.1",
-		"js-yaml": "^4.1.0"
+		"js-yaml": "^4.1.0",
+		"mkdirp": "^1.0.4"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.16.0",

@@ -1170,4 +1170,66 @@ describe("Error logging", () => {
 		fsReadFileSyncMock.mockRestore();
 	});
 });
+
+describe("FileExportReporter settings", () => {
+	const framework = new Framework();
+	framework.exists = () => true;
+
+	it("Should enable fileExport via object", async () => {
+		const config = {
+			ui5: {
+				fileExport: {
+					foo: "bar"
+				}
+			}
+		};
+		framework.init({config, logger});
+
+		expect(config.ui5.fileExport).toEqual({foo: "bar"});
+		expect(config.client.ui5.fileExport).toBe(true);
+		expect(config.reporters).toEqual(["ui5--fileExport"]);
+	});
+
+	it("Should enable fileExport via boolean", async () => {
+		const config = {
+			ui5: {
+				fileExport: true
+			}
+		};
+		framework.init({config, logger});
+
+		expect(config.ui5.fileExport).toEqual({});
+		expect(config.client.ui5.fileExport).toBe(true);
+		expect(config.reporters).toEqual(["ui5--fileExport"]);
+	});
+
+	it("Should not enable fileExport (negative test cases)", async () => {
+		const ui5ConfigsWithDisabledFileExport = [
+			{},
+			{fileExport: false},
+			{fileExport: "foo"},
+			{fileExport: undefined}
+		];
+
+		ui5ConfigsWithDisabledFileExport.forEach((ui5Config) => {
+			const config = {
+				ui5: ui5Config
+			};
+			framework.init({config, logger});
+
+			expect(config.ui5).toEqual(ui5Config);
+			expect(config.client.ui5.fileExport).toBe(false);
+			expect(config.reporters).toEqual([]);
+		});
+	});
+
+	it("Should throw error if fileExport reporter was already set in list of reporters", async () => {
+		const config = {
+			reporters: ["ui5--fileExport"]
+		};
+
+		await expect(framework.init({config, logger})).rejects.toThrow(ErrorMessage.failure());
+		expect(framework.logger.message).toBe(ErrorMessage.invalidFileExportReporterUsage());
+	});
+});
 // TODO: add test to check for client.clearContext
