@@ -23,7 +23,7 @@ jobs:
     - name: Install @openui5/sap.ui.core@1.71.x
       run: npm install -D @openui5/sap.ui.core@1.71.x
     - name: Start sauce-connect
-      uses: saucelabs/sauce-connect-action@v2.0.0
+      uses: saucelabs/sauce-connect-action@v2.2.0
       with:
         username: ${{ secrets.SAUCE_USERNAME }}
         accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
