@@ -67,7 +67,7 @@
 		"depcheck": "^1.4.3",
 		"eslint": "^7.32.0",
 		"eslint-config-google": "^0.14.0",
-		"eslint-plugin-jest": "^24.7.0",
+		"eslint-plugin-jest": "^26.5.1",
 		"eslint-plugin-jsdoc": "^37.9.7",
 		"execa": "^5.1.1",
 		"fast-glob": "^3.2.11",
