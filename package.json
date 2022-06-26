@@ -63,7 +63,7 @@
 		"@babel/preset-env": "^7.18.2",
 		"@openui5/sap.ui.core": "^1.103.0",
 		"babel-loader": "^8.2.5",
-		"core-js": "^3.23.1",
+		"core-js": "^3.23.3",
 		"depcheck": "^1.4.3",
 		"eslint": "^7.32.0",
 		"eslint-config-google": "^0.14.0",
