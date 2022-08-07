@@ -59,13 +59,13 @@
 		"mkdirp": "^1.0.4"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.18.9",
-		"@babel/preset-env": "^7.18.9",
+		"@babel/core": "^7.18.10",
+		"@babel/preset-env": "^7.18.10",
 		"@openui5/sap.ui.core": "^1.104.0",
 		"babel-loader": "^8.2.5",
 		"core-js": "^3.24.1",
 		"depcheck": "^1.4.3",
-		"eslint": "^7.32.0",
+		"eslint": "^8.21.0",
 		"eslint-config-google": "^0.14.0",
 		"eslint-plugin-jest": "^24.7.0",
 		"eslint-plugin-jsdoc": "^37.9.7",
