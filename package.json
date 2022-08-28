@@ -59,11 +59,11 @@
 		"mkdirp": "^1.0.4"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.18.10",
+		"@babel/core": "^7.18.13",
 		"@babel/preset-env": "^7.18.10",
 		"@openui5/sap.ui.core": "^1.105.0",
 		"babel-loader": "^8.2.5",
-		"core-js": "^3.24.1",
+		"core-js": "^3.25.0",
 		"depcheck": "^1.4.3",
 		"eslint": "^7.32.0",
 		"eslint-config-google": "^0.14.0",
@@ -84,7 +84,7 @@
 		"puppeteer": "^8.0.0",
 		"qunit": "^2.19.1",
 		"rimraf": "^3.0.2",
-		"typescript": "^4.7.4",
+		"typescript": "^4.8.2",
 		"webpack": "^5.74.0",
 		"webpack-cli": "^4.10.0"
 	}
