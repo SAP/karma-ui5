@@ -48,7 +48,6 @@ module.exports = {
 		"comma-dangle": "off",
 		"no-tabs": "off",
 		"valid-jsdoc": 0,
-		"jsdoc/check-examples": 2,
 		"jsdoc/check-param-names": 2,
 		"jsdoc/check-tag-names": 2,
 		"jsdoc/check-types": 2,
