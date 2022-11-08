@@ -59,10 +59,10 @@
 		"mkdirp": "^1.0.4"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.19.6",
-		"@babel/preset-env": "^7.19.4",
-		"@openui5/sap.ui.core": "^1.107.1",
-		"babel-loader": "^8.2.5",
+		"@babel/core": "^7.20.2",
+		"@babel/preset-env": "^7.20.2",
+		"@openui5/sap.ui.core": "^1.108.0",
+		"babel-loader": "^8.3.0",
 		"core-js": "^3.26.0",
 		"depcheck": "^1.4.3",
 		"eslint": "^7.32.0",
