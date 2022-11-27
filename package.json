@@ -61,7 +61,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.20.2",
 		"@babel/preset-env": "^7.20.2",
-		"@openui5/sap.ui.core": "^1.108.0",
+		"@openui5/sap.ui.core": "^1.108.1",
 		"babel-loader": "^8.3.0",
 		"core-js": "^3.26.1",
 		"depcheck": "^1.4.3",
