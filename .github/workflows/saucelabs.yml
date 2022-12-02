@@ -15,10 +15,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3.1.0
-    - name: Use Node.js 14.x
+    - name: Use Node.js LTS 18.x
       uses: actions/setup-node@v2.5.0
       with:
-        node-version: 14.x
+        node-version: 18.x
     - run: npm ci
     - name: Install @openui5/sap.ui.core@1.71.x
       run: npm install -D @openui5/sap.ui.core@1.71.x
