@@ -1,5 +1,8 @@
 name: SauceLabs Integration Tests (UI5 1.71 / IE11)
 
+# Prevent multiple parallel executions as the OpenSauce account is quite limited
+concurrency: SauceLabs
+
 on:
   push:
     branches: [ master ]
