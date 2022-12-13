@@ -31,7 +31,7 @@ jobs:
         username: ${{ secrets.SAUCE_USERNAME }}
         accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
         tunnelIdentifier: github-${{ github.run_id }}
-        restUrl: https://eu-central-1.saucelabs.com/rest/v1
+        region: eu-central
       # Prevents step from running for forks, which doesn't work as secrets are not available
       if: env.SAUCE_USERNAME != null
       env:
