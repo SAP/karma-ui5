@@ -76,7 +76,7 @@
 		"jest-extended": "^0.11.5",
 		"karma": "^6.4.1",
 		"karma-chrome-launcher": "^3.1.1",
-		"karma-coverage": "2.0.3",
+		"karma-coverage": "2.2.0",
 		"karma-ie-launcher": "^1.0.0",
 		"karma-qunit": "^4.1.2",
 		"karma-sauce-launcher": "^4.3.6",
