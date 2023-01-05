@@ -17,5 +17,7 @@ module.exports = function(config) {
 
 module.exports.shouldFail = true;
 module.exports.assertions = ({expect, log}) => {
-	expect(log).toMatch(/Error while loading testpage/);
+	// NOTE: In IE11 it might be the case that onbeforeunload is called when a 404 appears
+	// which leads to the "Some of your tests did a full page reload!" error from karma
+	expect(log).toMatch(/((Error while loading testpage)|(Some of your tests did a full page reload!))/);
 };
