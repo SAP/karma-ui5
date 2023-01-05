@@ -18,10 +18,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3.2.0
-    - name: Use Node.js LTS 18.x
+    - name: Use Node.js LTS 16.x
       uses: actions/setup-node@v3.5.1
       with:
-        node-version: 18.x
+        # There are issues with some tests, related to Node 18 and SauceLabs
+        # It seems that files from the local UI5 server can't be loaded due to CSP
+        node-version: 16.x
     - run: npm ci
     - name: Install @openui5/sap.ui.core@1.71.x
       run: npm install -D @openui5/sap.ui.core@1.71.x
