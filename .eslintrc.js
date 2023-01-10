@@ -1,13 +1,14 @@
 module.exports = {
+	"parserOptions": {
+		"sourceType": "module",
+	},
 	"env": {
 		"node": true,
-		"es2022": true,
-		"jest/globals": true
+		"es2022": true
 	},
 	"extends": ["eslint:recommended", "google"],
 	"plugins": [
-		"jsdoc",
-		"jest"
+		"jsdoc"
 	],
 	"rules": {
 		"indent": [
@@ -73,5 +74,15 @@ module.exports = {
 			}
 		}
 	},
-	"root": true
+	"root": true,
+	"overrides": [
+		{
+			"files": [
+				"**/*.cjs"
+			],
+			"parserOptions": {
+				"sourceType": "script",
+			}
+		}
+	]
 };

@@ -21,7 +21,8 @@
 		"type": "git",
 		"url": "https://github.com/SAP/karma-ui5.git"
 	},
-	"main": "lib/index.js",
+	"type": "module",
+	"main": "lib/index.cjs",
 	"files": [
 		"dist",
 		"lib",
@@ -33,11 +34,12 @@
 		"lint": "eslint ./",
 		"lint-fix": "eslint ./ --fix",
 		"test": "npm run lint && npm run coverage && npm run integration",
-		"unit": "jest -c test/unit/jest.config.js",
-		"coverage": "jest -c test/unit/jest.config.js --coverage",
-		"integration": "jest -c test/integration/jest.config.js",
-		"integration-internet-explorer": "jest -c test/integration/jest.config.js --browsers=IE",
-		"integration-saucelabs": "jest -c test/integration/jest.config.js --useSauceLabs=true",
+		"unit": "ava",
+		"unit-watch": "ava --watch",
+		"coverage": "nyc ava --node-arguments=\"--experimental-loader=@istanbuljs/esm-loader-hook\"",
+		"integration": "ava --config ava-integration.config.js",
+		"integration-internet-explorer": "ava --config ava-integration.config.js --browsers=IE",
+		"integration-saucelabs": "ava --config ava-integration.config.js --useSauceLabs=true",
 		"dev": "webpack --watch --mode=development",
 		"prepare": "webpack",
 		"preversion": "npm test",
@@ -45,6 +47,46 @@
 		"postversion": "git push --follow-tags",
 		"release-note": "git-chglog -c .chglog/release-config.yml v$npm_package_version",
 		"depcheck": "depcheck --ignores core-js,typescript,webpack-cli"
+	},
+	"nyc": {
+		"reporter": [
+			"lcovonly",
+			"html-spa",
+			"text"
+		],
+		"exclude": [
+			"dist/**",
+			"coverage/**",
+			"test/**",
+			"**/.eslintrc.js",
+			"*.config.js",
+			"*.config.cjs"
+		],
+		"check-coverage": true,
+		"statements": 90,
+		"branches": 90,
+		"functions": 90,
+		"lines": 90,
+		"watermarks": {
+			"statements": [
+				70,
+				90
+			],
+			"branches": [
+				70,
+				90
+			],
+			"functions": [
+				70,
+				90
+			],
+			"lines": [
+				70,
+				90
+			]
+		},
+		"cache": true,
+		"all": true
 	},
 	"peerDependencies": {
 		"karma": ">= 4.3.0"
@@ -61,19 +103,19 @@
 	"devDependencies": {
 		"@babel/core": "^7.20.12",
 		"@babel/preset-env": "^7.20.2",
+		"@istanbuljs/esm-loader-hook": "^0.2.0",
 		"@openui5/sap.ui.core": "^1.109.0",
+		"ava": "^5.1.0",
 		"babel-loader": "^9.1.2",
 		"core-js": "^3.27.1",
 		"depcheck": "^1.4.3",
 		"eslint": "^8.31.0",
 		"eslint-config-google": "^0.14.0",
-		"eslint-plugin-jest": "^27.2.1",
 		"eslint-plugin-jsdoc": "^39.6.4",
+		"esmock": "^2.1.0",
 		"execa": "^5.1.1",
 		"fast-glob": "^3.2.12",
 		"istanbul-lib-coverage": "^3.2.0",
-		"jest": "^29.3.1",
-		"jest-extended": "^3.2.1",
 		"karma": "^6.4.1",
 		"karma-chrome-launcher": "^3.1.1",
 		"karma-coverage": "^2.2.0",
@@ -81,9 +123,11 @@
 		"karma-qunit": "^4.1.2",
 		"karma-sauce-launcher": "^4.3.6",
 		"license-webpack-plugin": "^4.0.2",
+		"nyc": "^15.1.0",
 		"puppeteer": "^19.4.1",
 		"qunit": "^2.19.3",
 		"rimraf": "^3.0.2",
+		"sinon": "^15.0.1",
 		"typescript": "^4.9.4",
 		"webpack": "^5.75.0",
 		"webpack-cli": "^5.0.1"
