@@ -280,11 +280,11 @@ test("onBrowserComplete - save incoming export files (ensure unique file names)"
 	await fileExportReporter.onBrowserComplete(browser, result);
 
 	t.is(fsWriteFileStub.callCount, 3);
-	t.true(fsWriteFileStub.getCall(0).args[0].endsWith("/filename"));
+	t.true(fsWriteFileStub.getCall(0).args[0].endsWith("filename"));
 	t.is(fsWriteFileStub.getCall(0).args[1], "content1");
-	t.true(fsWriteFileStub.getCall(1).args[0].endsWith("/filename_1"));
+	t.true(fsWriteFileStub.getCall(1).args[0].endsWith("filename_1"));
 	t.is(fsWriteFileStub.getCall(1).args[1], "content2");
-	t.true(fsWriteFileStub.getCall(2).args[0].endsWith("/filename_2"));
+	t.true(fsWriteFileStub.getCall(2).args[0].endsWith("filename_2"));
 	t.is(fsWriteFileStub.getCall(2).args[1], "content3");
 });
 
