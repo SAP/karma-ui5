@@ -1,7 +1,7 @@
 module.exports = function(config) {
 	"use strict";
 
-	require("../karma-base.conf")(config);
+	require("../karma-base.conf.cjs")(config);
 	config.set({
 
 		frameworks: ["ui5"],
@@ -10,16 +10,18 @@ module.exports = function(config) {
 			configPath: "ui5-does-not-exist.yaml"
 		},
 
+		// logLevel: "debug",
+
 		reporters: ["progress"]
 
 	});
 
-	require("../saucelabs").setTestName(config, __filename);
+	require("../saucelabs.cjs").setTestName(config, __filename);
 };
 
-module.exports.assertions = function({expect, log}) {
-	expect(log).toContain("Failed to read configuration for project application-ui5-tooling");
-	expect(log).toContain("ui5-does-not-exist.yaml");
+module.exports.assertions = function({t, log}) {
+	t.true(log.includes("Failed to read configuration for module application-ui5-tooling"), log);
+	t.true(log.includes("ui5-does-not-exist.yaml"), log);
 };
 
 module.exports.shouldFail = true;

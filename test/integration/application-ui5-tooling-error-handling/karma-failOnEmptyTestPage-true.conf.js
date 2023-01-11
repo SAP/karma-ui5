@@ -1,7 +1,7 @@
 module.exports = function(config) {
 	"use strict";
 
-	require("../karma-base.conf")(config);
+	require("../karma-base.conf.cjs")(config);
 	config.set({
 
 		frameworks: ["ui5"],
@@ -13,12 +13,12 @@ module.exports = function(config) {
 
 	});
 
-	require("../saucelabs").setTestName(config, __filename);
+	require("../saucelabs.cjs").setTestName(config, __filename);
 };
 
 module.exports.shouldFail = true;
-module.exports.assertions = ({expect, log}) => {
-	expect(log).toMatch(/Executed 2 of 2/);
-	expect(log).toMatch(/\/base\/webapp\/test\/empty-testpage\/empty\.qunit\.html FAILED/);
-	expect(log).toMatch(/Testpage did not define any tests./);
+module.exports.assertions = ({t, log}) => {
+	t.regex(log, /Executed 2 of 2/);
+	t.regex(log, /\/base\/webapp\/test\/empty-testpage\/empty\.qunit\.html FAILED/);
+	t.regex(log, /Testpage did not define any tests./);
 };

@@ -4,7 +4,7 @@ module.exports = function(config) {
 	config.set({
 
 		plugins: [
-			require("../../"),
+			require("../../lib/index.cjs"),
 			require("karma-chrome-launcher"),
 			require("karma-coverage"),
 			require("karma-ie-launcher"),
@@ -37,5 +37,5 @@ module.exports = function(config) {
 
 	});
 
-	require("./saucelabs").setup(config);
+	require("./saucelabs.cjs").setup(config);
 };

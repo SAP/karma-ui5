@@ -1,7 +1,7 @@
 module.exports = function(config) {
 	"use strict";
 
-	require("../karma-base.conf")(config);
+	require("../karma-base.conf.cjs")(config);
 	config.set({
 
 		frameworks: ["ui5"],
@@ -14,5 +14,5 @@ module.exports = function(config) {
 
 	});
 
-	require("../saucelabs").setTestName(config, __filename);
+	require("../saucelabs.cjs").setTestName(config, __filename);
 };

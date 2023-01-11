@@ -22,11 +22,14 @@
 		"url": "https://github.com/SAP/karma-ui5.git"
 	},
 	"type": "module",
-	"main": "lib/index.cjs",
+	"exports": {
+		".": "./lib/index.cjs",
+		"./helper": "./helper.cjs"
+	},
 	"files": [
 		"dist",
 		"lib",
-		"helper.js",
+		"helper.cjs",
 		"LICENSES/**",
 		".reuse/**"
 	],
@@ -58,7 +61,7 @@
 			"dist/**",
 			"coverage/**",
 			"test/**",
-			"**/.eslintrc.js",
+			".eslintrc.cjs",
 			"*.config.js",
 			"*.config.cjs"
 		],

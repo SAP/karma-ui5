@@ -1,7 +1,7 @@
 module.exports = function(config) {
 	"use strict";
 
-	require("../karma-base.conf")(config);
+	require("../karma-base.conf.cjs")(config);
 	config.set({
 
 		ui5: {
@@ -16,16 +16,16 @@ module.exports = function(config) {
 
 	});
 
-	require("../saucelabs").setTestName(config, __filename);
+	require("../saucelabs.cjs").setTestName(config, __filename);
 };
 
-module.exports.assertions = function({expect, log}) {
+module.exports.assertions = function({t, log}) {
 	const exportFile1 = require("./karma-ui5-reports/TEST-test.app-FILE-file1.json");
 	const exportFile2 = require("./karma-ui5-reports/TEST-test.app-FILE-file2.json");
 	const exportFile3 = require("./karma-ui5-reports/TEST-test.lib-FILE-file1.json");
 	const exportFile4 = require("./karma-ui5-reports/TEST-test.lib-FILE-file2.json");
-	expect(exportFile1).toEqual({data: "foobar"});
-	expect(exportFile2).toEqual({data: "foobarbaz"});
-	expect(exportFile3).toEqual({data: "foobar"});
-	expect(exportFile4).toEqual({data: "foobarbaz"});
+	t.deepEqual(exportFile1, {data: "foobar"});
+	t.deepEqual(exportFile2, {data: "foobarbaz"});
+	t.deepEqual(exportFile3, {data: "foobar"});
+	t.deepEqual(exportFile4, {data: "foobarbaz"});
 };
