@@ -8,8 +8,11 @@ const allowedLicenses = [
 module.exports = {
 	mode: "production",
 	devtool: false,
+	resolve: {
+		extensions: [".js", ".cjs"],
+	},
 	entry: {
-		"browser-bundle": "./lib/client/browser.js"
+		"browser-bundle": "./lib/client/browser.cjs"
 	},
 	output: {
 		path: path.resolve(__dirname, "dist"),
@@ -19,7 +22,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.m?js$/,
+				test: /\.(m|c)?js$/,
 				use: {
 					loader: "babel-loader",
 					options: {

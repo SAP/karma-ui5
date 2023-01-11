@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = function(config) {
-	require("../karma-base.conf")(config);
+	require("../karma-base.conf.cjs")(config);
 	config.set({
 
 		frameworks: ["qunit", "ui5"],
@@ -56,21 +56,21 @@ module.exports = function(config) {
 
 	});
 
-	require("../saucelabs").setTestName(config, __filename);
+	require("../saucelabs.cjs").setTestName(config, __filename);
 };
 
-module.exports.assertions = function({expect, log}) {
+module.exports.assertions = function({t, log}) {
 	const coverage = require("./coverage/json/coverage-final.json");
 	const files = Object.keys(coverage);
-	expect(files).toHaveLength(1);
-	expect(files[0]).toEndWith(path.join("application-file-export-reporter-script-mode", "webapp", "foo.js"));
+	t.is(files.length, 1);
+	t.true(files[0].endsWith(path.join("application-file-export-reporter-script-mode", "webapp", "foo.js")));
 
 	const exportFile1 = require("./karma-ui5-reports-customized-path/file1.json");
 	const exportFile2 = require("./karma-ui5-reports-customized-path/file2.json");
 	const exportFile3 = require("./karma-ui5-reports-customized-path/file2_1.json");
 	const exportFile4 = require("./karma-ui5-reports-customized-path/file2_2.json");
-	expect(exportFile1).toEqual({data: "foobar"});
-	expect(exportFile2).toEqual({data: "foobarbaz"});
-	expect(exportFile3).toEqual({data: "foobarbaz_1"});
-	expect(exportFile4).toEqual({data: "foobarbaz_2"});
+	t.deepEqual(exportFile1, {data: "foobar"});
+	t.deepEqual(exportFile2, {data: "foobarbaz"});
+	t.deepEqual(exportFile3, {data: "foobarbaz_1"});
+	t.deepEqual(exportFile4, {data: "foobarbaz_2"});
 };

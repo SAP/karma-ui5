@@ -1,7 +1,7 @@
 module.exports = function(config) {
 	"use strict";
 
-	require("../karma-base.conf")(config);
+	require("../karma-base.conf.cjs")(config);
 	config.set({
 
 		frameworks: ["ui5"],
@@ -13,12 +13,12 @@ module.exports = function(config) {
 
 	});
 
-	require("../saucelabs").setTestName(config, __filename);
+	require("../saucelabs.cjs").setTestName(config, __filename);
 };
 
 module.exports.shouldFail = false;
-module.exports.assertions = ({expect, log}) => {
-	expect(log).toMatch(/Executed 1 of 1/);
-	expect(log).toMatch(/Testpage "\/base\/webapp\/test\/empty-testpage\/empty\.qunit\.html" did not define any tests/);
-	expect(log).toMatch(/Please consider enabling the "failOnEmptyTestPage" option/);
+module.exports.assertions = ({t, log}) => {
+	t.regex(log, /Executed 1 of 1/);
+	t.regex(log, /Testpage "\/base\/webapp\/test\/empty-testpage\/empty\.qunit\.html" did not define any tests/);
+	t.regex(log, /Please consider enabling the "failOnEmptyTestPage" option/);
 };

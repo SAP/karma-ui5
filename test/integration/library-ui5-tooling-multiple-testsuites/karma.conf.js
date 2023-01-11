@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = function(config) {
 	"use strict";
 
-	require("../karma-base.conf")(config);
+	require("../karma-base.conf.cjs")(config);
 	config.set({
 
 		frameworks: ["ui5"],
@@ -37,14 +37,14 @@ module.exports = function(config) {
 
 	});
 
-	require("../saucelabs").setTestName(config, __filename);
+	require("../saucelabs.cjs").setTestName(config, __filename);
 };
 
-module.exports.assertions = function({expect, log}) {
+module.exports.assertions = function({t, log}) {
 	const coverage = require("./coverage/json/coverage-final.json");
 	const files = Object.keys(coverage);
-	expect(files).toHaveLength(1);
-	expect(files[0]).toEndWith(
+	t.is(files.length, 1);
+	t.true(files[0].endsWith(
 		path.join("library-ui5-tooling-multiple-testsuites", "src", "sap", "test", "lib", "library.js")
-	);
+	));
 };

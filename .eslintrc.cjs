@@ -83,6 +83,20 @@ module.exports = {
 			"parserOptions": {
 				"sourceType": "script",
 			}
+		},
+		{
+			"files": [
+				"lib/client/**",
+				"test/integration/*/webapp/**/*.js",
+				"test/integration/*/src/**/*.js",
+				"test/integration/*/test/**/*.js"
+			],
+			"env": {
+				"browser": true
+			},
+			"globals": {
+				"sap": "readonly"
+			}
 		}
 	]
 };

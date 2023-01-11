@@ -1,7 +1,8 @@
 {
   "name": "application-tooling-script-mode",
   "version": "1.0.0",
+  "type": "commonjs",
   "dependencies": {
-		"@openui5/sap.ui.core": "*"
-	}
+    "@openui5/sap.ui.core": "*"
+  }
 }

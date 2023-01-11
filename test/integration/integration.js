@@ -1,18 +1,23 @@
-const glob = require("fast-glob");
-const path = require("path");
-const execa = require("execa");
-const {promisify} = require("util");
-const rimraf = promisify(require("rimraf"));
-const ui5Normalizer = require("@ui5/project").normalizer;
-const ui5Server = require("@ui5/server").server;
+import test from "ava";
+import glob from "fast-glob";
+import path from "path";
+import execa from "execa";
+import {graphFromPackageDependencies} from "@ui5/project/graph";
+import {serve} from "@ui5/server";
+import {fileURLToPath} from "node:url";
+import {createRequire} from "node:module";
+import {promisify} from "util";
+import rimrafCb from "rimraf";
+const rimraf = promisify(rimrafCb);
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
+
 const TEST_TIMEOUT = 5 * 60 * 1000; // 5 minutes
 let server;
 
-// Increase test timeout (default 5s)
-jest.setTimeout(TEST_TIMEOUT);
-
 const registerIntegrationTest = (configPath) => {
-	it(configPath, async () => {
+	test.serial(configPath, async (t) => {
 		const fullConfigPath = path.join(__dirname, configPath);
 		const integrationTest = require(fullConfigPath);
 		const args = [
@@ -54,9 +59,7 @@ const registerIntegrationTest = (configPath) => {
 				processKilled = true;
 				karmaProcess.kill();
 			},
-			// Set timeout 1s earlier than jest to ensure that it's reached before.
-			// This ensures that the process output is logged in case of a timeout.
-			TEST_TIMEOUT - 1000
+			TEST_TIMEOUT
 		);
 
 		const karmaProcessResult = await karmaProcess;
@@ -76,35 +79,36 @@ const registerIntegrationTest = (configPath) => {
 
 		if (integrationTest.assertions) {
 			integrationTest.assertions({
-				expect,
+				t,
 				log: karmaProcessResult.stdout
 			});
+		} else {
+			t.pass();
 		}
 	});
 };
 
-beforeAll(async () => {
+test.before(async () => {
 	// Start server for sap.ui.core library to be used for integration tests
 	// that run against a configured "url"
-	const tree = await ui5Normalizer.generateProjectTree({
+	const graph = await graphFromPackageDependencies({
 		cwd: path.dirname(require.resolve("@openui5/sap.ui.core/package.json"))
 	});
-	server = await ui5Server.serve(tree, {
+	server = await serve(graph, {
 		port: 5000,
 		changePortIfInUse: true
 	});
 });
 
-afterAll(() => {
+test.after(() => {
 	if (server) {
 		server.close();
 		server = null;
 	}
 });
 
-describe("Integration Tests", () => {
-	const configPaths = glob.sync(["./*/karma*.conf.js"], {cwd: __dirname});
-	for (const configPath of configPaths) {
-		registerIntegrationTest(configPath);
-	}
-});
+const configPaths = glob.sync(["./*/karma*.conf.js"], {cwd: __dirname});
+// const configPaths = ["application-ui5-tooling/karma-ui5-config-not-found.conf.js"];
+for (const configPath of configPaths) {
+	registerIntegrationTest(configPath);
+}
