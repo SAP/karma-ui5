@@ -18,6 +18,8 @@ let server;
 
 const registerIntegrationTest = (configPath) => {
 	test.serial(configPath, async (t) => {
+		t.timeout(TEST_TIMEOUT);
+
 		const fullConfigPath = path.join(__dirname, configPath);
 		const integrationTest = require(fullConfigPath);
 		const args = [
@@ -59,7 +61,9 @@ const registerIntegrationTest = (configPath) => {
 				processKilled = true;
 				karmaProcess.kill();
 			},
-			TEST_TIMEOUT
+			// Set timeout 1s earlier than ava to ensure that it's reached before.
+			// This ensures that the process output is logged in case of a timeout.
+			TEST_TIMEOUT - 1000
 		);
 
 		const karmaProcessResult = await karmaProcess;
