@@ -53,9 +53,9 @@
 	},
 	"nyc": {
 		"reporter": [
-			"lcovonly",
-			"html-spa",
-			"text"
+			"lcov",
+			"text",
+			"text-summary"
 		],
 		"exclude": [
 			"dist/**",
