@@ -15,3 +15,6 @@ updates:
   - matz3
   - RandomByte
   versioning-strategy: increase
+  commit-message:
+    prefix: "[DEPENDENCY] "
+    prefix-development: "[INTERNAL] "
