@@ -7,7 +7,7 @@ module.exports = function(config) {
 		frameworks: ["ui5"],
 
 		ui5: {
-			configPath: require("path").resolve(__dirname, "ui5-foo.yaml")
+			configPath: require("node:path").resolve(__dirname, "ui5-foo.yaml")
 		},
 
 		reporters: ["progress"]
