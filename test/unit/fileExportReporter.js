@@ -7,16 +7,16 @@ import fs from "node:fs/promises";
 test.beforeEach(async (t) => {
 	const sinon = t.context.sinon = sinonGlobal.createSandbox();
 
-	t.context.mkdirpStub = sinon.stub().resolves();
+	t.context.mkdirStub = sinon.stub().resolves();
 	t.context.fsAccessStub = sinon.stub().callsFake(fs.access);
 	t.context.fsWriteFileStub = sinon.stub().callsFake(fs.writeFile);
 	t.context.pathJoinStub = sinon.stub().callsFake(path.join);
 
 	t.context.FileExportReporter = await esmock("../../lib/fileExportReporter.js", {
-		"mkdirp": t.context.mkdirpStub,
 		"node:fs/promises": {
 			access: t.context.fsAccessStub,
 			writeFile: t.context.fsWriteFileStub,
+			mkdir: t.context.mkdirStub
 		},
 		"node:path": {
 			join: t.context.pathJoinStub,
@@ -144,7 +144,7 @@ test("onBrowserComplete - tests crashed", async (t) => {
 });
 
 test("onBrowserComplete - save incoming export files", async (t) => {
-	const {FileExportReporter, base, logger, log, pathJoinStub, fsAccessStub, fsWriteFileStub, mkdirpStub} = t.context;
+	const {FileExportReporter, base, logger, log, pathJoinStub, fsAccessStub, fsWriteFileStub, mkdirStub} = t.context;
 
 	const browser = {};
 	const filePath1 = resolvedTestPath + "/filePath1";
@@ -178,8 +178,8 @@ test("onBrowserComplete - save incoming export files", async (t) => {
 	t.is(pathJoinStub.callCount, 5);
 	t.deepEqual(pathJoinStub.getCall(3).args, [resolvedTestPath, ".some.path.filename2"]); // test escapeFileName
 
-	t.is(mkdirpStub.callCount, 2);
-	t.deepEqual(mkdirpStub.getCall(0).args, [resolvedTestPath]);
+	t.is(mkdirStub.callCount, 2);
+	t.deepEqual(mkdirStub.getCall(0).args, [resolvedTestPath, {recursive: true}]);
 
 	t.is(fsWriteFileStub.callCount, 2);
 	t.deepEqual(fsWriteFileStub.getCall(0).args, [filePath1, "content1"]);
