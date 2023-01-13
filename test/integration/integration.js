@@ -1,6 +1,6 @@
 import test from "ava";
 import glob from "fast-glob";
-import path from "path";
+import path from "node:path";
 import {execa} from "execa";
 import {graphFromPackageDependencies} from "@ui5/project/graph";
 import {serve} from "@ui5/server";
