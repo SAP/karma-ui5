@@ -112,7 +112,7 @@
 		"babel-loader": "^9.1.2",
 		"core-js": "^3.27.1",
 		"depcheck": "^1.4.3",
-		"eslint": "^8.31.0",
+		"eslint": "^8.32.0",
 		"eslint-config-google": "^0.14.0",
 		"eslint-plugin-jsdoc": "^39.6.4",
 		"esmock": "^2.1.0",
