@@ -2,7 +2,28 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v2.4.0...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v3.0.0...HEAD).
+
+<a name="v3.0.0"></a>
+## [v3.0.0] - 2023-02-10
+### Breaking Changes
+- Require Node.js ^16.18.0 || >=18.12.0 [`13ca8ad`](https://github.com/SAP/karma-ui5/commit/13ca8ad882ed692963da4bd4238507c89634d6f3)
+- Require Node.js ^16.18.0 || >=18.0.0 / npm >= 8 [`f4e250b`](https://github.com/SAP/karma-ui5/commit/f4e250bb9da8c9bb07b04a68005d100af42ee635)
+
+### Dependency Updates
+- Update UI5 Tooling dependencies to v3.0.0 ([#536](https://github.com/SAP/karma-ui5/issues/536)) [`8b294d8`](https://github.com/SAP/karma-ui5/commit/8b294d80e4f4cd737c837303af49f19f16f4bae1)
+- Bump [@ui5](https://github.com/ui5)/project from 3.0.0-rc.1 to 3.0.0-rc.2 [`1aa26c5`](https://github.com/SAP/karma-ui5/commit/1aa26c53a344808e3364b8fd17e3ab3b47c8e3f4)
+
+### Features
+- Support UI5 Tooling v3 [`49c4997`](https://github.com/SAP/karma-ui5/commit/49c49976da36c4cd48289631b7c29d8f5dae2a5c)
+
+### BREAKING CHANGE
+
+Raising the minimum required Node v18 version to 18.12.0.
+
+Support for older Node.js and npm releases has been dropped.
+Only Node.js ^16.18.0 or >=18.0.0, and npm v8 or higher are supported.
+
 
 <a name="v2.4.0"></a>
 ## [v2.4.0] - 2021-12-08
@@ -181,6 +202,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v3.0.0]: https://github.com/SAP/karma-ui5/compare/v2.4.0...v3.0.0
 [v2.4.0]: https://github.com/SAP/karma-ui5/compare/v2.3.4...v2.4.0
 [v2.3.4]: https://github.com/SAP/karma-ui5/compare/v2.3.3...v2.3.4
 [v2.3.3]: https://github.com/SAP/karma-ui5/compare/v2.3.2...v2.3.3
