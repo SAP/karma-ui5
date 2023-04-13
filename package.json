@@ -50,7 +50,7 @@
 		"version": "git-chglog --next-tag v$npm_package_version -o CHANGELOG.md && git add CHANGELOG.md",
 		"postversion": "git push --follow-tags",
 		"release-note": "git-chglog -c .chglog/release-config.yml v$npm_package_version",
-		"depcheck": "depcheck --ignores core-js,typescript,webpack-cli"
+		"depcheck": "depcheck --ignores core-js,webpack-cli"
 	},
 	"nyc": {
 		"reporter": [
@@ -131,7 +131,6 @@
 		"qunit": "^2.19.4",
 		"rimraf": "^4.4.1",
 		"sinon": "^15.0.3",
-		"typescript": "^4.9.5",
 		"webpack": "^5.79.0",
 		"webpack-cli": "^5.0.1"
 	}
