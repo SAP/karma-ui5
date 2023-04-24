@@ -110,7 +110,6 @@ test.after(() => {
 });
 
 const configPaths = glob.sync(["./*/karma*.conf.js"], {cwd: __dirname});
-// const configPaths = ["application-ui5-tooling/karma-ui5-config-not-found.conf.js"];
 for (const configPath of configPaths) {
 	registerIntegrationTest(configPath);
 }

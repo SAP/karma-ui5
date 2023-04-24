@@ -4,7 +4,7 @@ window.suite = function() {
 	// eslint-disable-next-line new-cap
 	const oSuite = new parent.jsUnitTestSuite();
 	const sContextPath = location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1);
-	oSuite.addTestPage(sContextPath + "test.qunit.html");
+	oSuite.addTestPage(sContextPath + "test.qunit.html?paramFromTestSuite=should-be-first");
 
 	return oSuite;
 };
