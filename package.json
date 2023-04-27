@@ -97,7 +97,7 @@
 	},
 	"dependencies": {
 		"@ui5/fs": "^3.0.3",
-		"@ui5/project": "^3.2.1",
+		"@ui5/project": "^3.2.2",
 		"@ui5/server": "^3.1.2",
 		"express": "^4.18.2",
 		"http-proxy": "^1.18.1",
@@ -127,11 +127,11 @@
 		"karma-sauce-launcher": "^4.3.6",
 		"license-webpack-plugin": "^4.0.2",
 		"nyc": "^15.1.0",
-		"puppeteer": "^19.10.1",
+		"puppeteer": "^19.11.1",
 		"qunit": "^2.19.4",
 		"rimraf": "^4.4.1",
 		"sinon": "^15.0.4",
-		"webpack": "^5.80.0",
+		"webpack": "^5.81.0",
 		"webpack-cli": "^5.0.2"
 	}
 }
