@@ -6,7 +6,7 @@ import {graphFromPackageDependencies} from "@ui5/project/graph";
 import {serve} from "@ui5/server";
 import {fileURLToPath} from "node:url";
 import {createRequire} from "node:module";
-import rimraf from "rimraf";
+import {rimraf} from "rimraf";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
