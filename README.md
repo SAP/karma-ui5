@@ -222,7 +222,7 @@ CLI: `--ui5.url`
 
 The URL where UI5 should be loaded from.
 
-When omitted and the project contains a `ui5.yaml` file, [UI5 Tooling](https://github.com/SAP/ui5-tooling) will be used as server middleware.
+When omitted and the project contains a `ui5.yaml` file, [UI5 Tooling](https://github.com/SAP/ui5-tooling) will be used as server middleware. Beware of restrictions outlined in [Notes on UI5 Tooling Custom Server Middleware](#notes-on-ui5-tooling-custom-server-middleware).
 
 Example:
 ```js
@@ -476,6 +476,18 @@ module.exports = function(config) {
 	require("karma-ui5/helper").configureIframeCoverage(config);
 };
 ```
+
+## Notes on UI5 Tooling Custom Server Middleware
+
+If the [url](#url)-option is not used, and if the project contains a `ui5.yaml` file, `karma-ui5` will automatically use [UI5 Tooling](https://github.com/SAP/ui5-tooling) to start an internal server. Any custom middleware configured in the `ui5.yaml` will be used automatically.
+
+However, since Karma uses the [`connect`](https://github.com/senchalabs/connect) framework, as opposed to UI5 Tooling's [`express`](https://github.com/expressjs/express), custom middleware might not always work as expected. Compared to `connect`, the `express` framework provides a more versatile API to middleware.
+
+Therefore, if you plan to use custom middleware in an integrated scenario with `karma-ui5`, you must **restrict the middleware to using the [`connect`](https://github.com/senchalabs/connect) API only** to ensure compatibility.
+
+Alternatively, you can start a server with the usual `ui5 serve` command and [configure the corresponding URL](#url).
+
+For more information see [UI5 Tooling - Custom UI5 Server Middleware](https://sap.github.io/ui5-tooling/stable/pages/extensibility/CustomServerMiddleware/).
 
 ## Big Thanks
 
