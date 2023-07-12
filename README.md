@@ -28,6 +28,7 @@
 - [API](#api)
 	- [helper](#helper)
 		- [configureIframeCoverage](#configureiframecoverage)
+- [Notes on UI5 Tooling Custom Server Middleware](#notes-on-ui5-tooling-custom-server-middleware)
 - [License](#license)
 
 
