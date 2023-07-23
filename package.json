@@ -115,9 +115,9 @@
 		"eslint": "^8.45.0",
 		"eslint-config-google": "^0.14.0",
 		"eslint-plugin-jsdoc": "^40.3.0",
-		"esmock": "^2.3.1",
+		"esmock": "^2.3.2",
 		"execa": "^7.1.1",
-		"fast-glob": "^3.3.0",
+		"fast-glob": "^3.3.1",
 		"istanbul-lib-coverage": "^3.2.0",
 		"karma": "^6.4.2",
 		"karma-chrome-launcher": "^3.2.0",
@@ -127,11 +127,11 @@
 		"karma-sauce-launcher": "^4.3.6",
 		"license-webpack-plugin": "^4.0.2",
 		"nyc": "^15.1.0",
-		"puppeteer": "^20.8.2",
+		"puppeteer": "^20.9.0",
 		"qunit": "^2.19.4",
 		"rimraf": "^5.0.1",
 		"sinon": "^15.2.0",
-		"webpack": "^5.88.1",
+		"webpack": "^5.88.2",
 		"webpack-cli": "^5.1.4"
 	}
 }
