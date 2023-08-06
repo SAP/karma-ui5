@@ -115,7 +115,7 @@
 		"eslint": "^8.46.0",
 		"eslint-config-google": "^0.14.0",
 		"eslint-plugin-jsdoc": "^40.3.0",
-		"esmock": "^2.3.3",
+		"esmock": "^2.3.5",
 		"execa": "^7.2.0",
 		"fast-glob": "^3.3.1",
 		"istanbul-lib-coverage": "^3.2.0",
