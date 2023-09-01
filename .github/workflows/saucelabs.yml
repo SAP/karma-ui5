@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3.6.0
     - name: Use Node.js LTS 16.x
-      uses: actions/setup-node@v3.6.0
+      uses: actions/setup-node@v3.8.1
       with:
         # There are issues with some tests, related to Node 18 and SauceLabs
         # It seems that files from the local UI5 server can't be loaded due to CSP
