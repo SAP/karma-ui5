@@ -104,7 +104,7 @@
 		"js-yaml": "^4.1.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.22.20",
+		"@babel/core": "^7.23.0",
 		"@babel/preset-env": "^7.22.20",
 		"@istanbuljs/esm-loader-hook": "^0.2.0",
 		"@openui5/sap.ui.core": "^1.118.0",
@@ -127,9 +127,9 @@
 		"karma-sauce-launcher": "^4.3.6",
 		"license-webpack-plugin": "^4.0.2",
 		"nyc": "^15.1.0",
-		"puppeteer": "^21.3.4",
+		"puppeteer": "^21.3.6",
 		"qunit": "^2.20.0",
-		"rimraf": "^5.0.1",
+		"rimraf": "^5.0.5",
 		"sinon": "^16.0.0",
 		"webpack": "^5.88.2",
 		"webpack-cli": "^5.1.4"
