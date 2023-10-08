@@ -130,7 +130,7 @@
 		"puppeteer": "^21.3.6",
 		"qunit": "^2.20.0",
 		"rimraf": "^5.0.5",
-		"sinon": "^16.0.0",
+		"sinon": "^16.1.0",
 		"webpack": "^5.88.2",
 		"webpack-cli": "^5.1.4"
 	}
