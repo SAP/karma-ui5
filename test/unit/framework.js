@@ -216,12 +216,13 @@ test("ui5.yaml: should be configurable when autoDetectType",
 	async (t) => {
 		const {framework, logger, readFileSyncStub, sinon} = t.context;
 		const autoDetectTypeSpy = sinon.spy(framework, "autoDetectType");
+		const mockUI5YamlPath = "/alternative/ui5/yaml/ui5-custom.yaml";
 
 		framework.exists = () => true;
-		framework.init({config: {ui5: {configPath: "/alternative/ui5/yaml/ui5-custom.yaml"}}, logger});
+		framework.init({config: {ui5: {configPath: mockUI5YamlPath}}, logger});
 
 		t.true(autoDetectTypeSpy.calledOnce, "autoDetectType is called");
-		t.deepEqual(readFileSyncStub.lastCall.args, ["/alternative/ui5/yaml/ui5-custom.yaml"],
+		t.deepEqual(readFileSyncStub.lastCall.args, [path.resolve(mockUI5YamlPath)],
 			"Custom ui5.yaml is provided");
 	});
 
