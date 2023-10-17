@@ -212,6 +212,20 @@ test("UI5 Middleware / Proxy configuration: Should setup UI5 tooling middleware 
 		t.deepEqual(setupUI5Server.lastCall.args, [{basePath: "", configPath: undefined}]);
 	});
 
+test("ui5.yaml: should be configurable when autoDetectType",
+	async (t) => {
+		const {framework, logger, readFileSyncStub, sinon} = t.context;
+		const autoDetectTypeSpy = sinon.spy(framework, "autoDetectType");
+		const mockUI5YamlPath = "../ui5/yaml/ui5-custom.yaml";
+
+		framework.exists = () => true;
+		framework.init({config: {ui5: {configPath: mockUI5YamlPath}, basePath: "/alternative/app"}, logger});
+
+		t.true(autoDetectTypeSpy.calledOnce, "autoDetectType is called");
+		t.deepEqual(readFileSyncStub.lastCall.args, [path.resolve("/alternative/app", mockUI5YamlPath)],
+			"Custom ui5.yaml is provided");
+	});
+
 // Sad path
 test("UI5 Middleware / Proxy configuration: Should throw if ui5.yaml is missing and no url is configured",
 	async (t) => {
