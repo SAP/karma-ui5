@@ -3,5 +3,6 @@ export default {
 	nodeArguments: [
 		"--loader=esmock",
 		"--no-warnings"
-	]
+	],
+	workerThreads: false
 };
