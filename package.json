@@ -105,7 +105,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.23.7",
-		"@babel/preset-env": "^7.23.7",
+		"@babel/preset-env": "^7.23.8",
 		"@istanbuljs/esm-loader-hook": "^0.2.0",
 		"@openui5/sap.ui.core": "^1.120.3",
 		"ava": "^5.3.1",
