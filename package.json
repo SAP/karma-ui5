@@ -99,7 +99,7 @@
 		"@ui5/fs": "^3.0.5",
 		"@ui5/project": "^3.9.0",
 		"@ui5/server": "^3.1.5",
-		"express": "^4.19.1",
+		"express": "^4.19.2",
 		"http-proxy": "^1.18.1",
 		"js-yaml": "^4.1.0"
 	},
