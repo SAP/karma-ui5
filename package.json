@@ -104,8 +104,8 @@
 		"js-yaml": "^4.1.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.24.4",
-		"@babel/preset-env": "^7.24.4",
+		"@babel/core": "^7.24.5",
+		"@babel/preset-env": "^7.24.5",
 		"@istanbuljs/esm-loader-hook": "^0.2.0",
 		"@openui5/sap.ui.core": "^1.122.1",
 		"ava": "^5.3.1",
