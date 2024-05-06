@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - uses: actions/checkout@v4.1.4
+    - uses: actions/checkout@v4.1.5
 
     - name: Use Node.js LTS 18.x
       uses: actions/setup-node@v4.0.2
@@ -44,7 +44,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
 
-    - uses: actions/checkout@v4.1.4
+    - uses: actions/checkout@v4.1.5
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4.0.2
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - uses: actions/checkout@v4.1.4
+    - uses: actions/checkout@v4.1.5
 
     - name: Use Node.js LTS 18.x
       uses: actions/setup-node@v4.0.2
