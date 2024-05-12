@@ -127,10 +127,10 @@
 		"karma-sauce-launcher": "^4.3.6",
 		"license-webpack-plugin": "^4.0.2",
 		"nyc": "^15.1.0",
-		"puppeteer": "^22.7.1",
+		"puppeteer": "^22.8.0",
 		"qunit": "^2.20.1",
-		"rimraf": "^5.0.5",
-		"sinon": "^17.0.1",
+		"rimraf": "^5.0.6",
+		"sinon": "^17.0.2",
 		"webpack": "^5.91.0",
 		"webpack-cli": "^5.1.4"
 	}
