@@ -2,7 +2,20 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v3.0.4...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v4.0.0...HEAD).
+
+<a name="v4.0.0"></a>
+## [v4.0.0] - 2024-07-24
+### Breaking Changes
+- Drop node v16, v18, v21 [`ed6c356`](https://github.com/SAP/karma-ui5/commit/ed6c356f49315e20083418380df980f726e1c0bf)
+
+### BREAKING CHANGE
+
+Support for older Node.js and npm releases has been dropped.
+Only Node.js 20.11.x and >=22.0.0 as well as npm v8 or higher are supported.
+
+JIRA: CPOUI5FOUNDATION-846
+
 
 <a name="v3.0.4"></a>
 ## [v3.0.4] - 2023-10-19
@@ -220,6 +233,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v4.0.0]: https://github.com/SAP/karma-ui5/compare/v3.0.4...v4.0.0
 [v3.0.4]: https://github.com/SAP/karma-ui5/compare/v3.0.3...v3.0.4
 [v3.0.3]: https://github.com/SAP/karma-ui5/compare/v3.0.2...v3.0.3
 [v3.0.2]: https://github.com/SAP/karma-ui5/compare/v3.0.1...v3.0.2
