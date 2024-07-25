@@ -97,7 +97,7 @@
 	},
 	"dependencies": {
 		"@ui5/fs": "^4.0.0",
-		"@ui5/project": "^3.9.2",
+		"@ui5/project": "^4.0.0",
 		"@ui5/server": "^4.0.0",
 		"express": "^4.19.2",
 		"http-proxy": "^1.18.1",
