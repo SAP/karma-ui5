@@ -2,7 +2,15 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v4.0.0...HEAD).
+A list of unreleased changes can be found [here](https://github.com/SAP/karma-ui5/compare/v4.0.1...HEAD).
+
+<a name="v4.0.1"></a>
+## [v4.0.1] - 2024-07-25
+### Dependency Updates
+- Bump [@ui5](https://github.com/ui5)/project from 3.9.2 to 4.0.0 [`a62495d`](https://github.com/SAP/karma-ui5/commit/a62495da1df001365176b1e7747bc8c7bf1d6aa2)
+- Bump [@ui5](https://github.com/ui5)/server from 3.2.1 to 4.0.0 [`e2c0266`](https://github.com/SAP/karma-ui5/commit/e2c0266bd6e8fff822a95c03715101afe73e79a8)
+- Bump [@ui5](https://github.com/ui5)/fs from 3.0.5 to 4.0.0 [`261a3ee`](https://github.com/SAP/karma-ui5/commit/261a3ee39abac63866181d8b9e38e0c524e9a735)
+
 
 <a name="v4.0.0"></a>
 ## [v4.0.0] - 2024-07-24
@@ -233,6 +241,7 @@ versions will only be published as `karma-ui5`.
 <a name="0.1.0"></a>
 ## 0.1.0 - 2014-12-08
 
+[v4.0.1]: https://github.com/SAP/karma-ui5/compare/v4.0.0...v4.0.1
 [v4.0.0]: https://github.com/SAP/karma-ui5/compare/v3.0.4...v4.0.0
 [v3.0.4]: https://github.com/SAP/karma-ui5/compare/v3.0.3...v3.0.4
 [v3.0.3]: https://github.com/SAP/karma-ui5/compare/v3.0.2...v3.0.3
