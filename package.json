@@ -96,7 +96,7 @@
 		"karma": ">= 4.3.0"
 	},
 	"dependencies": {
-		"@ui5/fs": "^3.0.5",
+		"@ui5/fs": "^4.0.0",
 		"@ui5/project": "^3.9.2",
 		"@ui5/server": "^3.2.1",
 		"express": "^4.19.2",
