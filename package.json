@@ -115,7 +115,7 @@
 		"depcheck": "^1.4.7",
 		"eslint": "^9.9.0",
 		"eslint-config-google": "^0.14.0",
-		"eslint-plugin-jsdoc": "^48.11.0",
+		"eslint-plugin-jsdoc": "^50.0.1",
 		"esmock": "^2.6.7",
 		"execa": "^9.3.0",
 		"fast-glob": "^3.3.2",
