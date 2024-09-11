@@ -99,7 +99,7 @@
 		"@ui5/fs": "^4.0.1",
 		"@ui5/project": "^4.0.3",
 		"@ui5/server": "^4.0.4",
-		"express": "^4.19.2",
+		"express": "^4.20.0",
 		"http-proxy": "^1.18.1",
 		"js-yaml": "^4.1.0"
 	},
@@ -132,7 +132,7 @@
 		"puppeteer": "^23.3.0",
 		"qunit": "^2.22.0",
 		"rimraf": "^6.0.1",
-		"sinon": "^18.0.0",
+		"sinon": "^18.0.1",
 		"webpack": "^5.94.0",
 		"webpack-cli": "^5.1.4"
 	}
