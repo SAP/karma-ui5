@@ -41,6 +41,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
 
+    # Use older Chrome version on macOS as workaround for https://github.com/karma-runner/karma/issues/3887
+    - if: matrix.os == 'macOS-latest'
+      run: echo "PUPPETEER_CHROME_VERSION=127.0.6533.119" >> "$GITHUB_ENV"
+
     - uses: actions/checkout@v4.2.2
 
     - name: Use Node.js ${{ matrix.node-version }}
