@@ -3,6 +3,9 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/karma-ui5)](https://api.reuse.software/info/github.com/SAP/karma-ui5)
 [![NPM Version](https://img.shields.io/npm/v/karma-ui5.svg?style=flat)](https://www.npmjs.org/package/karma-ui5)
 
+# DEPRECATED
+**⚠️ This project has been deprecated. We recommend you to pick a successor from the [available UI5 community projects](https://bestofui5.org/#/packages?search=test-runner).**
+
 **Table of Contents**
 - [About](#about)
 - [Quickstart](#quickstart)
