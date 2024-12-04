@@ -4,7 +4,7 @@
 [![NPM Version](https://img.shields.io/npm/v/karma-ui5.svg?style=flat)](https://www.npmjs.org/package/karma-ui5)
 
 # DEPRECATED
-**⚠️ This project has been deprecated. We recommend you to pick a successor from the [available UI5 community projects](https://bestofui5.org/#/packages?search=test-runner).**
+**⚠️ This project has been deprecated. We recommend you to pick a successor from the [available UI5 community projects](https://bestofui5.org/#/packages?tokens=testing:tag). For more information see [Deprecation of karma-ui5 plugin](https://community.sap.com/t5/technology-blogs-by-sap/deprecation-of-karma-ui5-plugin/ba-p/13954060)**
 
 **Table of Contents**
 - [About](#about)
